@@ -19,7 +19,7 @@ export default function FirstScreen({ navigation }) {
           <Image
             source={require("../assets/splash-screen-img.png")}
             style={styles.image}
-            resizeMode="cover" // Modifiez cette ligne
+            resizeMode="cover"
           />
         </View>
         <View style={styles.textContainer}>
@@ -36,7 +36,7 @@ export default function FirstScreen({ navigation }) {
           <Image
             source={require("../assets/splash-screen-img-bottom.png")}
             style={styles.image}
-            resizeMode="cover" // Modifiez cette ligne
+            resizeMode="cover"
           />
         </View>
       </TouchableOpacity>
@@ -58,16 +58,16 @@ const styles = StyleSheet.create({
     width: "100%",
     // borderColor: "red",
     // borderWidth: 1,
-    justifyContent: "center", // Ajoutez cette ligne
-    alignItems: "center", // Ajoutez cette ligne
-    overflow: "hidden", // Ajoutez cette ligne
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
   },
   image: {
-    position: "absolute", // Ajoutez cette ligne
+    position: "absolute",
     width: "100%",
     height: "99%",
-    justifyContent: "center", // Ajoutez cette ligne
-    alignItems: "center", // Ajoutez cette ligne
+    justifyContent: "center",
+    alignItems: "center",
   },
   textContainer: {
     height: "30%",
