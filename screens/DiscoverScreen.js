@@ -8,10 +8,10 @@ import {
   SafeAreaView,
 } from "react-native";
 
-export default function HomeScreen({ navigation }) {
+export default function DiscoverScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Welcome to Home</Text>
+      <Text style={styles.text}>Welcome to Discover</Text>
     </SafeAreaView>
   );
 }
