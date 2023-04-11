@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginTop: 50,
     height: "35%",
+    width: "100%",
     borderRadius: 25,
     // borderWidth: 2,
   },
@@ -104,7 +105,6 @@ const styles = StyleSheet.create({
     color: "#C3B6F4",
     zIndex: 10,
     paddingHorizontal: 5,
-    // fontWeight: "bold",
   },
   input: {
     width: "80%",
@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 40,
     width: "60%",
-    // paddingLeft: 30,
     paddingTop: 2,
   },
   SignInText: {
@@ -147,7 +146,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 40,
     width: "60%",
-    // paddingLeft: 30,
     paddingTop: 5,
   },
   SignUpText: {
