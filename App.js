@@ -15,6 +15,7 @@ import DiscoverScreen from "./screens/DiscoverScreen";
 import CardsScreen from "./screens/CardsScreen";
 import AudioScreen from "./screens/AudioScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import ExpectationsScreen from "./screens/ExpectationsScreen";
 
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -98,6 +99,7 @@ export default function App() {
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Survey" component={SurveyScreen} />
+        <Stack.Screen name="expect" component={ExpectationsScreen} />
         <Stack.Screen name="CGU" component={CguScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>

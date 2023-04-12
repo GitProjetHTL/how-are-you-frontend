@@ -7,6 +7,7 @@ import {
   Image,
   SafeAreaView,
   TextInput,
+  KeyboardAvoidingView,
 } from "react-native";
 
 export default function SignUpScreen({ navigation }) {
