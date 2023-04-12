@@ -13,10 +13,10 @@ export const surveySlice = createSlice({
   initialState,
   reducers: {
     addSubjects: (state, action) => {
-      state.value.subjects = action.payload
+      state.value.subjects.push(action.payload)
     },
     addExpectations: (state, action) => {
-        state.value.expectations = action.payload
+        state.value.expectations.push(action.payload)
       },
     acceptConditions: (state, action) => {
         state.value.conditions = true
