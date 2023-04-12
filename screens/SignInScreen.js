@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
-  Dimensions
+  Dimensions,
 } from "react-native";
 
 export default function SignInScreen({ navigation }) {
@@ -67,14 +67,14 @@ const styles = StyleSheet.create({
     // marginTop: 50,
     height: "45%",
     // width: "100%",
-    width: Dimensions.get('window').width, 
+    width: Dimensions.get("window").width,
     borderRadius: 25,
     // borderWidth: 2,
   },
 
   image: {
     height: "100%",
-    width: Dimensions.get('window').width, 
+    width: Dimensions.get("window").width,
   },
 
   signinContainer: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 36,
     marginBottom: 20,
-    fontFamily: "Solway-Bold",
+    fontFamily: "Solway-ExtraBold",
   },
   inputContainer: {
     alignItems: "center",
@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: "60%",
     paddingTop: 2,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   SignInText: {
     color: "#5B3EAE",

@@ -26,10 +26,10 @@ export default function FirstScreen({ navigation }) {
         </View>
         <View style={styles.textContainer}>
           <View>
-            <Text style={[styles.text, { fontFamily: "Solway-Bold" }]}>
+            <Text style={[styles.text, { fontFamily: "Solway-ExtraBold" }]}>
               How
             </Text>
-            <Text style={[styles.text, { fontFamily: "Solway-Bold" }]}>
+            <Text style={[styles.text, { fontFamily: "Solway-ExtraBold" }]}>
               are you ?
             </Text>
           </View>
