@@ -19,6 +19,15 @@ import ProfileScreen from "./screens/ProfileScreen";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import user from './reducers/user';
+import survey from "./reducers/survey";
+
+const store = configureStore({
+  reducer: { user, survey },
+});
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
@@ -92,16 +101,18 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="first" component={FirstScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Survey" component={SurveyScreen} />
-        <Stack.Screen name="CGU" component={CguScreen} />
-        <Stack.Screen name="TabNavigator" component={TabNavigator} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="first" component={FirstScreen} />
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Survey" component={SurveyScreen} />
+          <Stack.Screen name="CGU" component={CguScreen} />
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
