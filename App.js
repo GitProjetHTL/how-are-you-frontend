@@ -53,13 +53,14 @@ const TabNavigator = () => {
       <Tab.Screen name="Audios" component={AudioScreen} />
       <Tab.Screen name="Profil" component={ProfileScreen} />
     </Tab.Navigator>
-  );
+  );   
+  
 };
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [appIsReady, setAppIsReady] = useState(false);
-
+//charger les fonts pour eviter le crash
   useEffect(() => {
     async function prepareApp() {
       try {
