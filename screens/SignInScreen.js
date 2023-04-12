@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Dimensions
 } from "react-native";
 
 export default function SignInScreen({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           source={require("../assets/home.png")}
@@ -51,7 +52,7 @@ export default function SignInScreen({ navigation }) {
           <Text style={styles.SignUpText}>Je m'inscris</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -63,16 +64,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   imageContainer: {
-    marginTop: 50,
-    height: "35%",
-    width: "100%",
+    // marginTop: 50,
+    height: "45%",
+    // width: "100%",
+    width: Dimensions.get('window').width, 
     borderRadius: 25,
     // borderWidth: 2,
   },
 
   image: {
     height: "100%",
+    width: Dimensions.get('window').width, 
   },
+
   signinContainer: {
     height: "65%",
     width: "100%",
@@ -108,7 +112,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
-    height: 60,
+    height: 50,
     borderColor: "#5B3EAE",
     borderWidth: 1,
     borderRadius: 5,
@@ -123,6 +127,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: "60%",
     paddingTop: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   SignInText: {
     color: "#5B3EAE",
@@ -130,6 +136,7 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     textAlign: "center",
   },
+
   ligne: {
     width: "80%",
     height: 1,

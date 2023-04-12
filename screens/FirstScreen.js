@@ -8,6 +8,8 @@ import {
   Image,
 } from "react-native";
 
+// safe area view à retirer
+
 export default function FirstScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
