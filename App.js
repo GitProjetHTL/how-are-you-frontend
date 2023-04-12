@@ -9,13 +9,13 @@ import FirstScreen from "./screens/FirstScreen";
 import SignInScreen from "./screens/SignInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import SurveyScreen from "./screens/SurveyScreen";
+import ExpectationsScreen from "./screens/ExpectationsScreen";
 import CguScreen from "./screens/CguScreen";
 import HomeScreen from "./screens/HomeScreen";
 import DiscoverScreen from "./screens/DiscoverScreen";
 import CardsScreen from "./screens/CardsScreen";
 import AudioScreen from "./screens/AudioScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import ExpectationsScreen from "./screens/ExpectationsScreen";
 
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
