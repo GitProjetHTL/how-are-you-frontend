@@ -14,7 +14,7 @@ export default function Cards(props) {
     return (
     <>
         <View style={styles.container}>
-            <Text>hey</Text>
+            <Text>{props.name}</Text>
         </View>
       </>
     );
@@ -24,5 +24,7 @@ export default function Cards(props) {
     container: {
       flex: 1,
       backgroundColor:"red",
+      width:200,
+      height:200
     },
 })

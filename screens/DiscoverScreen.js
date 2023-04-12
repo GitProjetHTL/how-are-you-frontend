@@ -22,19 +22,21 @@ export default function DiscoverScreen() {
 
   const user="LJduScVJOSgMuGBAxujt9Jk11dttUVz2"
 
-  const cardFilltered=""; 
+  let cardFilltered; 
 
   useEffect(() => {
     fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user}`)
       .then(response => response.json())
       .then(allCards => {
-        // console.log(allCards)
+         console.log(allCards.data)
       cardFilltered =  allCards.data.map((oneCard,i) => {
-          <Cards key={i} name={oneCard.name} content={oneCard.content} source={oneCard.source} />
+         return(
+           <Cards key={i} name={oneCard.name} content={oneCard.content} source={oneCard.source} />
+           // console.log(cardFilltered)
+         ) 
         })
       });
   }, []);
-  console.log(cardFilltered)
 
 
 
