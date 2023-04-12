@@ -8,11 +8,45 @@ import {
   TextInput,
   Image,
   Dimensions,
+  KeyboardAvoidingView
 } from "react-native";
+import { useState } from 'react'; 
+import { useDispatch } from 'react-redux'
+import { login } from '../reducers/user'
+
+const BACKEND = 'https://howareyouapp-backend.vercel.app/'
 
 export default function SignInScreen({ navigation }) {
+
+const dispatch = useDispatch(); 
+
+const [username, setUsername] = useState(null); 
+const [password, setPassword] = useState(null); 
+
+  const handleSubmit = () => {
+    console.log(username, password)
+    fetch(`${BACKEND}/users/signin`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: username, password: password }),
+    }).then(response => response.json())
+      .then(data => {
+        console.log(data)
+        if (data.result){
+          dispatch(login({ token: data.token, username: data.username }));
+          navigation.navigate("TabNavigator"); 
+          setPassword(null); 
+          setUsername(null)
+        } else {
+          alert('Wrong password or username')
+        }
+      });
+  };
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           source={require("../assets/home.png")}
@@ -26,7 +60,10 @@ export default function SignInScreen({ navigation }) {
 
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Surnom</Text>
-          <TextInput style={styles.input} placeholder="Entrez votre surnom" />
+          <TextInput 
+          style={styles.input} 
+          placeholder="Entrez votre surnom" 
+          onChangeText={(value) => setUsername(value)} value={username}/>
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Mot de passe</Text>
@@ -34,12 +71,12 @@ export default function SignInScreen({ navigation }) {
             style={styles.input}
             placeholder="Entrez votre mot de passe"
             secureTextEntry
-          />
+            onChangeText={(value) => setPassword(value)} value={password}/>
         </View>
 
         <TouchableOpacity
           style={styles.SignInButton}
-          onPress={() => navigation.navigate("TabNavigator")}
+          onPress={() => handleSubmit()}
         >
           <Text style={styles.SignInText}>Je me connecte</Text>
         </TouchableOpacity>
@@ -52,7 +89,7 @@ export default function SignInScreen({ navigation }) {
           <Text style={styles.SignUpText}>Je m'inscris</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -140,6 +177,7 @@ const styles = StyleSheet.create({
   ligne: {
     width: "80%",
     height: 1,
+    marginTop: '10%', 
     backgroundColor: "#5B3EAE",
     marginVertical: 15,
   },
@@ -153,7 +191,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 40,
     width: "60%",
-    paddingTop: 5,
+    // paddingTop: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
   SignUpText: {
     color: "white",
