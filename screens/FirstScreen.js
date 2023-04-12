@@ -33,6 +33,12 @@ export default function FirstScreen({ navigation }) {
               are you ?
             </Text>
           </View>
+          <TouchableOpacity
+            style={styles.devButton}
+            onPress={() => navigation.navigate("TabNavigator")}
+          >
+            <Text style={styles.devText}>Acces Dev</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.background}>
           <Image
@@ -82,5 +88,19 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 54,
     textAlign: "center",
+  },
+  devButton: {
+    marginTop: 10,
+    backgroundColor: "red",
+    height: 40,
+    width: 120,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 25,
+  },
+  devText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
