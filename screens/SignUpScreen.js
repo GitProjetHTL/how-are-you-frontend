@@ -12,11 +12,18 @@ import {
   Animated,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import {useDispatch} from 'react-redux'; 
+import { newUser } from "../reducers/user";
+
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
+const BACKEND = 'https://howareyouapp-backend.vercel.app/'
+
 export default function SignUpScreen({ navigation }) {
+  const dispatch = useDispatch(); 
+
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState(false);
   const [email, setEmail] = useState("");
@@ -24,9 +31,8 @@ export default function SignUpScreen({ navigation }) {
   const [dateError, setDateError] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const handleSubmit = () => {
     const emailHasError = !EMAIL_REGEX.test(email);
@@ -39,11 +45,8 @@ export default function SignUpScreen({ navigation }) {
     setUsernameError(usernameHasError);
     setDateError(dateHasError);
 
-    if (
-      !(emailHasError || passwordHasError || usernameHasError || dateHasError)
-    ) {
-      setEmail(email);
-      setPassword(password);
+    if (!(emailHasError || passwordHasError || usernameHasError || dateHasError)) {
+      dispatch(newUser({username: username, email: email, password: password, date: date }))
       navigation.navigate("Survey");
     }
   };
@@ -87,24 +90,24 @@ export default function SignUpScreen({ navigation }) {
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Ta date de naissance</Text>
+          {showDatePicker && (
+            <DateTimePicker
+            value={value => setDate(value)}
+            mode="date"
+            display="spinner"
+            onChange={onChange}
+          />
+          )}
           <TouchableOpacity onPress={onDatePickerPress}>
             <TextInput
               style={styles.input}
-              value={date.toLocaleDateString()}
-              onChange={setDate}
+              value={date}
+              onPress={() => onChange()}
               editable={false}
               pointerEvents="none"
               placeholder="Sélectionnez une date"
             />
           </TouchableOpacity>
-          {showDatePicker && (
-            <DateTimePicker
-              value={date}
-              mode="date"
-              display="spinner"
-              onChange={onChange}
-            />
-          )}
           {dateError && (
             <Text style={styles.error}>
               Veuillez choisir une date de naissance

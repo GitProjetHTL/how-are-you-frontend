@@ -9,9 +9,38 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { acceptConditions } from '../reducers/survey'
+import { useDispatch, useSelector } from 'react-redux'
+import { newUser } from "../reducers/user";
+
+const BACKEND = 'https://howareyouapp-backend.vercel.app/'; 
 
 export default function CguScreen({ navigation }) {
+
+  const survey = useSelector(state => state.value.survey)
+  const user = useSelector(state => state.value.user)
+
+  console.log(user, survey)
   const [CGU, setCGU] = useState(false);
+
+  const handleSubmit = () => {
+    // console.log(username, password)
+    fetch(`${BACKEND}/users/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: user.username, password: user.password, email: user.email, dateOfBirth: user.date }),
+    }).then(response => response.json())
+      .then(data => {
+        console.log(data)
+        if (data.result && CGU){
+          dispatch(newUser({ token: data.token, username: data.username, password: data.password, email: data.email, date: data.dateOfBirth }));
+          navigation.navigate("TabNavigator"); 
+        } else {
+          alert('Acceptez les CGU svp')
+        }
+      });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -48,7 +77,7 @@ export default function CguScreen({ navigation }) {
       />
       <TouchableOpacity
         style={styles.SignUpButton}
-        onPress={() => navigation.navigate("TabNavigator")}
+        onPress={() => handleSubmit()}
       >
         <Text style={styles.SignUpText}>Je m'inscris</Text>
       </TouchableOpacity>

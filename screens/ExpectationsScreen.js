@@ -8,9 +8,32 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { addExpectations } from '../reducers/survey'
+import { useDispatch } from 'react-redux'
 
 export default function ExpectationsScreen({ navigation }) {
-  const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useDispatch();
+
+  const [checkboxes, setCheckboxes] = useState([
+    { label: "Des ressources pour gerer mes émotions", checked: false },
+    { label: "Avoir un suivi de mes émotions", checked: false },
+    { label: "Mieux comprendre mes émotions", checked: false },
+    { label: "En apprendre plus sur moi-même", checked: false },
+  ]);
+
+  const handleCheck = (index) => {
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index].checked = !newCheckboxes[index].checked;
+    setCheckboxes(newCheckboxes);
+  };
+
+  const handleNext = () => {
+    const checkedLabels = checkboxes
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.label);
+    dispatch(addExpectations(checkedLabels));
+    navigation.navigate("CGU");
+  };
 
   return (
     <Provider>
@@ -27,35 +50,19 @@ export default function ExpectationsScreen({ navigation }) {
           Quelles sont tes attentes de How are You ?
         </Text>
         <View style={styles.checkContainer}>
-          <Checkbox.Item
-            label="Des ressources pour gerer mes émotions"
-            status={isChecked ? "checked" : "unchecked"}
-            onPress={() => setIsChecked(!isChecked)}
-            style={styles.checkbox}
-          />
-          <Checkbox.Item
-            label="Avoir un suivi de mes émotions"
-            status={isChecked ? "checked" : "unchecked"}
-            onPress={() => setIsChecked(!isChecked)}
-            style={styles.checkbox}
-          />
-          <Checkbox.Item
-            label="Mieux comprendre mes émotions"
-            status={isChecked ? "checked" : "unchecked"}
-            onPress={() => setIsChecked(!isChecked)}
-            style={styles.checkbox}
-          />
-          <Checkbox.Item
-            label="En apprendre plus sur moi-même"
-            status={isChecked ? "checked" : "unchecked"}
-            onPress={() => setIsChecked(!isChecked)}
-            style={styles.checkbox}
-          />
+          {checkboxes.map((checkbox, index) => (
+            <Checkbox.Item
+              key={index}
+              label={checkbox.label}
+              status={checkbox.checked ? "checked" : "unchecked"}
+              onPress={() => handleCheck(index)}
+              style={styles.checkbox}
+            />
+          ))}
         </View>
         <TouchableOpacity
           style={styles.NextButton}
-          onPress={() => navigation.navigate("CGU")}
-        >
+          onPress={() => handleNext()}>
           <Text style={styles.NextText}>Suivant </Text>
         </TouchableOpacity>
       </View>

@@ -8,9 +8,38 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { useDispatch } from 'react-redux'; 
+import { addSubjects } from '../reducers/survey'
 
 export default function SurveyScreen({ navigation }) {
-  const [bienEtre, setBienEtre] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const [checkboxes, setCheckboxes] = useState([
+    { label: "Bien-être", checked: false },
+    { label: "Stress", checked: false },
+    { label: "Enfant intérieur", checked: false },
+    { label: "Gestion de la colère", checked: false },
+    { label: "Hypersensibilité", checked: false },
+    { label: "Emotions", checked: false },
+    { label: "Confiance en soi", checked: false },
+    { label: "Communication", checked: false },
+    { label: "Autres", checked: false },
+  ]);
+
+  const handleCheck = (index) => {
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index].checked = !newCheckboxes[index].checked;
+    setCheckboxes(newCheckboxes);
+  };
+
+  const handleNext = () => {
+    const checkedLabels = checkboxes
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.label);
+    dispatch(addSubjects(checkedLabels));
+    navigation.navigate("expect");
+  };
 
   return (
     <Provider>
@@ -27,68 +56,21 @@ export default function SurveyScreen({ navigation }) {
           Sélectionne les sujets qui t'intéressent le plus.
         </Text>
         <View style={styles.checkContainer}>
-          <View style={styles.checkContainerLeft}>
+        <View style={styles.checkContainerLeft}>
+        {checkboxes.map((checkbox, index) => (
             <Checkbox.Item
-              label="Bien-être"
-              status={bienEtre ? "checked" : "unchecked"}
-              onPress={() => setBienEtre(!bienEtre)}
+              key={index}
+              label={checkbox.label}
+              status={checkbox.checked ? "checked" : "unchecked"}
+              onPress={() => handleCheck(index)}
               style={styles.checkbox}
             />
-            <Checkbox.Item
-              label="Stress"
-              status={bienEtre ? "checked" : "unchecked"}
-              onPress={() => setBienEtre(!bienEtre)}
-              style={styles.checkbox}
-            />
-            <Checkbox.Item
-              label="Enfant intérieur"
-              status={bienEtre ? "checked" : "unchecked"}
-              onPress={() => setBienEtre(!bienEtre)}
-              style={styles.checkbox}
-            />
-            <Checkbox.Item
-              label="Gestion de la colère"
-              status={bienEtre ? "checked" : "unchecked"}
-              onPress={() => setBienEtre(!bienEtre)}
-              style={styles.checkbox}
-            />
-            <Checkbox.Item
-              label="Hypersensibilité"
-              status={bienEtre ? "checked" : "unchecked"}
-              onPress={() => setBienEtre(!bienEtre)}
-              style={styles.checkbox}
-            />
-          </View>
-          <View style={styles.checkContainerRight}>
-            <Checkbox.Item
-              label="Emotions"
-              status={bienEtre ? "checked" : "unchecked"}
-              onPress={() => setBienEtre(!bienEtre)}
-              style={styles.checkbox}
-            />
-            <Checkbox.Item
-              label="Confiance en soi"
-              status={bienEtre ? "checked" : "unchecked"}
-              onPress={() => setBienEtre(!bienEtre)}
-              style={styles.checkbox}
-            />
-            <Checkbox.Item
-              label="Communication"
-              status={bienEtre ? "checked" : "unchecked"}
-              onPress={() => setBienEtre(!bienEtre)}
-              style={styles.checkbox}
-            />
-            <Checkbox.Item
-              status={bienEtre ? "checked" : "unchecked"}
-              label="Autres"
-              onPress={() => setBienEtre(!bienEtre)}
-              style={styles.checkbox}
-            />
-          </View>
+          ))}
+    </View>
         </View>
         <TouchableOpacity
           style={styles.NextButton}
-          onPress={() => navigation.navigate("expect")}
+          onPress={() => handleNext()}
         >
           <Text style={styles.NextText}>Suivant </Text>
         </TouchableOpacity>
