@@ -88,7 +88,7 @@ export default function SurveyScreen({ navigation }) {
         </View>
         <TouchableOpacity
           style={styles.NextButton}
-          onPress={() => navigation.navigate("CGU")}
+          onPress={() => navigation.navigate("expect")}
         >
           <Text style={styles.NextText}>Suivant </Text>
         </TouchableOpacity>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   text1: {
-    fontFamily: "Solway-Bold",
+    fontFamily: "Solway-ExtraBold",
     fontSize: 24,
     textAlign: "center",
     width: "100%",

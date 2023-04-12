@@ -16,7 +16,7 @@ export default function CguScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={require("../assets/register3.png")}
+          source={require("../assets/register4.png")}
           style={styles.image}
           resizeMode="cover"
         />
