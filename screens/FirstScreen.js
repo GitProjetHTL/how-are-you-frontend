@@ -12,7 +12,7 @@ import {
 
 export default function FirstScreen({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TouchableOpacity
         style={styles.container}
         onPress={() => navigation.navigate("SignIn")}
@@ -42,18 +42,19 @@ export default function FirstScreen({ navigation }) {
           />
         </View>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    // marginTop: 10,
     flex: 3,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
     width: "100%",
+    // height: Dimensions.get('screen').height
   },
   background: {
     height: "35%",
