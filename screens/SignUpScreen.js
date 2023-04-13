@@ -26,7 +26,6 @@ export default function SignUpScreen({ navigation }) {
   const [passwordError, setPasswordError] = useState(false);
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const handleSubmit = () => {
     const emailHasError = !EMAIL_REGEX.test(email);
