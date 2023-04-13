@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import Cards from "../components/Cards";
 import { useSelector } from "react-redux";
 
-export default function CardsScreen() {
+export default function CardsScreen({navigation}) {
 
   const user = useSelector((state) => state.user.value)
   
@@ -32,13 +32,13 @@ export default function CardsScreen() {
       .then(allCards => {
          //console.log(allCards.data)
         const cards= allCards.data.map((oneCard, i) => {
-         return <Cards
+          return (
+          <Cards
             key={i}
             name={oneCard.name}
             content={oneCard.content}
             source={oneCard.source}
-          />;
-        });
+          />)});
         setCardAll(cards);
       });
     }, []);
@@ -91,7 +91,7 @@ useEffect(() => {
           </View>
         </View>
         <View style={styles.likes}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("fav")}>
             <FontAwesome name="heart" size={30} style={styles.heart} />
           </TouchableOpacity>
         </View>
@@ -101,7 +101,7 @@ useEffect(() => {
         {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}> 
-      {cardResult}
+      {cardAll}
       </ScrollView>
     </SafeAreaView>
   );
