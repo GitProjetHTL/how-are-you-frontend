@@ -6,7 +6,7 @@ import {
   Image,
   TextInput,
   SafeAreaView,
-  ScrollView
+  ScrollView,
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -15,73 +15,80 @@ import Cards from "../components/Cards";
 import { useSelector } from "react-redux";
 
 export default function CardsScreen() {
+  const user = useSelector((state) => state.user.value);
 
-  const user = useSelector((state) => state.user.value)
-  
   const [cardAll, setCardAll] = useState([]);
   const [search, setSearch] = useState("");
   const [cardFounded, setCardFounded] = useState([]);
   const [cardResult, setCardResult] = useState([]);
-  
 
   //affichage de toutes cards
 
   useEffect(() => {
     fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
-      .then(response => response.json())
-      .then(allCards => {
-         //console.log(allCards.data)
-        const cards= allCards.data.map((oneCard, i) => {
-         return <Cards
-            key={i}
-            name={oneCard.name}
-            content={oneCard.content}
-            source={oneCard.source}
-          />;
+      .then((response) => response.json())
+      .then((allCards) => {
+        //console.log(allCards.data)
+        const cards = allCards.data.map((oneCard, i) => {
+          return (
+            <Cards
+              key={i}
+              name={oneCard.name}
+              content={oneCard.content}
+              source={oneCard.source}
+            />
+          );
         });
         setCardAll(cards);
       });
-    }, []);
-    
-    //afficher les cards rechercher
-    
-    let handleClick = () => {
-      fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.token}/${search}`,)
-      .then(response => response.json())
-      .then(searchCard => {
+  }, []);
+
+  //afficher les cards rechercher
+
+  let handleClick = () => {
+    fetch(
+      `https://howareyouapp-backend.vercel.app/cards/search/${user.token}/${search}`
+    )
+      .then((response) => response.json())
+      .then((searchCard) => {
         // console.log(searchCard.data)
-        const cardsSearch= searchCard.data.map((oneCard, i) => {
-          return <Cards
-          key={i}
-          name={oneCard.name}
-          content={oneCard.content}
-          source={oneCard.source}
-          />;
+        const cardsSearch = searchCard.data.map((oneCard, i) => {
+          return (
+            <Cards
+              key={i}
+              name={oneCard.name}
+              content={oneCard.content}
+              source={oneCard.source}
+            />
+          );
         });
-        setCardFounded(cardsSearch)
-    })
- }
+        setCardFounded(cardsSearch);
+      });
+  };
 
-
-//affichagedes cards trouve
-useEffect(() => {
-  if (!search) {
-    setCardResult(<View>{cardAll}</View>);
-    setCardFounded("")
-  } else {
-    setCardResult(<View>{cardFounded}</View>);
-  }
-}, [search, cardAll, cardFounded]);
-
+  //affichagedes cards trouve
+  useEffect(() => {
+    if (!search) {
+      setCardResult(<View>{cardAll}</View>);
+      setCardFounded("");
+    } else {
+      setCardResult(<View>{cardFounded}</View>);
+    }
+  }, [search, cardAll, cardFounded]);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.containerTop}>
         <View>
           <View style={styles.search}>
-              <TouchableOpacity style={styles.searchButton}>
-              <FontAwesome name="search" size={30} style={styles.heart} onPress={()=>handleClick()} />
-              </TouchableOpacity>
+            <TouchableOpacity style={styles.searchButton}>
+              <FontAwesome
+                name="search"
+                size={30}
+                style={styles.heart}
+                onPress={() => handleClick()}
+              />
+            </TouchableOpacity>
             <TextInput
               style={styles.input}
               placeholder="Recherches de cards"
@@ -97,12 +104,10 @@ useEffect(() => {
         </View>
       </View>
       <View style={styles.title}>
-        <Text style={styles.sujet}>All Card</Text> 
+        <Text style={styles.sujet}>All Card</Text>
         {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
       </View>
-      <ScrollView style={styles.cardsContainer}> 
-      {cardResult}
-      </ScrollView>
+      <ScrollView style={styles.cardsContainer}>{cardResult}</ScrollView>
     </SafeAreaView>
   );
 }
@@ -133,10 +138,8 @@ const styles = StyleSheet.create({
   },
 
   searchButton: {
-   justifyContent: "center",
-   
+    justifyContent: "center",
   },
-
 
   input: {
     // borderColor: "#5B3EAE",
@@ -145,7 +148,6 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderRadius: 25,
     // paddingLeft: 10,
-    
   },
   likes: {
     height: 50,
