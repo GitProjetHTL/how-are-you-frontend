@@ -26,7 +26,7 @@ export default function CardsScreen({ navigation }) {
           ></TextInput>
         </View>
         <View style={styles.likes}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("fav")}>
             <FontAwesome name="heart" size={30} style={styles.heart} />
           </TouchableOpacity>
         </View>
