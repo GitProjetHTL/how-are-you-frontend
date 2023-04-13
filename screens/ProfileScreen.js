@@ -28,11 +28,11 @@ export default function ProfileScreen({ navigation }) {
         onPress={() => navigation.navigate("suivi")}
       >
         <View style={styles.iconView}>
-          <FontAwesome name="calendar" size={20} className={styles.like} />
+          <FontAwesome name="calendar" size={20} style={styles.like} />
           <Text style={styles.text}>Mon suivi</Text>
         </View>
         <View>
-          <FontAwesome name="angle-right" size={20} className={styles.like} />
+          <FontAwesome name="angle-right" size={20} style={styles.like} />
         </View>
       </TouchableOpacity>
 
@@ -41,11 +41,11 @@ export default function ProfileScreen({ navigation }) {
         onPress={() => navigation.navigate("fav")}
       >
         <View style={styles.iconView}>
-          <FontAwesome name="heart" size={20} className={styles.like} />
+          <FontAwesome name="heart" size={20} style={styles.like} />
           <Text style={styles.text}>Favoris</Text>
         </View>
         <View>
-          <FontAwesome name="angle-right" size={20} className={styles.like} />
+          <FontAwesome name="angle-right" size={20} style={styles.like} />
         </View>
       </TouchableOpacity>
 
@@ -54,11 +54,11 @@ export default function ProfileScreen({ navigation }) {
         onPress={() => navigation.navigate("infos")}
       >
         <View style={styles.iconView}>
-          <FontAwesome name="user-circle" size={20} className={styles.like} />
+          <FontAwesome name="user-circle" size={20} style={styles.like} />
           <Text style={styles.text}>Informations personnelles</Text>
         </View>
         <View>
-          <FontAwesome name="angle-right" size={20} className={styles.like} />
+          <FontAwesome name="angle-right" size={20} style={styles.like} />
         </View>
       </TouchableOpacity>
 
@@ -67,35 +67,31 @@ export default function ProfileScreen({ navigation }) {
         onPress={() => navigation.navigate("help")}
       >
         <View style={styles.iconView}>
-          <FontAwesome
-            name="question-circle-o"
-            size={20}
-            className={styles.like}
-          />
-          <Text style={styles.text}>Aide</Text>
+          <FontAwesome name="question-circle-o" size={20} style={styles.like} />
+          <Text style={styles.text}>Aide/ Numéros d'urgence</Text>
         </View>
         <View>
-          <FontAwesome name="angle-right" size={20} className={styles.like} />
+          <FontAwesome name="angle-right" size={20} style={styles.like} />
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.categorie}>
         <View style={styles.iconView}>
-          <FontAwesome name="sign-out" size={20} className={styles.like} />
+          <FontAwesome name="sign-out" size={20} style={styles.like} />
           <Text style={styles.text}>Deconnexion</Text>
         </View>
         <View>
-          <FontAwesome name="angle-right" size={20} className={styles.like} />
+          <FontAwesome name="angle-right" size={20} style={styles.like} />
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.categorie}>
         <View style={styles.iconView}>
-          <FontAwesome name="eraser" size={20} className={styles.like} />
+          <FontAwesome name="eraser" size={20} style={styles.like} />
           <Text style={styles.text}>Supprimer mon compte</Text>
         </View>
         <View styles={styles.arrow}>
-          <FontAwesome name="angle-right" size={20} className={styles.like} />
+          <FontAwesome name="angle-right" size={20} style={styles.like} />
         </View>
       </TouchableOpacity>
     </SafeAreaView>
@@ -134,8 +130,8 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
-    borderColor: "#5B3EAE",
-    borderBottomWidth: 1,
+    borderColor: "#C3B6F4",
+    borderBottomWidth: 0.3,
     width: "100%",
     height: "11%",
     padding: "5%",
@@ -145,7 +141,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // borderWidth: 1,
   },
-
+  like: {
+    color: "#5B3EAE",
+  },
   text: {
     paddingLeft: "5%",
     marginRight: "50%",

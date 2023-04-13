@@ -18,11 +18,7 @@ export default function FavorisScreen({ navigation }) {
           style={styles.arrow}
           onPress={() => navigation.navigate("TabNavigator")}
         >
-          <FontAwesome
-            name="long-arrow-left"
-            size={20}
-            className={styles.like}
-          />
+          <FontAwesome name="long-arrow-left" size={20} style={styles.like} />
         </TouchableOpacity>
         <Text style={styles.textHeader}>Mes favoris</Text>
       </View>
@@ -53,9 +49,10 @@ const styles = StyleSheet.create({
   arrow: {
     padding: "5%",
   },
-  like: {},
+  like: { color: "#5B3EAE" },
   textHeader: {
     fontSize: 30,
+    fontFamily: "Solway-Bold",
   },
   favContainer: {
     alignItems: "center",

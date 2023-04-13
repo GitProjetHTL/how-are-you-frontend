@@ -71,7 +71,7 @@ export default function SuiviScreen({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={styles.humeurContainer}>
-        <Text style={styles.humeurText}>Mon Humeur</Text>
+        <Text style={styles.humeurText}>Mon Humeur :</Text>
         <Image
           source={require("../assets/emotion-joie.png")}
           style={styles.humeurImg}
@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
   },
   like: {},
   textHeader: {
-    fontSize: 24,
+    fontSize: 28,
+    fontFamily: "Solway-Bold",
   },
   calendar: {
     // borderWidth: 1,

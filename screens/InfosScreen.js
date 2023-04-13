@@ -29,13 +29,12 @@ export default function InfosScreen({ navigation }) {
           style={styles.arrow}
           onPress={() => navigation.navigate("TabNavigator")}
         >
-          <FontAwesome
-            name="long-arrow-left"
-            size={20}
-            className={styles.like}
-          />
+          <FontAwesome name="long-arrow-left" size={20} style={styles.like} />
         </TouchableOpacity>
-        <Text style={styles.textHeader}>Informations personnelles</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.textHeader}>Informations</Text>
+          <Text style={styles.textHeader}>personnelles</Text>
+        </View>
       </View>
       <View style={styles.infosContainer}>
         <View style={styles.inputContainer}>
@@ -104,9 +103,13 @@ const styles = StyleSheet.create({
   arrow: {
     padding: "5%",
   },
-  like: {},
+  like: { color: "#5B3EAE" },
   textHeader: {
-    fontSize: 20,
+    fontSize: 30,
+    fontFamily: "Solway-Bold",
+  },
+  headerContainer: {
+    marginLeft: 20,
   },
   infosContainer: {
     // borderWidth: 1,
