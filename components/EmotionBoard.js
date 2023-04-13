@@ -33,14 +33,27 @@ export default function EmotionBoard() {
   
     // Sélectionner et envoyer commentaire en BDD
     const selectEmotion = (data) => {
-        console.log(data)
-        // fetch la route add emotion
-        // fetch(`${BACKEND}/user/emotion`, {
-        //     method: 'PUT',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ token: user.token })
-        // }).then(response => response.json())
-        // .then(data => {})
+      console.log(data)
+      // const newEmotion = {
+      //       emotionName: data.emotionName,
+      //       imageUrl: imageToBDD,
+      //       description: data.description,
+      //       date: new Date(),
+      //       emotionRemede: data.emotionRemede,
+      //       score: data.score
+      //     }
+      // console.log(newEmotion)
+      //   // fetch la route add emotion
+      //   fetch(`${BACKEND}/user/emotion`, {
+      //       method: 'PUT',
+      //       headers: { 'Content-Type': 'application/json' },
+      //       body: JSON.stringify({ token: user.token, emotion: newEmotion })
+      //   }).then(response => response.json())
+      //   .then(data => {
+      //     if (data.result) {
+      //       console.log("emotional damage done!")
+      //     }
+      //   })
     }
 
     // Enregistrer le commentaire en BDD
