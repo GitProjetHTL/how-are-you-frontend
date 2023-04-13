@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import {
-  Button,
   StyleSheet,
   Text,
   View,
@@ -9,14 +8,23 @@ import {
   SafeAreaView,
   TextInput,
   KeyboardAvoidingView,
-  Animated,
+  ScrollView,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import  { useDispatch } from 'react-redux'; 
+import { newUser } from "../reducers/user";
+
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const DATE_REGEX = /^([1-9]|0[1-9]|[12][0-9]|3[0-1])\/([1-9]|0[1-9]|1[0-2])\/\d{4}$/;
+
+
+const BACKEND = 'https://howareyouapp-backend.vercel.app/'
 
 export default function SignUpScreen({ navigation }) {
+  const dispatch = useDispatch(); 
+
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState(false);
   const [email, setEmail] = useState("");
@@ -24,40 +32,43 @@ export default function SignUpScreen({ navigation }) {
   const [dateError, setDateError] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [date, setDate] = useState('');
+  // const [showDatePicker, setShowDatePicker] = useState(false);
+
+  // console.log(date, password)
 
   const handleSubmit = () => {
     const emailHasError = !EMAIL_REGEX.test(email);
+    console.log(emailHasError)
     const passwordHasError = !PASSWORD_REGEX.test(password);
     const usernameHasError = !username.length;
-    const dateHasError = !date;
+    const dateHasError = !DATE_REGEX.test(date);
 
     setEmailError(emailHasError);
     setPasswordError(passwordHasError);
     setUsernameError(usernameHasError);
     setDateError(dateHasError);
 
-    if (
-      !(emailHasError || passwordHasError || usernameHasError || dateHasError)
-    ) {
-      setEmail(email);
-      setPassword(password);
+    if (!(emailHasError || passwordHasError || usernameHasError || dateHasError)) {
+      dispatch(newUser({username: username, email: email, password: password, date: date }))
       navigation.navigate("Survey");
     }
   };
-  const onDatePickerPress = () => {
-    setShowDatePicker(true);
-  };
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowDatePicker(false);
-    setDate(currentDate);
-    setDateError(false);
-  };
+
+  // const onDatePickerPress = () => {
+  //   setShowDatePicker(true);
+  // };
+  // const onChange = (event, selectedDate) => {
+  //   const currentDate = selectedDate || date;
+  //   setShowDatePicker(false);
+  //   setDate(currentDate);
+  //   setDateError(false);
+  // };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           source={require("../assets/register2.png")}
@@ -65,13 +76,14 @@ export default function SignUpScreen({ navigation }) {
           resizeMode="cover"
         />
       </View>
-      <View style={styles.signupContainer}>
-        <Text style={styles.title1}>Hello,how are you ?</Text>
+      <View style={styles.textContainer}>
+      <Text style={styles.title1}>Hello, how are you ?</Text>
         <Text style={styles.title2}>
-          Bienvenue sur How are You ?, l'application qui t'aide à comprendre tes
+          Bienvenue sur How are You, l'application qui t'aide à comprendre tes
           émotions et à gerer ta santé mentale.
         </Text>
-
+        </View>
+      <ScrollView style={styles.signupContainer}>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Comment tu t'appelles ?</Text>
           <TextInput
@@ -86,24 +98,30 @@ export default function SignUpScreen({ navigation }) {
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Ta date de naissance</Text>
-          <TouchableOpacity onPress={onDatePickerPress}>
+          {/* {showDatePicker && (
+            <DateTimePicker
+            value={value => setDate(value)}
+            mode="date"
+            display="spinner"
+            onChange={onChange}
+          />
+          )} */}
+          <TextInput
+            style={styles.input}
+            placeholder="Entrez votre date de naissance"
+            onChangeText={(date) => setDate(date)}
+            value={date}
+          />
+          {/* <TouchableOpacity onPress={onDatePickerPress}>
             <TextInput
               style={styles.input}
-              value={date.toLocaleDateString()}
-              onChange={setDate}
+              value={date}
+              onPress={() => onChange()}
               editable={false}
               pointerEvents="none"
               placeholder="Sélectionnez une date"
             />
-          </TouchableOpacity>
-          {showDatePicker && (
-            <DateTimePicker
-              value={date}
-              mode="date"
-              display="spinner"
-              onChange={onChange}
-            />
-          )}
+          </TouchableOpacity> */}
           {dateError && (
             <Text style={styles.error}>
               Veuillez choisir une date de naissance
@@ -133,18 +151,18 @@ export default function SignUpScreen({ navigation }) {
           />
           {passwordError && (
             <Text style={styles.error}>
-              8 caractères,une lettre et un chiffre
+              8 caractères, une lettre et un chiffre
             </Text>
           )}
         </View>
-      </View>
       <View style={styles.buttonContainer}>
         {/* <Button title="S'inscrire" onPress={handleSubmit} /> */}
         <TouchableOpacity style={styles.NextButton} onPress={handleSubmit}>
           <Text style={styles.NextText}>Suivant </Text>
         </TouchableOpacity>
       </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView >
   );
 }
 
@@ -154,8 +172,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   imageContainer: {
-    marginTop: 25,
-    height: "20%",
+    // marginTop: 25,
+    height: "27%",
     width: "100%",
     // borderWidth: 1,
   },
@@ -186,16 +204,18 @@ const styles = StyleSheet.create({
     marginHorizontal: "5%",
     width: "100%",
   },
+
   label: {
     position: "absolute",
-    top: -15,
+    top: -10,
     left: 20,
     backgroundColor: "white",
     color: "#C3B6F4",
     zIndex: 10,
     paddingHorizontal: 5,
   },
-  input: {
+
+   input: {
     width: "90%",
     height: 50,
     borderColor: "#5B3EAE",
@@ -215,6 +235,7 @@ const styles = StyleSheet.create({
     top: 10,
     left: 20,
     margin: -10,
+    marginBottom: 1, 
     padding: 0,
   },
   buttonContainer: {
@@ -227,8 +248,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 40,
     width: "60%",
-    paddingTop: 5,
-    marginTop: 5,
+    paddingTop: 2,
+    alignItems: "center",
+    justifyContent: "center",
   },
   NextText: {
     color: "#5B3EAE",
@@ -236,4 +258,7 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     textAlign: "center",
   },
+  textContainer: {
+    padding: '2%'
+  }
 });

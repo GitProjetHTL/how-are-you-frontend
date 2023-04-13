@@ -9,9 +9,55 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { acceptConditions } from '../reducers/survey'
+import { useDispatch, useSelector } from 'react-redux'
+import { newUser } from "../reducers/user";
+
+const BACKEND = 'https://howareyouapp-backend.vercel.app/'; 
 
 export default function CguScreen({ navigation }) {
+
+  const survey = useSelector((state) => state.survey.value)
+  const user = useSelector((state) => state.user.value)
+  const dispatch = useDispatch(); 
+
+  console.log('user',user)
+
+  console.log(survey.subjects)
+  console.log(survey.expectations)
+
   const [CGU, setCGU] = useState(false);
+
+  const handleSubmit = () => {
+    // console.log(username, password)
+    fetch(`${BACKEND}/users/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: user.username, 
+        password: user.password, 
+        email: user.email, 
+        dateOfBirth: user.date, 
+        subjects: survey.subjects, 
+        expectations: survey.expectations, 
+        condition: CGU}),
+    }).then(response => response.json())
+      .then(data => {
+        console.log('newuser', data)
+        if (data.result && CGU){
+          dispatch(acceptConditions(CGU)); 
+          dispatch(newUser({ username: data.username, password: data.password, email: data.email, date: data.dateOfBirth }));
+          navigation.navigate("TabNavigator"); 
+        } else {
+          alert('Acceptez les CGU svp')
+        }
+      });
+  };
+
+  const handleCheck = () => {
+    setCGU(!CGU)
+    console.log('checked')
+  }
+  console.log('status CGU', CGU)
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -27,7 +73,7 @@ export default function CguScreen({ navigation }) {
         attentivement nos conditions.
       </Text>
       <ScrollView style={styles.cguContainer}>
-        <Text>
+        <Text style={styles.cgutext}>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse officia
           impedit porro, itaque dolore odio animi et officiis laudantium rerum
           sint corrupti iusto quis consequatur beatae maiores quia distinctio
@@ -43,12 +89,12 @@ export default function CguScreen({ navigation }) {
       <Checkbox.Item
         label="J'ai lu et j'accepte ces conditions"
         status={CGU ? "checked" : "unchecked"}
-        onPress={() => setCGU(!CGU)}
+        onPress={() => handleCheck()}
         style={styles.checkbox}
       />
       <TouchableOpacity
         style={styles.SignUpButton}
-        onPress={() => navigation.navigate("TabNavigator")}
+        onPress={() => handleSubmit()}
       >
         <Text style={styles.SignUpText}>Je m'inscris</Text>
       </TouchableOpacity>
@@ -63,13 +109,18 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   imageContainer: {
-    height: "25%",
+    height: "30%",
     width: "100%",
-    marginTop: 20,
+    // marginTop: 20,
     // borderWidth: 1,
   },
+  cgutext: {
+    fontSize: 16,
+  }, 
+
   image: {
     height: "100%",
+    width: "100%",
   },
   text1: {
     marginTop: 2,
@@ -87,17 +138,35 @@ const styles = StyleSheet.create({
   cguContainer: {
     marginTop: 25,
     borderWidth: 1,
-    borderColor: "#5B3EAE",
+    borderColor: "white",
     borderRadius: 25,
     padding: 10,
     paddingHorizontal: 25,
     width: "90%",
     height: "10%",
     overflow: "scroll",
+    shadowColor: "#5B3EAE",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   checkbox: {
-    marginTop: 10,
-    width: "100%",
+    // marginTop: 10,
+    // width: "100%",
+    fontSize: 10,
+    height: 50,
+    alignSelf: 'center',
+    marginLeft: 2, 
+    marginRight: 4, 
+    // borderColor: "#5B3EAE",
+    // borderWidth: 1, 
+    // borderBottomColor: "#5B3EAE", 
+    // borderBottomWidth: 1, 
   },
   SignUpButton: {
     backgroundColor: "#5B3EAE",
@@ -105,9 +174,10 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 40,
     width: "60%",
-    paddingTop: 5,
     marginTop: 10,
-    marginBottom: 30,
+    marginBottom: 35,
+    alignItems: "center",
+    justifyContent: "center",
   },
   SignUpText: {
     color: "white",

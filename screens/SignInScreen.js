@@ -21,6 +21,7 @@ export default function SignInScreen({ navigation }) {
 const dispatch = useDispatch(); 
 
 const [username, setUsername] = useState(null); 
+const [error, setError] = useState(false); 
 const [password, setPassword] = useState(null); 
 
   const handleSubmit = () => {
@@ -38,8 +39,12 @@ const [password, setPassword] = useState(null);
           setPassword(null); 
           setUsername(null)
         } else {
-          alert('Wrong password or username')
+          setError(true)
         }
+      })
+      .catch(error => {
+        console.log(error)
+        setError(true)
       });
   };
 
@@ -73,13 +78,15 @@ const [password, setPassword] = useState(null);
             secureTextEntry
             onChangeText={(value) => setPassword(value)} value={password}/>
         </View>
-
         <TouchableOpacity
           style={styles.SignInButton}
           onPress={() => handleSubmit()}
         >
           <Text style={styles.SignInText}>Je me connecte</Text>
         </TouchableOpacity>
+        {error && (
+            <Text style={styles.error}>Surnom et/ou mot de passe incorrect</Text>
+          )}
         <View style={styles.ligne}></View>
         <Text style={styles.newTxt}>Nouveau ici? </Text>
         <TouchableOpacity
@@ -200,5 +207,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 500,
     textAlign: "center",
+  },
+  error: {
+    color: "red",
+    backgroundColor: "white",
+    width: "80%",
+    fontSize: 14,
+    marginTop: 5,
+    // position: "relative",
+    top: 10,
+    // left: 20,
+    margin: -10,
+    padding: 0,
+    textAlign: 'center'
   },
 });
