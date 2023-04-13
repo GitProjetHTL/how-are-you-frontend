@@ -13,7 +13,7 @@ import { acceptConditions } from '../reducers/survey'
 import { useDispatch, useSelector } from 'react-redux'
 import { newUser } from "../reducers/user";
 
-const BACKEND = 'https://howareyouapp-backend.vercel.app/'; 
+const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
 
 export default function CguScreen({ navigation }) {
 
@@ -145,15 +145,9 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "10%",
     overflow: "scroll",
-    shadowColor: "#5B3EAE",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    
 
-    elevation: 5,
+    
   },
   checkbox: {
     // marginTop: 10,

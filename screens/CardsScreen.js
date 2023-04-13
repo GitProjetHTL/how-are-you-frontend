@@ -51,7 +51,7 @@ export default function CardsScreen() {
       .then(searchCard => {
         // console.log(searchCard.data)
         const cardsSearch= searchCard.data.map((oneCard, i) => {
-          return <Cards
+        return <Cards
           key={i}
           name={oneCard.name}
           content={oneCard.content}
@@ -59,7 +59,7 @@ export default function CardsScreen() {
           />;
         });
         setCardFounded(cardsSearch)
-    })
+      })
  }
 
 
@@ -67,7 +67,7 @@ export default function CardsScreen() {
 useEffect(() => {
   if (!search) {
     setCardResult(<View>{cardAll}</View>);
-    setCardFounded("")
+    
   } else {
     setCardResult(<View>{cardFounded}</View>);
   }
