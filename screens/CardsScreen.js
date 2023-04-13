@@ -14,9 +14,7 @@ import { useState, useEffect } from "react";
 import Cards from "../components/Cards";
 import { useSelector } from "react-redux";
 
-export default function CardsScreen() {
-  const user = useSelector((state) => state.user.value);
-
+export default function CardsScreen({ navigation }) {
   const [cardAll, setCardAll] = useState([]);
   const [search, setSearch] = useState("");
   const [cardFounded, setCardFounded] = useState([]);
@@ -107,7 +105,7 @@ export default function CardsScreen() {
         <Text style={styles.sujet}>All Card</Text>
         {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
       </View>
-      <ScrollView style={styles.cardsContainer}>{cardResult}</ScrollView>
+      <ScrollView style={styles.cardsContainer}>{cardAll}</ScrollView>
     </SafeAreaView>
   );
 }
