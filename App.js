@@ -16,6 +16,10 @@ import DiscoverScreen from "./screens/DiscoverScreen";
 import CardsScreen from "./screens/CardsScreen";
 import AudioScreen from "./screens/AudioScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import SuiviScreen from "./screens/SuiviScreen";
+import FavorisScreen from "./screens/FavorisScreen";
+import InfosScreen from "./screens/InfosScreen";
+import HelpScreen from "./screens/HelpScreen";
 
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -63,14 +67,13 @@ const TabNavigator = () => {
       <Tab.Screen name="Audios" component={AudioScreen} />
       <Tab.Screen name="Profil" component={ProfileScreen} />
     </Tab.Navigator>
-  );   
-  
+  );
 };
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [appIsReady, setAppIsReady] = useState(false);
-//charger les fonts pour eviter le crash
+  //charger les fonts pour eviter le crash
   useEffect(() => {
     async function prepareApp() {
       try {
@@ -112,6 +115,11 @@ export default function App() {
           <Stack.Screen name="Survey" component={SurveyScreen} />
           <Stack.Screen name="expect" component={ExpectationsScreen} />
           <Stack.Screen name="CGU" component={CguScreen} />
+          <Stack.Screen name="fav" component={FavorisScreen} />
+          <Stack.Screen name="suivi" component={SuiviScreen} />
+          <Stack.Screen name="help" component={HelpScreen} />
+          <Stack.Screen name="infos" component={InfosScreen} />
+          <Stack.Screen name="profil" component={ProfileScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
