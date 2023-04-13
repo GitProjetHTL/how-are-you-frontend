@@ -30,7 +30,7 @@ export default function CguScreen({ navigation }) {
 
   const handleSubmit = () => {
     // console.log(username, password)
-    fetch(`${BACKEND}/users/signup`, {
+    fetch(`https://howareyouapp-backend.vercel.app/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: user.username, 
@@ -48,7 +48,7 @@ export default function CguScreen({ navigation }) {
           dispatch(newUser({ username: data.username, password: data.password, email: data.email, date: data.dateOfBirth }));
           navigation.navigate("TabNavigator"); 
         } else {
-          alert('Acceptez les CGU svp')
+          alert('Acceptez les CGU svp et/ou rééssayer de vous inscrire')
         }
       });
   };
@@ -145,10 +145,8 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "10%",
     overflow: "scroll",
-    
-
-    
   },
+
   checkbox: {
     // marginTop: 10,
     // width: "100%",
