@@ -31,7 +31,8 @@ export default function ExpectationsScreen({ navigation }) {
     const checkedLabels = checkboxes
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
-    dispatch(addExpectations(checkedLabels));
+      console.log('expect', [...checkedLabels])
+    dispatch(addExpectations([...checkedLabels]));
     navigation.navigate("CGU");
   };
 
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   imageContainer: {
-    marginTop: 20,
+    // marginTop: 20,
     height: "25%",
     width: "100%",
     borderRadius: 25,
@@ -85,7 +86,9 @@ const styles = StyleSheet.create({
 
   image: {
     height: "100%",
+    width: '100%', 
   },
+
   text1: {
     fontFamily: "Solway-Bold",
     fontSize: 24,
@@ -99,21 +102,30 @@ const styles = StyleSheet.create({
     width: "80%",
     marginBottom: 20,
   },
+
   checkContainer: {
     flexDirection: "column",
-    justifyContent: "center",
-    borderColor: "#5B3EAE",
-    borderRadius: 25,
+    // justifyContent: "center",
+    // borderColor: "#5B3EAE",
+    // borderRadius: 25,
     padding: 10,
     paddingHorizontal: 5,
-    borderWidth: 1,
+    // borderWidth: 1,
     height: "45%",
     width: "90%",
+    margin: '5%',
     // marginVertical: 20,
   },
 
   checkbox: {
-    // height: 40,
+    fontSize: 10,
+    height: 50,
+    alignSelf: 'center',
+    // borderColor: "#5B3EAE",
+    // borderWidth: 1, 
+    borderBottomColor: "#5B3EAE", 
+    borderBottomWidth: 1, 
+    margin: 1,
   },
   NextButton: {
     backgroundColor: "#ffffff",
@@ -122,8 +134,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 40,
     width: "60%",
-    paddingTop: 5,
-    marginTop: 35,
+    paddingTop: 2,
+    alignItems: "center",
+    justifyContent: "center",
   },
   NextText: {
     color: "#5B3EAE",

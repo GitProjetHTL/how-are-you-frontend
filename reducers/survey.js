@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: { 
-    subjects: [], 
-    expectations: [], 
+    subjects: null, 
+    expectations: null, 
     conditions: false 
     },
 };
@@ -13,13 +13,13 @@ export const surveySlice = createSlice({
   initialState,
   reducers: {
     addSubjects: (state, action) => {
-      state.value.subjects.push(action.payload)
+      state.value.subjects = action.payload;  
     },
     addExpectations: (state, action) => {
-        state.value.expectations.push(action.payload)
+        state.value.expectations = action.payload; 
       },
     acceptConditions: (state, action) => {
-        state.value.conditions = true
+        state.value.conditions = action.payload
     }
   },
 });
