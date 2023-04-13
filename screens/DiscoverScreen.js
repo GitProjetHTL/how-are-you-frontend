@@ -29,7 +29,7 @@ export default function DiscoverScreen() {
     fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
       .then((response) => response.json())
       .then((allCards) => {
-         //console.log(allCards.data)
+        //  console.log(allCards.data)
         const cards= allCards.data.map((oneCard, i) => {
          return <Cards
             key={i}
@@ -42,12 +42,12 @@ export default function DiscoverScreen() {
         setCardRandom(cards[ Math.floor(Math.random() * cardFiltered.length)])
       });
   }, []);
-  //console.log(cardRandom)
+  // console.log(cardRandom)
 
 
   function randomCardName() {
     const randomNumber = Math.floor(Math.random() * cardFiltered.length);
-    const randomCard = cardFiltered.filter(e=>e.key == randomNumber)
+    const randomCard = cardFiltered.filter(e => e.key == randomNumber)
     return setCardRandom(randomCard) ;
   }
 
