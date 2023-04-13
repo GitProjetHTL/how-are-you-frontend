@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   SafeAreaView,
+  ScrollView
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -16,29 +17,40 @@ import { useSelector } from "react-redux";
 export default function DiscoverScreen() {
   const [search, setSearch] = useState("");
 
-  // //récupère le token
-  // // const user = useSelector((state) => state.user.value)
+  //récupère le token
+  const user = useSelector((state) => state.user.value)
 
-  // const user = "LJduScVJOSgMuGBAxujt9Jk11dttUVz2";
+  const [cardFiltered, setCardFiltered] = useState([]);
+  const [cardRandom, setCardRandom] = useState([])
 
-  // const cardFilltered = "";
 
-  // useEffect(() => {
-  //   fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user}`)
-  //     .then((response) => response.json())
-  //     .then((allCards) => {
-  //       // console.log(allCards)
-  //       cardFilltered = allCards.data.map((oneCard, i) => {
-  //         <Cards
-  //           key={i}
-  //           name={oneCard.name}
-  //           content={oneCard.content}
-  //           source={oneCard.source}
-  //         />;
-  //       });
-  //     });
-  // }, []);
-  // console.log(cardFilltered);
+
+  useEffect(() => {
+    fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
+      .then((response) => response.json())
+      .then((allCards) => {
+         console.log(allCards.data)
+        const cards= allCards.data.map((oneCard, i) => {
+         return <Cards
+            key={i}
+            name={oneCard.name}
+            content={oneCard.content}
+            source={oneCard.source}
+          />;
+        });
+        setCardFiltered(cards);
+        setCardRandom(cards[ Math.floor(Math.random() * cardFiltered.length)])
+      });
+  }, []);
+  console.log(cardRandom)
+
+
+  function randomCardName() {
+    const randomNumber = Math.floor(Math.random() * cardFiltered.length);
+    const randomCard = cardFiltered.filter(e=>e.key == randomNumber)
+    return setCardRandom(randomCard) ;
+  }
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -57,17 +69,18 @@ export default function DiscoverScreen() {
           </TouchableOpacity>
         </View>
       </View>
+      <View style={styles.likes}>
+          <TouchableOpacity>
+            <FontAwesome name="refresh" size={30} style={styles.heart} onPress={()=>randomCardName()} />
+          </TouchableOpacity>
+        </View>
       <View style={styles.title}>
-        {/* <Text style={styles.text}>à la une</Text> */}
-        <Text style={styles.sujet}>Sujet Aleatoire</Text>
+        <Text style={styles.sujet}>Le sujet du jour:</Text>
+        {/* <Text style={styles.sujet}>{randomCardTitle}</Text> */}
       </View>
-      <View style={styles.cardsContainer}>
-        <Cards
-          name="Nom de la carte"
-          content="Contenu de la carte"
-          source="Source de la carte"
-        />
-      </View>
+      <ScrollView style={styles.cardsContainer}>
+      {cardRandom}
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -116,10 +129,12 @@ const styles = StyleSheet.create({
     //fontFamily: "dm-sans-regular",
   },
   cardsContainer: {
-    alignItems: "center",
+    // alignItems: "center",
     // borderWidth: 1,
+    
     witdh: "100%",
     height: "80%",
     backgroundColor: "#E9EBFC",
+    overflow: "scroll",
   },
 });
