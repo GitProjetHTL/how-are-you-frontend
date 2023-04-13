@@ -63,7 +63,7 @@ export default function CardsScreen({navigation}) {
  }
 
 
-//affichagedes cards trouve
+//affichages des cards trouve
 useEffect(() => {
   if (!search) {
     setCardResult(<View>{cardAll}</View>);
@@ -79,7 +79,7 @@ useEffect(() => {
         <View>
           <View style={styles.search}>
               <TouchableOpacity style={styles.searchButton}>
-              <FontAwesome name="search" size={30} style={styles.heart} onPress={()=>handleClick()} />
+                <FontAwesome name="search" size={30} style={styles.heart} onPress={()=>handleClick()} />
               </TouchableOpacity>
             <TextInput
               style={styles.input}
