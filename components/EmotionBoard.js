@@ -1,12 +1,14 @@
 // Emotion board component 
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity, SafeAreaView, StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { useSelector } from "react-redux";
 import Popover from "react-native-popover-view";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function EmotionBoard() {
     const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
+    const user = useSelector((state) => state.user.value);
     const [showPopover, setShowPopover] = useState(null); // Track the selected emotion index
     const [comment, setComment] = useState('') // Champ input de rédaction du commentaire
 
@@ -29,14 +31,31 @@ export default function EmotionBoard() {
       setTimeout(() => setShowPopover(null), 10000); // affichage de popover réglé sur 10 secondes
     }, [showPopover]);
   
+    // Sélectionner et envoyer commentaire en BDD
     const selectEmotion = (data) => {
         console.log(data)
         // fetch la route add emotion
+        // fetch(`${BACKEND}/user/emotion`, {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ token: user.token })
+        // }).then(response => response.json())
+        // .then(data => {})
     }
 
+    // Enregistrer le commentaire en BDD
     const handleSave = () => {
-      console.log("sauvé !");
-      // fetch la route new comment en post
+      fetch(`${BACKEND}/comments/new`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: user.token, content: comment }),
+      }).then(response => response.json())
+        .then(data => {
+          if (data.result) {
+            setComment('');
+          }
+        });
+
     };
   
     let emotionsSelect = emotionData.map((data, i) => {
