@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   SafeAreaView,
+  ScrollView
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -19,17 +20,17 @@ export default function DiscoverScreen() {
   //récupère le token
   const user = useSelector((state) => state.user.value)
 
- 
+  const [cardFiltered, setCardFiltered] = useState([]);
+  const [cardRandom, setCardRandom] = useState([])
 
 
-  
 
   useEffect(() => {
     fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
       .then((response) => response.json())
       .then((allCards) => {
-        //  console.log(allCards.data)
-        let cards= allCards.data.map((oneCard, i) => {
+         console.log(allCards.data)
+        const cards= allCards.data.map((oneCard, i) => {
          return <Cards
             key={i}
             name={oneCard.name}
@@ -37,10 +38,19 @@ export default function DiscoverScreen() {
             source={oneCard.source}
           />;
         });
+        setCardFiltered(cards);
+        setCardRandom(cards[ Math.floor(Math.random() * cardFiltered.length)])
       });
-  }, [user.token]);
+  }, []);
+  console.log(cardRandom)
 
- 
+
+  function randomCardName() {
+    const randomNumber = Math.floor(Math.random() * cardFiltered.length);
+    const randomCard = cardFiltered.filter(e=>e.key == randomNumber)
+    return setCardRandom(randomCard) ;
+  }
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,13 +69,18 @@ export default function DiscoverScreen() {
           </TouchableOpacity>
         </View>
       </View>
+      <View style={styles.likes}>
+          <TouchableOpacity>
+            <FontAwesome name="refresh" size={30} style={styles.heart} onPress={()=>randomCardName()} />
+          </TouchableOpacity>
+        </View>
       <View style={styles.title}>
-        {/* <Text style={styles.text}>à la une</Text> */}
-        <Text style={styles.sujet}>Sujet Aleatoire</Text>
+        <Text style={styles.sujet}>Le sujet du jour:</Text>
+        {/* <Text style={styles.sujet}>{randomCardTitle}</Text> */}
       </View>
-      <View style={styles.cardsContainer}>
-      {cards}
-      </View>
+      <ScrollView style={styles.cardsContainer}>
+      {cardRandom}
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -114,10 +129,12 @@ const styles = StyleSheet.create({
     //fontFamily: "dm-sans-regular",
   },
   cardsContainer: {
-    alignItems: "center",
+    // alignItems: "center",
     // borderWidth: 1,
+    
     witdh: "100%",
     height: "80%",
     backgroundColor: "#E9EBFC",
+    overflow: "scroll",
   },
 });
