@@ -16,29 +16,31 @@ import { useSelector } from "react-redux";
 export default function DiscoverScreen() {
   const [search, setSearch] = useState("");
 
-  // //récupère le token
-  // // const user = useSelector((state) => state.user.value)
+  //récupère le token
+  const user = useSelector((state) => state.user.value)
 
-  // const user = "LJduScVJOSgMuGBAxujt9Jk11dttUVz2";
+ 
 
-  // const cardFilltered = "";
 
-  // useEffect(() => {
-  //   fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user}`)
-  //     .then((response) => response.json())
-  //     .then((allCards) => {
-  //       // console.log(allCards)
-  //       cardFilltered = allCards.data.map((oneCard, i) => {
-  //         <Cards
-  //           key={i}
-  //           name={oneCard.name}
-  //           content={oneCard.content}
-  //           source={oneCard.source}
-  //         />;
-  //       });
-  //     });
-  // }, []);
-  // console.log(cardFilltered);
+  
+
+  useEffect(() => {
+    fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
+      .then((response) => response.json())
+      .then((allCards) => {
+        //  console.log(allCards.data)
+        let cards= allCards.data.map((oneCard, i) => {
+         return <Cards
+            key={i}
+            name={oneCard.name}
+            content={oneCard.content}
+            source={oneCard.source}
+          />;
+        });
+      });
+  }, [user.token]);
+
+ 
 
   return (
     <SafeAreaView style={styles.container}>
@@ -62,11 +64,7 @@ export default function DiscoverScreen() {
         <Text style={styles.sujet}>Sujet Aleatoire</Text>
       </View>
       <View style={styles.cardsContainer}>
-        <Cards
-          name="Nom de la carte"
-          content="Contenu de la carte"
-          source="Source de la carte"
-        />
+      {cards}
       </View>
     </SafeAreaView>
   );
