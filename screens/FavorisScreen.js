@@ -12,8 +12,6 @@ import Cards from "../components/Cards";
 
 export default function FavorisScreen({ navigation }) {
 
-  
-
 
   return (
     <SafeAreaView style={styles.container}>

@@ -67,6 +67,7 @@ export default function CardsScreen({navigation}) {
 useEffect(() => {
   if (!search) {
     setCardResult(<View>{cardAll}</View>);
+    setCardFounded("");
   } else {
     setCardResult(<View>{cardFounded}</View>);
   }
@@ -96,7 +97,7 @@ useEffect(() => {
         </View>
       </View>
       <View style={styles.title}>
-        <Text style={styles.sujet}>All Card</Text> 
+        <Text style={styles.sujet}>All Card:</Text> 
         {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}> 
