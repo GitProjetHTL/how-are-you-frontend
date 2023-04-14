@@ -104,7 +104,7 @@ export default function CardsScreen({navigation}) {
         </View>
       </View>
       <View style={styles.title}>
-        <Text style={styles.sujet}>All Card</Text> 
+        <Text style={styles.sujet}>All Card:</Text> 
         {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}> 

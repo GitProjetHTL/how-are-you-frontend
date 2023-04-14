@@ -9,6 +9,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>How are you, {username} ?</Text>
+      <Text>Comment te sens-tu aujourd'hui ?</Text>
       <EmotionBoard />
     </SafeAreaView>
   );

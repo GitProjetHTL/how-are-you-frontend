@@ -1,0 +1,83 @@
+[
+    {
+       
+        "name": "Les pervers narcissiques ?",
+        "target": ["colère", "fierté"],
+        "source": "https://open.spotify.com/episode/78TPeXRioOM54FtwbSH6Q0",
+        "content": "Comprendre leur fonctionnement (avant, pendant... et même après). J'espère que ce podcast apportera un peu à sa manière",
+        "image":"https://i.scdn.co/image/ab67656300005f1ffa35c2451fb3e99ed533c0f0"
+      },
+    {
+       "name": "Comment ne pas stresser pour ses finances pro !",
+       "target": ["peur","anxiété"],
+       "source": "https://open.spotify.com/episode/5RyhdocNvJxkk9wdImdwSn",
+       "content": "Avoir un compte pro c'est aussi avoir une nouvelle source de charge mentale. Voici les astuces pour s'en libérer !",
+       "image":"https://i.scdn.co/image/ab67656300005f1ffeb427a45ef13b1cb2236e20"
+    },
+
+    {
+        "name": "Il était une fois quelques neurones...",
+        "target": ["surprise", "sérénité"],
+        "source": "https://open.spotify.com/episode/181V4WN0jyf5ewykft9pml",
+        "content": "Il est temps de refaire un point entre nous sur l'hippocampe !",
+        "image":"https://i.scdn.co/image/ab67656300005f1f4b2cf6307b2520cca8817b1c"
+     },
+     {
+        "name": "Méthode pour apprendre rapidement !",
+        "target": ["joie","fierté"],
+        "source": "https://open.spotify.com/episode/4onWWJiuTxXVkfcDgy11dY",
+        "content": "Des méthodes pour apprendre c'est bien mais... comment apprendre rapidement n'importe quels sujet ou domaine ?",
+        "image":"https://i.scdn.co/image/ab67656300005f1f15325417836df854fe7eb4b7"
+     },
+     {
+        "name": "Comment réussir un entretien ?",
+        "target": ["peur","anxiété"],
+        "source": "https://open.spotify.com/episode/34hQx0YbBIiGVq6M3UsnNv",
+        "content": "Comment réussir son entretien d'embauche ? Ce podcast est aussi valable si vous êtes recruteur ou recruteuse...",
+        "image":"https://i.scdn.co/image/ab67656300005f1fb9964f57a8fb61b598ebe2c5"
+     },
+     {
+        "name": "Combien vaut (réellement) votre temps ?",
+        "target": ["sérénité","surprise","peur"],
+        "source": "https://open.spotify.com/episode/4alZAgLMKCB2pCayoWgZSw",
+        "content": "Quel est la véritable valeur de votre temps ? C'est la question à laquelle nous allons pouvoir répondre aujourd'hui.",
+        "image":"https://i.scdn.co/image/ab67656300005f1f4bb72965063be891096dd95d"
+     },
+     {
+        "name": "Le Triangle de la Manipulation !",
+        "target": ["honte","confusion"],
+        "source": "https://open.spotify.com/episode/4dtKPXyGjHMKFLJyYtknfh",
+        "content": "Connaissez-vous le triangle de la manipulation ? Voici comment ne plus être victime, sauveur ou persécuteur !",
+        "image":"https://i.scdn.co/image/ab67656300005f1f480c6f903b421e18447210ee"
+     },
+     {
+        "name": "Un concurrent peut-il être un partenaire ?",
+        "target": ["degoût", "joie"],
+        "source": "https://open.spotify.com/episode/6Y8eMHDVnUpHWO03jkeOYH",
+        "content": "Comment trouver un bon partenaire et avancer avec lui.",
+        "image":"https://i.scdn.co/image/ab67656300005f1f6ef2f4977bf596ad5a96e7fb"
+     },
+     {
+        "name": "Les besoins physiologiques d'une société",
+        "target": ["joie","tristesse"],
+        "source": "https://open.spotify.com/episode/4lQjJMZBsNXmwIPaXKzhHB",
+        "content": "La pyramide de Maslow représente la hiérarchie des besoins d'un être humain, mais que se passe-t-il lorsque l'on l'applique à une entreprise ou à une société ?",
+        "image":"https://i.scdn.co/image/ab67656300005f1feee806351f0a040baadb0d21"
+     },
+     {
+        "name": "Nos plus gros échecs et comment se relever (Avec 6 personnes qui témoignent)",
+        "target": ["anxiété","tristesse","honte"],
+        "source": "https://open.spotify.com/episode/35wDoreIHYuLk2o1fOtkfD",
+        "content": "Au final l'échec c'est quoi ? J'ai posé ces question à Bernard Werber, Lotfi Lamaali, Pierre Croce, Pierre Sang, Emy Ltr et Enjoy Phoenix.",
+        "image":"https://i.scdn.co/image/ab67656300005f1f2ca102510af1fc8d3f930777"
+     },
+
+     {
+        "name": "Le marketing des gentils",
+        "target": ["Ennuie","Surprise"],
+        "source": "https://open.spotify.com/episode/5vSls1Eb5dciUMWo5EA7cp",
+        "content": "Le marketing est-il un outil diabolique où peut-on le faire de manière éthique ?",
+        "image":"https://i.scdn.co/image/ab67656300005f1fe7516375b06c1d97eb0464a7"
+     }
+ 
+]
