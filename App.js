@@ -29,7 +29,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 import survey from "./reducers/survey";
 
-
 const store = configureStore({
   reducer: { user, survey },
 });
