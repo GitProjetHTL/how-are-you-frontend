@@ -13,35 +13,42 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
 import Cards from "../components/Cards";
 import { useSelector } from "react-redux";
+// import { setStatusBarBackgroundColor } from "expo-status-bar";
 
 export default function CardsScreen({navigation}) {
 
   const user = useSelector((state) => state.user.value)
-  
+
   const [cardAll, setCardAll] = useState([]);
   const [search, setSearch] = useState("");
   const [cardFounded, setCardFounded] = useState([]);
-  const [cardResult, setCardResult] = useState([]);
-  
 
-  //affichage de toutes cards
+
+  //fetch de toutes cards
 
   useEffect(() => {
     fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
       .then(response => response.json())
-      .then(allCards => {
-         //console.log(allCards.data)
-        const cards= allCards.data.map((oneCard, i) => {
-          return (
-          <Cards
-            key={i}
-            name={oneCard.name}
-            content={oneCard.content}
-            source={oneCard.source}
-          />)});
-        setCardAll(cards);
+      .then(data => {
+        //  console.log('data', data)
+         data.result && setCardAll(data.data)
+        // const cards= allCards.data.map((oneCard, i) => {
+        //   return (
+        //   <Cards
+        //     key={i}
+        //     id={oneCard._id}
+        //     name={oneCard.name}
+        //     content={oneCard.content}
+        //     source={oneCard.source}
+        //   />)});
       });
     }, []);
+
+    const allCards = cardAll.map((data, i) => {
+      return (
+      <Cards key={i} {...data}/>)});
+
+      // console.log(allCards)
     
     //afficher les cards rechercher
     
@@ -51,8 +58,10 @@ export default function CardsScreen({navigation}) {
       .then(searchCard => {
         // console.log(searchCard.data)
         const cardsSearch= searchCard.data.map((oneCard, i) => {
+          console.log(oneCard)
         return <Cards
           key={i}
+          cardsID={oneCard._id}
           name={oneCard.name}
           content={oneCard.content}
           source={oneCard.source}
@@ -63,15 +72,14 @@ export default function CardsScreen({navigation}) {
  }
 
 
-//affichages des cards trouve
-useEffect(() => {
-  if (!search) {
-    setCardResult(<View>{cardAll}</View>);
-  } else {
-    setCardResult(<View>{cardFounded}</View>);
-  }
-}, [search, cardAll, cardFounded]);
-
+// //affichages des cards trouve
+// useEffect(() => {
+//   if (!search) {
+//     setCardResult(<View>{allCards}</View>);
+//   } else {
+//     setCardResult(<View>{cardFounded}</View>);
+//   }
+// }, [search, cardAll, cardFounded]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -91,7 +99,7 @@ useEffect(() => {
         </View>
         <View style={styles.likes}>
           <TouchableOpacity onPress={() => navigation.navigate("fav")}>
-            <FontAwesome name="heart" size={30} style={styles.heart} />
+            <FontAwesome name="heart" size={30} style={styles.heart}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -100,7 +108,7 @@ useEffect(() => {
         {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}> 
-      {cardResult}
+      {search ? cardFounded : allCards}
       </ScrollView>
     </SafeAreaView>
   );
@@ -136,7 +144,6 @@ const styles = StyleSheet.create({
    
   },
 
-
   input: {
     // borderColor: "#5B3EAE",
     // width: 270,
@@ -146,6 +153,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 10,
     
   },
+  
   likes: {
     height: 50,
     justifyContent: "center",
