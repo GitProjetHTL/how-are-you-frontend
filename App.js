@@ -28,10 +28,9 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 import survey from "./reducers/survey";
-import cards from './reducers/cards'; 
 
 const store = configureStore({
-  reducer: { user, survey, cards },
+  reducer: { user, survey },
 });
 
 const Stack = createNativeStackNavigator();
