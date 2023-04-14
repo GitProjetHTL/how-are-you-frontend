@@ -1,63 +1,46 @@
 // Emotion board component 
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity, SafeAreaView, StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, Image, TextInput, Modal } from "react-native";
 import { useSelector } from "react-redux";
-import Popover from "react-native-popover-view";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function EmotionBoard() {
     const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
     const user = useSelector((state) => state.user.value);
-    const [showPopover, setShowPopover] = useState(null); // Track the selected emotion index
+
+    const [modalVisible, setModalVisible] = useState(false); // Track the selected emotion index
+    const [selected, setSelected] = useState({})
     const [comment, setComment] = useState('') // Champ input de rédaction du commentaire
+    const [emotionAll, setEmotionAll] = useState([]);
 
-    const emotionData = [
-      { emotionName: "Joie", imageUrl: require("../assets/emotion-joie.png"), score: 100, description: "Sentiment de bonheur intense et profond, de plaisir, de gaité et de satisfaction", emotionRemede: ['Tristesse'] },
-      { emotionName: "Confusion", imageUrl: require("../assets/emotion-confusion.png"), score: 50, description: "Mélange d’autres émotions, peut-être suite à une maladresse ou à une faute.", emotionRemede: ['Sérénité'] },
-      { emotionName: "Honte", imageUrl: require("../assets/emotion-honte.png"), score: 30, description: "Peur du rejet, du regard et du jugement des autres.", emotionRemede: ['Colère', 'Fierté'] },
-      { emotionName: "Colère", imageUrl: require("../assets/emotion-colere.png"), score: 25, description: "Vif mécontentement, accès d’énervement extrême, qui s’exprime par une grande agressivité", emotionRemede: ['Sérénité', 'Anxiété'] },
-      { emotionName: "Fierté", imageUrl: require("../assets/emotion-fierte.png"), score: 80, description: "Emotion agréable qui surgit quand on se sent à la hauteur, souvent suite à un succès", emotionRemede: ['Honte'] },
-      { emotionName: "Peur", imageUrl: require("../assets/emotion-peur.png"), score: 45, description: "Sentiment d’insécurité. Appréhension qui peut nous figer. Elle peut se manifester lors d’un danger réel ou supposé.", emotionRemede: ['Colère', 'Surprise'] },
-      { emotionName: "Anxiété", imageUrl: require("../assets/emotion-anxiete.png"), score: 20, description: "Trouble qui porte l’inquiétude à un niveau supérieur, peur de l’avenir, de ce qui va se passer.", emotionRemede: ['Sérénité', 'Colère'] },
-      { emotionName: "Dégoût", imageUrl: require("../assets/emotion-degout.png"), score: 40, description: "Sensation d’aversion, de répugnance, d’écœurement. Elle va plus loin que le manque d’intérêt ou d’estime.", emotionRemede: ['Fierté', 'Ennui', 'Suprise'] },
-      { emotionName: "Sérénité", imageUrl: require("../assets/emotion-serenite.png"), score: 90, description: "Absence de sentiments violents, comme la colère, l’anxiété ou l’euphorie. Sensation de tranquillité, de paix intérieure.", emotionRemede: ['Peur', 'Anxiété'] },
-      { emotionName: "Surprise", imageUrl: require("../assets/emotion-surprise.png"), score: 70, description: "Réaction spontanée à des événements dans l’environnement imprévu, comme la perception d’un bruit ou d’un mouvement.", emotionRemede: ['Sérénité', 'Anxiété'] },   
-      { emotionName: "Ennui", imageUrl: require("../assets/emotion-ennui.png"), score: 55, description: "Sensation de lassitude, de vide ou d’inutilité. L’expérience vécue manque de sens à nos yeux et peut provoquer fatigue et découragement.", emotionRemede: ['Dégoût', 'Joie', 'Sérénité'] },
-      { emotionName: "Tristesse", imageUrl: require("../assets/emotion-triste.png"), score: 10, description: "Etat provoqué par un mal ou un manque, et qui englobe une impression pénible, une sensation de mélancolie.", emotionRemede: ['Joie', 'Surprise'] },
-    ];  
-
-    useEffect(() => {
-      setTimeout(() => setShowPopover(null), 10000); // affichage de popover réglé sur 10 secondes
-    }, [showPopover]);
-  
-    // Sélectionner et envoyer commentaire en BDD
-    const selectEmotion = (data) => {
-      console.log(data)
-      // const newEmotion = {
-      //       emotionName: data.emotionName,
-      //       imageUrl: imageToBDD,
-      //       description: data.description,
-      //       date: new Date(),
-      //       emotionRemede: data.emotionRemede,
-      //       score: data.score
-      //     }
-      // console.log(newEmotion)
-      //   // fetch la route add emotion
-      //   fetch(`${BACKEND}/user/emotion`, {
-      //       method: 'PUT',
-      //       headers: { 'Content-Type': 'application/json' },
-      //       body: JSON.stringify({ token: user.token, emotion: newEmotion })
-      //   }).then(response => response.json())
-      //   .then(data => {
-      //     if (data.result) {
-      //       console.log("emotional damage done!")
-      //     }
-      //   })
+    const handleEmotionModal = (data) => {
+        setModalVisible(true)
+        setSelected(data)
     }
 
+  // affichage de toutes émotions
+  useEffect(() => {
+    fetch(`${BACKEND}/users/allEmotions/${user.token}`)
+      .then(response => response.json())
+      .then((emotion) => {
+        emotion.result && setEmotionAll([...emotion.data])
+      })
+
+    }, []);
+
+    // Affichage du board emotions
+    const emotions= emotionAll.map((data, i) => {
+      return (
+        <View key={i}>
+          <TouchableOpacity onPress={() => handleEmotionModal(data)} >
+              <Image source={{uri: data.imageUrl}} style={styles.emotion} />
+          </TouchableOpacity>
+        </View>
+      );})
+
     // Enregistrer le commentaire en BDD
-    const handleSave = () => {
+    const saveComment = () => {
       fetch(`${BACKEND}/comments/new`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -68,43 +51,51 @@ export default function EmotionBoard() {
             setComment('');
           }
         });
-
     };
-  
-    let emotionsSelect = emotionData.map((data, i) => {
-      return (
-        <Popover backgroundStyle={styles.background} key={i} isVisible={showPopover === i} // Only show the selected popover
-          onRequestClose={() => setShowPopover(null)} // Reset the selected emotion index
-          popoverStyle={styles.popoverContent} arrowColor={"#E9EBFC"}
-          from={
-            <TouchableOpacity onLongPress={() => setShowPopover(i)} onPress={() => selectEmotion(data)} >
-              <Image source={data.imageUrl} style={styles.emotion} />
-            </TouchableOpacity>
-          }
-        >
-          <View>
-            <Text style={styles.popoverTitle}>{data.emotionName}</Text>
-            <Text style={styles.popoverText}>{data.description}</Text>
-          </View>
-        </Popover>
-      );
-    });
+
+    // Envoi de l'emotion sélectionnée en BDD
+    const saveEmotion = () => {
+      console.log("prêt pour l'envoi en BDD ??? => ", selected)
+    }
 
     return (
     <>
+        <Modal visible={modalVisible} animationType="fade" transparent>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                  <Image source={{uri: selected.imageUrl}} style={styles.emotionModal} />
+                  <Text style={styles.modalTitle}>{selected.emotionName}</Text>
+                  <Text style={styles.modalText}>{selected.description}</Text>
+
+                  <Text style={styles.confirmText}>Est-ce que c'est ce que tu ressens ?</Text>
+                  <View style={styles.modalFooter}>
+                    <TouchableOpacity style={styles.noButton} onPress={() => setModalVisible(false)}>
+                        <Text style={styles.saveText}>Non</Text>
+                        <FontAwesome name="remove" style={styles.saveIcon} size={18} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.noButton} onPress={() => saveEmotion()}>
+                        <Text style={styles.saveText}>Oui</Text>
+                        <FontAwesome name="check" style={styles.saveIcon} size={18} />
+                    </TouchableOpacity>
+                  </View>
+              </View>  
+            </View>
+        </Modal> 
+
         <View style={styles.container}>
             <View style={styles.emotionBoard}>
-                {emotionsSelect}
-                <TouchableOpacity style={styles.moreEmotions}>
+                {emotions}
+                {/* <TouchableOpacity style={styles.moreEmotions}>
                     <FontAwesome name="plus" size={20} color="#252525" />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </View>
       <View style={styles.inputContainer}>
           <Text style={styles.label}>Pourquoi ?</Text>
           <TextInput style={styles.input} multiline={true} numberOfLines={3} placeholder="Explique-nous ^^..." value={comment} onChangeText={(value) => setComment(value)}/>
         </View>
-        <TouchableOpacity style={styles.saveComment} onPress={() => handleSave()}>
+        <TouchableOpacity style={styles.saveComment} onPress={() => saveComment()}>
           <Text style={styles.saveText}>Enregistrer</Text>
           <FontAwesome name="pencil" style={styles.saveIcon} size={18} />
         </TouchableOpacity>
@@ -190,12 +181,66 @@ export default function EmotionBoard() {
       background: {
         backgroundColor: "transparent",
       },
-      popoverContent: {
-        width: 200,
-        padding: 10,
-        backgroundColor: "#E9EBFC",
+      centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 50, 0.4)',
       },
-      popoverTitle: {
+      modalView: {
+        backgroundColor: 'white',
+        width: '80%',
+        borderRadius: 20,
+        padding: 20,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+      },
+      emotionModal: {
+        margin: 5,
+        height: 70,
+        width: 70,
+        objectFit: "contain",
+        marginBottom: 20,       
+      },
+      modalText: {
+
+        padding: 0,
+        marginBottom: 20,
+        textAlign: "center",
+      },
+      modalTitle: {
         fontFamily: "Solway-ExtraBold",
+        fontSize: 20,
+        marginBottom: 20,
+      },
+      modalFooter: {
+        flexDirection: "row",
+      },
+      confirmText: {
+        borderTopWidth: 1,
+        borderTopColor: "#E9EBFC",
+        fontWeight: 500,
+        marginBottom: 10,
+        paddingTop: 10,
+      },
+      noButton: {
+        backgroundColor: "#ffffff",
+        borderWidth: 1,
+        borderColor: "#5B3EAE",
+        borderRadius: 25,
+        height: 40,
+        width: 100,
+        paddingTop: 1,
+        margin: 5,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
       }
 })
