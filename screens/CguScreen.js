@@ -13,7 +13,7 @@ import { acceptConditions } from '../reducers/survey'
 import { useDispatch, useSelector } from 'react-redux'
 import { newUser } from "../reducers/user";
 
-const BACKEND = 'https://howareyouapp-backend.vercel.app/'; 
+const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
 
 export default function CguScreen({ navigation }) {
 
@@ -30,7 +30,7 @@ export default function CguScreen({ navigation }) {
 
   const handleSubmit = () => {
     // console.log(username, password)
-    fetch(`${BACKEND}/users/signup`, {
+    fetch(`https://howareyouapp-backend.vercel.app/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: user.username, 
@@ -48,7 +48,7 @@ export default function CguScreen({ navigation }) {
           dispatch(newUser({ username: data.username, password: data.password, email: data.email, date: data.dateOfBirth }));
           navigation.navigate("TabNavigator"); 
         } else {
-          alert('Acceptez les CGU svp')
+          alert('Acceptez les CGU svp et/ou rééssayer de vous inscrire')
         }
       });
   };
@@ -145,16 +145,8 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "10%",
     overflow: "scroll",
-    shadowColor: "#5B3EAE",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
   },
+
   checkbox: {
     // marginTop: 10,
     // width: "100%",

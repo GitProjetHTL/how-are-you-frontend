@@ -19,7 +19,7 @@ export default function CardsScreen({ navigation }) {
   const [search, setSearch] = useState("");
   const [cardFounded, setCardFounded] = useState([]);
   const [cardResult, setCardResult] = useState([]);
-
+  const user = useSelector((state) => state.user.value);
   //affichage de toutes cards
 
   useEffect(() => {
@@ -64,6 +64,15 @@ export default function CardsScreen({ navigation }) {
       });
   };
 
+  //affichages des cards trouve
+  useEffect(() => {
+    if (!search) {
+      setCardResult(<View>{cardAll}</View>);
+    } else {
+      setCardResult(<View>{cardFounded}</View>);
+    }
+  }, [search, cardAll, cardFounded]);
+
   //affichagedes cards trouve
   useEffect(() => {
     if (!search) {
@@ -105,7 +114,7 @@ export default function CardsScreen({ navigation }) {
         <Text style={styles.sujet}>All Card</Text>
         {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
       </View>
-      <ScrollView style={styles.cardsContainer}>{cardAll}</ScrollView>
+      <ScrollView style={styles.cardsContainer}>{cardResult}</ScrollView>
     </SafeAreaView>
   );
 }

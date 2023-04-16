@@ -11,6 +11,10 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Cards from "../components/Cards";
 
 export default function FavorisScreen({ navigation }) {
+
+  
+
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
@@ -23,11 +27,7 @@ export default function FavorisScreen({ navigation }) {
         <Text style={styles.textHeader}>Mes favoris</Text>
       </View>
       <View style={styles.favContainer}>
-        <Cards
-          name="Nom de la carte"
-          content="Contenu de la carte"
-          source="Source de la carte"
-        />
+      
       </View>
     </SafeAreaView>
   );

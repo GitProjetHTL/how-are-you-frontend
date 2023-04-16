@@ -12,7 +12,7 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function Cards(props) {
-
+  
   // console.log(props)
    
   return (
