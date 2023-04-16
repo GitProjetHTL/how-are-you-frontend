@@ -4,22 +4,45 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  TextInput,
-  SafeAreaView,
-  ScrollView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useSelector } from 'react-redux';
+import { useState } from 'react'
+
+const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
 
 export default function Cards(props) {
+  // console.log('props =>',props)
+
+  const user = useSelector((state) => state.user.value);
+  const [isLiked, setIsLiked] = useState(false); 
   
   // console.log(props)
+  const handleLike = () => {
+    fetch('https://howareyouapp-backend.vercel.app/cards/like', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: user.token, cardsID: props._id})
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data.like)
+    if(data.like){
+      // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
+      setIsLiked(true)
+      alert('Cards well added to favorite 🌟')
+    } else {
+      setIsLiked(false)
+    }
+   });
+}
+
+// console.log('card reducer', cards)
    
   return (
     <>
       <View style={styles.cards}>
         <Text style={styles.titleCard}>{props.name}</Text>
-
         <Text style={styles.contentCard}>
           {" "}
           {props.content}
@@ -29,7 +52,7 @@ export default function Cards(props) {
             <Text style={styles.moreText}>Voir plus</Text>
           </TouchableOpacity>
           <View style={styles.heartContainer}>
-            <FontAwesome name="heart" size={20} style={styles.heart} />
+            <FontAwesome onPress={() => handleLike()} name="heart" size={20} style={styles.heart} />
           </View>
         </View>
       </View>

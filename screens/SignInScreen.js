@@ -32,9 +32,10 @@ const [password, setPassword] = useState(null);
       body: JSON.stringify({ username: username, password: password }),
     }).then(response => response.json())
       .then(data => {
-        console.log(data)
+        // console.log(data.userId)
+        let userId = data.userId; 
         if (data.result){
-          dispatch(login({ token: data.token, username: data.username }));
+          dispatch(login({ token: data.token, username: data.username, userId: userId }));
           navigation.navigate("TabNavigator"); 
           setPassword(null); 
           setUsername(null)
