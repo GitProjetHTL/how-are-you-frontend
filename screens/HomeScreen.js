@@ -1,8 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { TouchableOpacity, SafeAreaView, StyleSheet, Text, View, Image, TextInput, Dimensions, ScrollView } from "react-native";
 import EmotionBoard from "../components/EmotionBoard";
-import { useSelector } from "react-redux";
-import { useState, useMemo } from 'react'; 
+import { useSelector } from "react-redux"; 
 import {Calendar, CalendarList, Agenda, LocaleConfig, HorizontalCalendar} from 'react-native-calendars';
 
 LocaleConfig.locales['fr'] = {
