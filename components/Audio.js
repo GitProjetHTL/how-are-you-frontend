@@ -99,18 +99,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   contentCard: {
-    // borderWidth: 1,
-
     paddingTop: 2,
     width: "100%",
     height: "14%",
     fontSize: 16,
+    fontFamily: "DM-Sans-Regular"
   },
   btnContainer: {
     // borderWidth: 1,
     height: "15%",
     alignItems: "center",
     flexDirection: "row",
+
   },
   moreButton: {
     borderColor: "#5B3EAE",
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 500,
     textAlign: "center",
+    fontFamily: "DM-Sans-Bold",
   },
   heartContainer: {
     // borderWidth: 1,

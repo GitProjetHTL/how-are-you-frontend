@@ -15,7 +15,10 @@ export default function Suggestions() {
 
   const styles = StyleSheet.create({
     container: {
-        justifyContent: "center",
-        alignItems: "center"
+        justifyContent: "flex-start",
+        alignItems: "center",
+        backgroundColor: "#E9EBFC",
+        width: Dimensions.get('window').width,
+        backgroundColor: "#E9EBFC",
     }
 })

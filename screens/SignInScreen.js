@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   title1: {
     textAlign: "center",
     marginTop: 15,
-    fontFamily: "Solway-Regular",
+    fontFamily: "DM-Sans-Regular",
   },
   title2: {
     textAlign: "center",
@@ -152,9 +152,10 @@ const styles = StyleSheet.create({
     top: -10,
     left: 50,
     backgroundColor: "white",
-    color: "#C3B6F4",
+    color: "#5B3EAE",
     zIndex: 10,
     paddingHorizontal: 5,
+    fontFamily: "DM-Sans-Bold",
   },
   input: {
     width: "80%",
@@ -181,6 +182,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 500,
     textAlign: "center",
+    fontFamily: "DM-Sans-Bold",
   },
 
   ligne: {
@@ -193,6 +195,7 @@ const styles = StyleSheet.create({
   newTxt: {
     color: "#5B3EAE",
     marginBottom: 15,
+    fontFamily: "DM-Sans-Regular",
   },
   SignUpButton: {
     backgroundColor: "#5B3EAE",
@@ -207,11 +210,11 @@ const styles = StyleSheet.create({
   SignUpText: {
     color: "white",
     fontSize: 16,
-    fontWeight: 500,
     textAlign: "center",
+    fontFamily: "DM-Sans-Bold",
   },
   error: {
-    color: "red",
+    color: "#F94A56",
     backgroundColor: "white",
     width: "80%",
     fontSize: 14,
@@ -221,6 +224,7 @@ const styles = StyleSheet.create({
     // left: 20,
     margin: -10,
     padding: 0,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: "DM-Sans-Regular",
   },
 });

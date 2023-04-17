@@ -70,22 +70,25 @@ export default function SuiviScreen({ navigation }) {
           <Text style={styles.jour}>Dim</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.humeurContainer}>
-        <Text style={styles.humeurText}>Mon Humeur :</Text>
-        <Image
-          source={require("../assets/emotion-joie.png")}
-          style={styles.humeurImg}
-          resizeMode="cover"
-        />
+      <View style={styles.journalContainer}>
+        <View style={styles.humeurContainer}>
+          <Text style={styles.humeurText}>Joie</Text>
+          <Image
+            source={require("../assets/emotion-joie.png")}
+            style={styles.humeurImg}
+            resizeMode="cover"
+          />
+        
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Pourquoi ?</Text>
+          <Text style={styles.whyText}>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
+            corporis voluptatum nesciunt error esse, id praesentium sapiente?
+            Eveniet repellat, dolor maiores architecto nisi rem eius quasi error
+            necessitatibus fuga quos recusandae
+          </Text>
+        </View>
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Pourquoi ?</Text>
-        <Text style={styles.whyText}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-          corporis voluptatum nesciunt error esse, id praesentium sapiente?
-          Eveniet repellat, dolor maiores architecto nisi rem eius quasi error
-          necessitatibus fuga quos recusandae
-        </Text>
       </View>
     </SafeAreaView>
   );
@@ -94,8 +97,6 @@ export default function SuiviScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "white",
   },
   topContainer: {
@@ -104,56 +105,65 @@ const styles = StyleSheet.create({
     height: "10%",
     marginTop: 30,
     flexDirection: "row",
-
     alignItems: "center",
   },
   arrow: {
     padding: "5%",
   },
-  like: {},
   textHeader: {
     fontSize: 20,
-    textAlign: "center",
     fontFamily: "DM-Sans-Bold",
   },
   calendar: {
-    // borderWidth: 1,
     flexDirection: "row",
     height: 80,
     alignItems: "center",
     justifyContent: "space-around",
+    padding: 10,
   },
   date: {
     height: 40,
     width: 40,
-    borderWidth: 1,
-    borderColor: "#5B3EAE",
-    backgroundColor: "#C3B6F4",
+    backgroundColor: "#E9EBFC",
     borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",
   },
   jour: {
-    color: "#5B3EAE",
+    color: "#252525",
+    textAlign: 'center',
+    marginTop: 1,
+    fontFamily: "DM-Sans-Regular",
   },
-
   day: {
     alignItems: "center",
-    color: "white",
+    color: "#252525",
+    fontFamily: "DM-Sans-Regular",
+  },
+  journalContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: "#E9EBFC",
   },
   humeurContainer: {
+    width: "90%",
+    borderRadius: 20,
+    marginTop: 15,
+    padding: 10,
     alignItems: "center",
-    height: "25%",
+    backgroundColor: "white",
   },
   humeurText: {
     textAlign: "center",
-    marginVertical: 20,
     fontFamily: "Solway-Bold",
     fontSize: 25,
+    marginBottom: 15,
   },
   humeurImg: {
-    height: 102,
-    width: 105,
+    width: 120,
+    objectFit: "contain",
+    marginBottom: 15,
   },
   inputContainer: {
     position: "relative",
@@ -161,24 +171,26 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: "5%",
     width: "90%",
-    height: 200,
     borderColor: "#5B3EAE",
     borderWidth: 1,
     borderRadius: 5,
     paddingLeft: 10,
     paddingRight: 10,
+    paddingBottom: 10,
+
   },
   label: {
     position: "absolute",
     top: -10,
     left: 50,
     backgroundColor: "white",
-    color: "#C3B6F4",
+    color: "#5B3EAE",
     zIndex: 10,
     paddingHorizontal: 5,
   },
   whyText: {
     padding: 10,
     paddingTop: 20,
+    fontFamily: "DM-Sans-Regular",
   },
 });
