@@ -13,9 +13,10 @@ LocaleConfig.locales['fr'] = {
 
 LocaleConfig.defaultLocale = 'fr';
 
-export default function MonthlyTrack() {
-    const BACKEND = "https://howareyouapp-backend.vercel.app/";
+const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
+
+export default function MonthlyTrack() {
     const [selected, setSelected] = useState('');
     
     const marked = useMemo(() => ({
@@ -25,7 +26,6 @@ export default function MonthlyTrack() {
         selectedTextColor: '#252525',
       }, 
     }), [selected])
-
 
     return (
 
@@ -47,17 +47,23 @@ export default function MonthlyTrack() {
         textMonthFontFamily: 'DM-Sans-Bold',
         textDayHeaderFontFamily: 'DM-Sans-Bold',
       }}
-      current={new Date()}
+      current={new Date().toISOString()}
       onDayPress={day => {
       console.log('selected day', day);
       setSelected(day.dateString);
       }}
       markedDates={marked}
       dayComponent={({date, state})=> {
+        const today = new Date().toISOString().split('T')[0];
+        const isSelected = selected === date.dateString;
+        const isToday = date.dateString === today;
+        const imageSource = isToday ? require('../assets/emotion-joie.png') : null;
+      
+        console.log(isSelected)
         return (
           <View style={styles.dayContainer}>
             <Text style={{textAlign: 'center', fontSize: 12, color: state === 'disabled' ? '#C3B6F4' : '#252525'}}>{date.day}</Text>
-            <Image style={styles.calendarImage} source={require('../assets/emotion-joie.png')} />
+            {imageSource && <Image style={styles.calendarImage} source={imageSource} />}
           </View>
         );
       }}

@@ -15,6 +15,7 @@ const BACKEND = "https://howareyouapp-backend.vercel.app";
 
 export default function Cards(props) {
   const user = useSelector((state) => state.user.value);
+  // console.log(user)
   const [isLiked, setIsLiked] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -27,7 +28,7 @@ export default function Cards(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.like);
+        // console.log(data.like);
         if (data.like) {
           // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
           setIsLiked(true);
@@ -37,7 +38,9 @@ export default function Cards(props) {
         }
       });
   };
-  let content = props.content.substr(0, 100) + "...";
+  
+ let content = props.content.substr(0,100)+"..."
+
 
   // console.log('card reducer', cards)
 
@@ -86,7 +89,7 @@ export default function Cards(props) {
         </View>
       </Modal>
     </>
-  );
+  )
 }
 
 const styles = StyleSheet.create({

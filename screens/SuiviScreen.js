@@ -9,6 +9,8 @@ import {
   ScrollView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import {Calendar, CalendarList, Agenda, LocaleConfig, HorizontalCalendar} from 'react-native-calendars';
+
 
 export default function SuiviScreen({ navigation }) {
   return (
@@ -26,7 +28,8 @@ export default function SuiviScreen({ navigation }) {
         </TouchableOpacity>
         <Text style={styles.textHeader}>Mon suivi</Text>
       </View>
-      <View style={styles.calendar}>
+      {/* <Agenda/> */}
+     <View style={styles.calendar}>
         <TouchableOpacity style={styles.months}>
           <View style={styles.date}>
             <Text style={styles.day}>1</Text>
