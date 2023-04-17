@@ -1,5 +1,5 @@
-import React from "react";
-import { TouchableOpacity, SafeAreaView, StyleSheet, Text, View, Image, TextInput } from "react-native";
+import React, { useMemo } from "react";
+import { TouchableOpacity, SafeAreaView, StyleSheet, Text, View, Image, TextInput, Dimensions } from "react-native";
 import EmotionBoard from "../components/EmotionBoard";
 import { useSelector } from "react-redux";
 import {useState} from 'react'; 
@@ -46,37 +46,44 @@ export default function HomeScreen({ navigation }) {
   const username = useSelector((state) => state.user.value.username); // affiche le pseudo
   const [selected, setSelected] = useState('');
   let current = new Date()
+  
+  const marked = useMemo(() => ({
+    [selected]: {
+      selected: true,
+      selectedColor: "#E9EBFC",
+      selectedTextColor: '#252525',
+    }
+  }), [selected])
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>How are you, {username} ?</Text>
       <Text>Comment te sens-tu aujourd'hui ?</Text>
       <EmotionBoard />
-      <CalendarList
+      <Calendar
       style={{
         // borderWidth: 1,
         // borderColor: 'gray',
         // height: '50%',
-        width: '100%', 
+        width: Dimensions.get('window').width, 
+        maxHeight: '50%',
         marginTop: '5%'
       }}
       theme={{
         backgroundColor: '#ffffff',
         calendarBackground: '#ffffff',
-        textSectionTitleColor: '#C3B6F4',
+        textSectionTitleColor: '#5B3EAE',
         selectedDayBackgroundColor: '#C3B6F4',
-        selectedDayTextColor: '#ffffff',
-        todayTextColor: '#C3B6F4',
-        dayTextColor: '#ffffff',
+        selectedDayTextColor: '#252525',
+        todayTextColor: '#5B3EAE',
+        dayTextColor: '#252525',
         textDisabledColor: '#C3B6F4',}}
       current={current}
       onDayPress={day => {
       console.log('selected day', day);
       setSelected(day.dateString);
   }}
-  markedDates={{
-    [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: '#C3B6F4'}
-  }}
+  markedDates={marked}
 />
     </SafeAreaView>
   );
