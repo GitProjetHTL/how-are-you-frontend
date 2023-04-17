@@ -14,7 +14,9 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from 'react-redux';
 import { useState } from 'react'
-  
+
+const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
+
 export default function Audios(props) {
 
 
@@ -29,7 +31,7 @@ export default function Audios(props) {
   
     // console.log(props)
     const handleLike = () => {
-      fetch('https://howareyouapp-backend.vercel.app/audios/like', {
+      fetch(`${BACKEND}/audios/like`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: user.token, audioID: props._id})

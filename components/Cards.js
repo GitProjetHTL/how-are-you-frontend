@@ -26,7 +26,7 @@ export default function Cards(props) {
   })
   .then(response => response.json())
   .then(data => {
-    console.log(data.like)
+    console.log('user id =>',data.like)
     if(data.like){
       // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
       setIsLiked(true)

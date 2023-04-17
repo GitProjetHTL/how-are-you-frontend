@@ -1,16 +1,20 @@
 // Emotion board component 
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity, StyleSheet, Text, View, Image, TextInput, Modal } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { addEmotion } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function EmotionBoard() {
     const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
+    const dispatch = useDispatch(); 
     const user = useSelector((state) => state.user.value);
+    // console.log(user)
 
     const [modalVisible, setModalVisible] = useState(false); // Track the selected emotion index
     const [selected, setSelected] = useState({})
+    // console.log(selected._id)
     const [comment, setComment] = useState('') // Champ input de rédaction du commentaire
     const [emotionAll, setEmotionAll] = useState([]);
 
@@ -39,24 +43,38 @@ export default function EmotionBoard() {
         </View>
       );})
 
-    // Enregistrer le commentaire en BDD
-    const saveComment = () => {
-      fetch(`${BACKEND}/comments/new`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: user.token, content: comment }),
-      }).then(response => response.json())
-        .then(data => {
-          if (data.result) {
-            setComment('');
-          }
-        });
-    };
 
     // Envoi de l'emotion sélectionnée en BDD
     const saveEmotion = () => {
-      console.log("prêt pour l'envoi en BDD ??? => ", selected)
+      fetch(`${BACKEND}/users/emotion`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: user.token, _id: selected._id, emotion: selected.emotionName})
+  })
+    .then(response => response.json())
+    .then(data => {
+     console.log('result add emotion => ', data)
+    if(data.result){
+      dispatch(addEmotion({ emotion: selected.emotionName }));
+      setModalVisible(false)
+      alert('Votre emotion du jour a bien été enregistrée 💖')
+    } else {
+      alert('Réessayé svp 😣')
     }
+   });
+
+   fetch(`${BACKEND}/users/historique`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token: user.token, _id: selected._id})
+   })
+   .then(response => response.json())
+  .then(data => {
+  console.log('result add historique => ', data)
+   });
+
+      // console.log("prêt pour l'envoi en BDD ??? => ", selected)
+}
 
     return (
     <>
@@ -70,12 +88,12 @@ export default function EmotionBoard() {
                   <Text style={styles.confirmText}>Est-ce que c'est ce que tu ressens ?</Text>
                   <View style={styles.modalFooter}>
                     <TouchableOpacity style={styles.noButton} onPress={() => setModalVisible(false)}>
-                        <Text style={styles.saveText}>Non</Text>
+                        <Text style={styles.saveText}>Non </Text>
                         <FontAwesome name="remove" style={styles.saveIcon} size={18} />
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.noButton} onPress={() => saveEmotion()}>
-                        <Text style={styles.saveText}>Oui</Text>
+                        <Text style={styles.saveText}>Oui </Text>
                         <FontAwesome name="check" style={styles.saveIcon} size={18} />
                     </TouchableOpacity>
                   </View>

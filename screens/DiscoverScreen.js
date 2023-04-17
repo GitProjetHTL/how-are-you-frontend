@@ -15,11 +15,13 @@ import Cards from "../components/Cards";
 import { useSelector } from "react-redux";
 import Audio from "../components/Audio";
 
+const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
+
 export default function DiscoverScreen({ navigation }) {
 
   //récupère le token
   const user = useSelector((state) => state.user.value)
-  console.log('user => ', user)
+  // console.log('user => ', user)
   
   const [search, setSearch] = useState("");
   const [cardRandom, setCardRandom] = useState([])
@@ -39,8 +41,8 @@ export default function DiscoverScreen({ navigation }) {
 
 
   useEffect(() => {
-    //fetch les cards
-    fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
+    //fetch les cards et audios
+    fetch(`${BACKEND}/cards/all/${user.token}`)
       .then((response) => response.json())
       .then((allCards) => {
         //  console.log(allCards.data)
@@ -57,11 +59,8 @@ export default function DiscoverScreen({ navigation }) {
         setCardAll(cards);
         setCardRandom(cards[Math.floor(Math.random() * cards.length)])
       });
-      
-    }, []);
-    //fetch les audios
-    useEffect(() => {
-      fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
+
+      fetch(`${BACKEND}/audios/all/${user.token}`)
         .then(response => response.json())
         .then(allAudios => {
            //console.log(allCards.data)
@@ -79,8 +78,30 @@ export default function DiscoverScreen({ navigation }) {
           setAudiosAll(audios);
           setAudiosRandom(audios[Math.floor(Math.random() * audios.length)])
         });
-      }, []);
+      
+    }, []);
 
+    //fetch les audios
+    // useEffect(() => {
+    //   fetch(`${BACKEND}/audios/all/${user.token}`)
+    //     .then(response => response.json())
+    //     .then(allAudios => {
+    //        //console.log(allCards.data)
+    //       const audios= allAudios.data.map((data, i) => {
+    //         return (
+    //         <Audio
+    //         key={i}
+    //         {...data}
+    //           // name={oneAudio.name}
+    //           // content={oneAudio.content}
+    //           // source={oneAudio.source}
+    //           // image={oneAudio.image}
+    //           // id={oneAudio._id}
+    //         />)});
+    //       setAudiosAll(audios);
+    //       setAudiosRandom(audios[Math.floor(Math.random() * audios.length)])
+    //     });
+    //   }, []);
 
   // console.log(cardRandom)
   //function random
@@ -96,7 +117,7 @@ export default function DiscoverScreen({ navigation }) {
   //afficher les cards rechercher
 
   let handleClick = () => {
-    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.token}/${search}`,)
+    fetch(`${BACKEND}/cards/search/${search}`,)
     .then(response => response.json())
     .then(searchCard => {
       // console.log(searchCard.data)
@@ -113,7 +134,7 @@ export default function DiscoverScreen({ navigation }) {
       setCardFounded(cardsSearch)
     })
 
-    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.token}/${search}`,)
+    fetch(`${BACKEND}/audios/search/${search}`,)
       .then(response => response.json())
       .then(searchAudios => {
         // console.log(searchCard.data)
@@ -179,7 +200,6 @@ export default function DiscoverScreen({ navigation }) {
       </View>
       <ScrollView style={styles.cardsContainer}>
           {cardResult}
-        
           {audiosResult}
       </ScrollView>
     </SafeAreaView>
