@@ -8,8 +8,11 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useSelector } from "react-redux";
 
 export default function ProfileScreen({ navigation }) {
+  const username = useSelector((state) => state.user.value.username); // affiche le pseudo
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
@@ -20,7 +23,7 @@ export default function ProfileScreen({ navigation }) {
             className={styles.like}
           />
         </TouchableOpacity> */}
-        <Text style={styles.textHeader}>Hi, name !</Text>
+        <Text style={styles.textHeader}>Hi, {username} !</Text>
       </View>
 
       <TouchableOpacity
