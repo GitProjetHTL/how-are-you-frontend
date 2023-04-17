@@ -1,18 +1,9 @@
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  SafeAreaView,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
 
 export default function ProfileScreen({ navigation }) {
-  const username = useSelector((state) => state.user.value.username); // affiche le pseudo
-
+  const user = useSelector((state) => state.user.value);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
@@ -23,7 +14,7 @@ export default function ProfileScreen({ navigation }) {
             className={styles.like}
           />
         </TouchableOpacity> */}
-        <Text style={styles.textHeader}>Hi, {username} !</Text>
+        <Text style={styles.textHeader}>Hi, {user.username} !</Text>
       </View>
 
       <TouchableOpacity
@@ -122,6 +113,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: "10%",
     marginLeft: 20,
+    fontFamily: "DM-Sans-Bold",
   },
   arrow: {
     // borderWidth: 1,
@@ -149,6 +141,7 @@ const styles = StyleSheet.create({
   },
   text: {
     paddingLeft: "5%",
-    marginRight: "50%",
+    width: "80%",
+    fontFamily: "DM-Sans-Regular",
   },
 });

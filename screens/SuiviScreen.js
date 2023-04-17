@@ -112,8 +112,9 @@ const styles = StyleSheet.create({
   },
   like: {},
   textHeader: {
-    fontSize: 28,
-    fontFamily: "Solway-Bold",
+    fontSize: 20,
+    textAlign: "center",
+    fontFamily: "DM-Sans-Bold",
   },
   calendar: {
     // borderWidth: 1,
