@@ -15,6 +15,7 @@ const BACKEND = "https://howareyouapp-backend.vercel.app";
 
 export default function Cards(props) {
   const user = useSelector((state) => state.user.value);
+  // console.log(user)
   const [isLiked, setIsLiked] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -27,7 +28,7 @@ export default function Cards(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.like);
+        // console.log(data.like);
         if (data.like) {
           // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
           setIsLiked(true);
@@ -37,24 +38,7 @@ export default function Cards(props) {
         }
       });
   };
-
-    fetch('https://howareyouapp-backend.vercel.app/cards/like', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: user.token, cardsID: props._id})
   
-  .then(response => response.json())
-  .then(data => {
-    console.log('user id =>',data.like)
-    if(data.like){
-      // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
-      setIsLiked(true)
-      alert('Cards well added to favorite 🌟')
-    } else {
-      setIsLiked(false)
-    }
-   })
-})
  let content = props.content.substr(0,100)+"..."
 
 
