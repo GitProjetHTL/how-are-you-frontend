@@ -9,19 +9,47 @@ import {
     TextInput,
     SafeAreaView,
     ScrollView,
+    Linking
   } from "react-native";
-  import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useSelector } from 'react-redux';
+import { useState } from 'react'
   
-  export default function Cards(props) {
-    
+export default function Audios(props) {
+
+
+  
+    const handlePress = () => {
+      Linking.openURL(props.source);
+    };
+  
     // console.log(props)
+     const user = useSelector((state) => state.user.value);
+    const [isLiked, setIsLiked] = useState(false); 
+  
+    // console.log(props)
+    const handleLike = () => {
+      fetch('https://howareyouapp-backend.vercel.app/audios/like', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: user.token, audioID: props._id})
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      console.log(data.like)
+      if(data.like){
+        // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
+        setIsLiked(true)
+        alert('Cards well added to favorite 🌟')
+      } else {
+        setIsLiked(false)
+      }
+     });
+  }
+   let content=props.content.substr(0,100)+"..."
 
-    
 
-    let videoLink =()=> {
-      
-    }
-     
     return (
       <>
         <View style={styles.cards}>
@@ -33,14 +61,14 @@ import {
   
           <Text style={styles.contentCard}>
             {" "}
-            {props.content}
+            {content}
           </Text>
           <View style={styles.btnContainer}>
-            <TouchableOpacity style={styles.moreButton} onPress={()=>videoLink()}>
+            <TouchableOpacity style={styles.moreButton} onPress={()=>handlePress()}>
               <Text style={styles.moreText}>Voir plus</Text>
             </TouchableOpacity>
-            <View style={styles.heartContainer}>
-              <FontAwesome name="heart" size={20} style={styles.heart} />
+            <View style={styles.heartContainer} >
+              <FontAwesome name="heart" size={20} style={styles.heart} onPress={()=>handleLike()}/>
             </View>
           </View>
         </View>
