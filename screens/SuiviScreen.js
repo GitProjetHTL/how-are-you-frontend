@@ -9,6 +9,8 @@ import {
   ScrollView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import {Calendar, CalendarList, Agenda, LocaleConfig, HorizontalCalendar} from 'react-native-calendars';
+
 
 export default function SuiviScreen({ navigation }) {
   return (
@@ -26,7 +28,8 @@ export default function SuiviScreen({ navigation }) {
         </TouchableOpacity>
         <Text style={styles.textHeader}>Mon suivi</Text>
       </View>
-      <View style={styles.calendar}>
+      <Agenda/>
+      {/* <View style={styles.calendar}>
         <TouchableOpacity style={styles.months}>
           <View style={styles.date}>
             <Text style={styles.day}>1</Text>
@@ -69,8 +72,8 @@ export default function SuiviScreen({ navigation }) {
           </View>
           <Text style={styles.jour}>Dim</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.humeurContainer}>
+      </View> */}
+      {/* <View style={styles.humeurContainer}>
         <Text style={styles.humeurText}>Mon Humeur :</Text>
         <Image
           source={require("../assets/emotion-joie.png")}
@@ -86,7 +89,7 @@ export default function SuiviScreen({ navigation }) {
           Eveniet repellat, dolor maiores architecto nisi rem eius quasi error
           necessitatibus fuga quos recusandae
         </Text>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }

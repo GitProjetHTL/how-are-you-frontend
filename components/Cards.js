@@ -35,7 +35,26 @@ export default function Cards(props) {
         }
       });
   };
-  let content = props.content.substr(0, 100) + "...";
+
+    fetch('https://howareyouapp-backend.vercel.app/cards/like', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: user.token, cardsID: props._id})
+  
+  .then(response => response.json())
+  .then(data => {
+    console.log('user id =>',data.like)
+    if(data.like){
+      // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
+      setIsLiked(true)
+      alert('Cards well added to favorite 🌟')
+    } else {
+      setIsLiked(false)
+    }
+   })
+})
+ let content = props.content.substr(0,100)+"..."
+
 
   // console.log('card reducer', cards)
 
@@ -84,7 +103,7 @@ export default function Cards(props) {
         </View>
       </Modal>
     </>
-  );
+  )
 }
 
 const styles = StyleSheet.create({

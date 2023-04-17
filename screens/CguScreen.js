@@ -31,7 +31,7 @@ export default function CguScreen({ navigation }) {
 
   const handleSubmit = () => {
     // console.log(username, password)
-    fetch(`https://howareyouapp-backend.vercel.app/users/signup`, {
+    fetch(`${BACKEND}/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: user.username, 

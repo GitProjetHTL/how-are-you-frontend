@@ -12,24 +12,27 @@ import {
   Linking,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector } from 'react-redux';
+import { useState } from 'react'
+
+const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
 
 export default function Audios(props) {
-  const handlePress = () => {
-    Linking.openURL(props.source);
-  };
-
-  // console.log(props)
-  const user = useSelector((state) => state.user.value);
-  const [isLiked, setIsLiked] = useState(false);
-
-  // console.log(props)
-  const handleLike = () => {
-    fetch("https://howareyouapp-backend.vercel.app/audios/like", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: user.token, audioID: props._id }),
+  
+    const handlePress = () => {
+      Linking.openURL(props.source);
+    };
+  
+    // console.log(props)
+     const user = useSelector((state) => state.user.value);
+    const [isLiked, setIsLiked] = useState(false); 
+  
+    // console.log(props)
+    const handleLike = () => {
+      fetch(`${BACKEND}/audios/like`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: user.token, audioID: props._id})
     })
       .then((response) => response.json())
       .then((data) => {
