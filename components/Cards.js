@@ -29,9 +29,7 @@ export default function Cards(props) {
       .then((data) => {
         console.log(data.like);
         if (data.like) {
-          // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
           setIsLiked(true);
-          // alert("Cards well added to favorite 🌟");
         } else {
           setIsLiked(false);
         }
@@ -100,14 +98,12 @@ const styles = StyleSheet.create({
     marginHorizontal: "5%",
   },
   titleCard: {
-    // flex: 1,
     fontFamily: "Solway-Bold",
     fontSize: 24,
     // borderWidth: 1,
     width: "100%",
 
     // height: "35%",
-    // maxHeight: "35%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -117,7 +113,6 @@ const styles = StyleSheet.create({
     width: "100%",
     // height: "37%",
     fontSize: 16,
-    // borderWidth: 1,
   },
   btnContainer: {
     // borderWidth: 1,
