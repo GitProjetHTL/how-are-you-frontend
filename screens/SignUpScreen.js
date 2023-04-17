@@ -39,7 +39,7 @@ export default function SignUpScreen({ navigation }) {
 
   const handleSubmit = () => {
     const emailHasError = !EMAIL_REGEX.test(email);
-    console.log(emailHasError)
+    // console.log(emailHasError)
     const passwordHasError = !PASSWORD_REGEX.test(password);
     const usernameHasError = !username.length;
     const dateHasError = !DATE_REGEX.test(date);

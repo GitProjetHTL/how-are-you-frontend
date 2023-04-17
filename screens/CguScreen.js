@@ -19,6 +19,7 @@ export default function CguScreen({ navigation }) {
 
   const survey = useSelector((state) => state.survey.value)
   const user = useSelector((state) => state.user.value)
+  console.log('user =>', user)
   const dispatch = useDispatch(); 
 
   console.log('user',user)
@@ -45,7 +46,7 @@ export default function CguScreen({ navigation }) {
         console.log('newuser', data)
         if (data.result && CGU){
           dispatch(acceptConditions(CGU)); 
-          dispatch(newUser({ username: data.username, password: data.password, email: data.email, date: data.dateOfBirth }));
+          dispatch(newUser({ username: user.username, password: user.password, email: user.email, date: user.dateOfBirth, token: data.token }));
           navigation.navigate("TabNavigator"); 
         } else {
           alert('Acceptez les CGU svp et/ou rééssayer de vous inscrire')

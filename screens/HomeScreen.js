@@ -16,6 +16,7 @@ LocaleConfig.defaultLocale = 'fr';
 
 export default function HomeScreen({ navigation }) {
   const username = useSelector((state) => state.user.value.username); // affiche le pseudo
+  console.log(username)
   const [selected, setSelected] = useState('');
   let current = new Date()
   

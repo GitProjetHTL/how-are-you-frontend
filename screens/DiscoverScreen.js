@@ -6,7 +6,7 @@ import {
   Image,
   TextInput,
   SafeAreaView,
-  ScrollView
+  ScrollView,
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -16,26 +16,24 @@ import { useSelector } from "react-redux";
 import Audios from "../components/Audio";
 
 export default function DiscoverScreen({ navigation }) {
-
   //récupère le token
-  const user = useSelector((state) => state.user.value)
-  
+  const user = useSelector((state) => state.user.value);
+  console.log("user => ", user);
+
   const [search, setSearch] = useState("");
-  const [cardRandom, setCardRandom] = useState([])
+  const [cardRandom, setCardRandom] = useState([]);
   const [cardAll, setCardAll] = useState([]);
   const [cardFounded, setCardFounded] = useState([]);
   const [cardResult, setCardResult] = useState([]);
-  const [titleResult,setTitleResult] = useState("")
+  const [titleResult, setTitleResult] = useState("");
 
   const [audiosAll, setAudiosAll] = useState([]);
   const [audiosFounded, setAudiosFounded] = useState([]);
   const [audiosResult, setAudiosResult] = useState([]);
 
-  const [audiosRandom, setAudiosRandom] = useState([])
-  
- 
-  //console.log(search);
+  const [audiosRandom, setAudiosRandom] = useState([]);
 
+  //console.log(search);
 
   useEffect(() => {
     //fetch les cards
@@ -43,102 +41,121 @@ export default function DiscoverScreen({ navigation }) {
       .then((response) => response.json())
       .then((allCards) => {
         //  console.log(allCards.data)
-        const cards= allCards.data.map((oneCard, i) => {
-         return <Cards
-            key={i}
-            name={oneCard.name}
-            content={oneCard.content}
-            source={oneCard.source}
-          />;
+        const cards = allCards.data.map((oneCard, i) => {
+          return (
+            <Cards
+              key={i}
+              cardsID={oneCard._id}
+              name={oneCard.name}
+              content={oneCard.content}
+              source={oneCard.source}
+            />
+          );
         });
         setCardAll(cards);
-        setCardRandom(cards[Math.floor(Math.random() * cards.length)])
+        setCardRandom(cards[Math.floor(Math.random() * cards.length)]);
       });
-      
-    }, []);
-    //fetch les audios
-    useEffect(() => {
-      fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
-        .then(response => response.json())
-        .then(allAudios => {
-           //console.log(allCards.data)
-          const audios= allAudios.data.map((oneAudio, i) => {
-            return (
+  }, []);
+  //fetch les audios
+  useEffect(() => {
+    fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
+      .then((response) => response.json())
+      .then((allAudios) => {
+        //console.log(allCards.data)
+        const audios = allAudios.data.map((oneAudio, i) => {
+          return (
+            <Audios
+              key={i}
+              cardsID={oneCard._id}
+              name={oneAudio.name}
+              content={oneAudio.content}
+              source={oneAudio.source}
+              image={oneAudio.image}
+            />
+          );
+        });
+        setAudiosAll(audios);
+        setAudiosRandom(audios[Math.floor(Math.random() * audios.length)]);
+      });
+  }, []);
+
+  // console.log(cardRandom)
+  //function random
+
+  function random(cardAll, audiosAll) {
+    const randomNumberforCard = Math.floor(Math.random() * cardAll.length);
+    const randomCard = cardAll[randomNumberforCard];
+    const randomNumberforAudios = Math.floor(Math.random() * audiosAll.length);
+    const randomAudio = audiosAll[randomNumberforAudios];
+    return setCardRandom(randomCard), setAudiosRandom(randomAudio);
+  }
+
+  //afficher les cards rechercher
+
+  let handleClick = () => {
+    fetch(
+      `https://howareyouapp-backend.vercel.app/cards/search/${user.token}/${search}`
+    )
+      .then((response) => response.json())
+      .then((searchCard) => {
+        // console.log(searchCard.data)
+        const cardsSearch = searchCard.data.map((oneCard, i) => {
+          return (
+            <Cards
+              key={i}
+              name={oneCard.name}
+              content={oneCard.content}
+              source={oneCard.source}
+            />
+          );
+        });
+        setCardFounded(cardsSearch);
+      });
+
+    fetch(
+      `https://howareyouapp-backend.vercel.app/audios/search/${user.token}/${search}`
+    )
+      .then((response) => response.json())
+      .then((searchAudios) => {
+        // console.log(searchCard.data)
+        const audiosSearch = searchAudios.data.map((oneAudio, i) => {
+          return (
             <Audios
               key={i}
               name={oneAudio.name}
               content={oneAudio.content}
               source={oneAudio.source}
               image={oneAudio.image}
-            />)});
-          setAudiosAll(audios);
-          setAudiosRandom(audios[Math.floor(Math.random() * audios.length)])
+            />
+          );
         });
-      }, []);
-
-
-  // console.log(cardRandom)
-  //function random
-  
-    function random(cardAll,audiosAll) {
-      const randomNumberforCard = Math.floor(Math.random() * cardAll.length);
-      const randomCard = cardAll[randomNumberforCard];
-      const randomNumberforAudios = Math.floor(Math.random() * audiosAll.length);
-      const randomAudio = audiosAll[randomNumberforAudios];
-      return setCardRandom(randomCard),setAudiosRandom(randomAudio) ;
-    }
-
-  //afficher les cards rechercher
-
-  let handleClick = () => {
-    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.token}/${search}`,)
-    .then(response => response.json())
-    .then(searchCard => {
-      // console.log(searchCard.data)
-      const cardsSearch= searchCard.data.map((oneCard, i) => {
-      return <Cards
-        key={i}
-        name={oneCard.name}
-        content={oneCard.content}
-        source={oneCard.source}
-        />;
+        setAudiosFounded(audiosSearch);
       });
-      setCardFounded(cardsSearch)
-    })
-
-    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.token}/${search}`,)
-      .then(response => response.json())
-      .then(searchAudios => {
-        // console.log(searchCard.data)
-        const audiosSearch= searchAudios.data.map((oneAudio, i) => {
-        return <Audios
-          key={i}
-          name={oneAudio.name}
-          content={oneAudio.content}
-          source={oneAudio.source}
-          image={oneAudio.image}
-            />;
-        });
-        setAudiosFounded(audiosSearch)
-      })
-}
-
+  };
 
   //affichages des cards trouve
-    useEffect(() => {
-      if (!search) {
-        setCardResult(<View>{cardRandom}</View>);
-        setTitleResult(<View><Text style={styles.sujet}>Découverte:</Text></View>);
-        setCardFounded(""); 
+  useEffect(() => {
+    if (!search) {
+      setCardResult(<View>{cardRandom}</View>);
+      setTitleResult(
+        <View>
+          <Text style={styles.sujet}>Découverte:</Text>
+        </View>
+      );
+      setCardFounded("");
 
-        setAudiosResult(<View>{audiosRandom}</View>);
-        setAudiosFounded("");
-      } else {
-        setCardResult(<View>{cardFounded}</View>);
-        setTitleResult(<View><Text style={styles.sujet}>Résultat de {search}</Text></View>)
-        setAudiosResult(<View>{audiosFounded}</View>);
-      }
-    }, [search, cardRandom, cardFounded]);
+      setAudiosResult(<View>{audiosRandom}</View>);
+      setAudiosFounded("");
+    } else {
+      setCardResult(<View>{cardFounded}</View>);
+      setTitleResult(
+        <View>
+          <Text style={styles.sujet}>Résultat de {search}</Text>
+        </View>
+      );
+      setAudiosResult(<View>{audiosFounded}</View>);
+    }
+  }, [search, cardRandom, cardFounded]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -146,8 +163,13 @@ export default function DiscoverScreen({ navigation }) {
         <View>
           <View style={styles.search}>
             <TouchableOpacity style={styles.searchButton}>
-                <FontAwesome name="search" size={30} style={styles.heart} onPress={()=>handleClick()} />
-                </TouchableOpacity>
+              <FontAwesome
+                name="search"
+                size={30}
+                style={styles.heart}
+                onPress={() => handleClick()}
+              />
+            </TouchableOpacity>
             <TextInput
               style={styles.input}
               placeholder="Recherches de cards"
@@ -157,19 +179,24 @@ export default function DiscoverScreen({ navigation }) {
           </View>
         </View>
         <View style={styles.likes}>
-        <TouchableOpacity>
-            <FontAwesome name="refresh" size={30} style={styles.heart} onPress={()=>random(cardAll,audiosAll)} />
+          <TouchableOpacity>
+            <FontAwesome
+              name="refresh"
+              size={30}
+              style={styles.heart}
+              onPress={() => random(cardAll, audiosAll)}
+            />
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.title}>
-       {titleResult} 
+        {titleResult}
         {/* <Text style={styles.sujet}>{randomCardTitle}</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}>
-      {cardResult}
-      
-      {audiosResult}
+        {cardResult}
+
+        {audiosResult}
       </ScrollView>
     </SafeAreaView>
   );
@@ -201,10 +228,8 @@ const styles = StyleSheet.create({
   },
 
   searchButton: {
-   justifyContent: "center",
-   
+    justifyContent: "center",
   },
-
 
   input: {
     // borderColor: "#5B3EAE",
@@ -213,7 +238,6 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderRadius: 25,
     // paddingLeft: 10,
-    
   },
   likes: {
     height: 50,
@@ -245,4 +269,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#E9EBFC",
   },
 });
-

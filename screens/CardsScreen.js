@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 
 export default function CardsScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
+  console.log("user => ", user);
 
   const [cardAll, setCardAll] = useState([]);
   const [search, setSearch] = useState("");
