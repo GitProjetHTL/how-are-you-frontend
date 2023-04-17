@@ -60,6 +60,7 @@ const [password, setPassword] = useState(null);
           resizeMode="cover"
         />
       </View>
+      
       <View style={styles.signinContainer}>
         <Text style={styles.title1}>Hey,</Text>
         <Text style={styles.title2}>How are you?</Text>
