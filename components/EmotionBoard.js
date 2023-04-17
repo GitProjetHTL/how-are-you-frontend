@@ -91,14 +91,6 @@ export default function EmotionBoard() {
                 </TouchableOpacity> */}
             </View>
         </View>
-      <View style={styles.inputContainer}>
-          <Text style={styles.label}>Pourquoi ?</Text>
-          <TextInput style={styles.input} multiline={true} numberOfLines={3} placeholder="Explique-nous ^^..." value={comment} onChangeText={(value) => setComment(value)}/>
-        </View>
-        <TouchableOpacity style={styles.saveComment} onPress={() => saveComment()}>
-          <Text style={styles.saveText}>Enregistrer</Text>
-          <FontAwesome name="pencil" style={styles.saveIcon} size={18} />
-        </TouchableOpacity>
       </>
     );
   }
@@ -129,54 +121,6 @@ export default function EmotionBoard() {
         justifyContent: "center",
         alignItems: "center",
         marginLeft: 10,
-      },
-      inputContainer: {
-        position: "relative",
-        marginTop: 20,
-        marginBottom: 20,
-        width: "100%",
-        alignItems: 'center',
-      },
-      label: {
-        position: "absolute",
-        top: -10,
-        left: 50,
-        backgroundColor: "white",
-        color: "#5B3EAE",
-        zIndex: 10,
-        paddingHorizontal: 5,
-      },
-      input: {
-        width: "80%",
-        height: 70,
-        borderColor: "#5B3EAE",
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingLeft: 10,
-        paddingRight: 10,
-      },
-      saveComment: {
-        backgroundColor: "#ffffff",
-        borderWidth: 1,
-        borderColor: "#5B3EAE",
-        borderRadius: 25,
-        height: 40,
-        width: "60%",
-        paddingTop: 1,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-      },
-      saveText: {
-        color: "#5B3EAE",
-        fontSize: 16,
-        fontWeight: 500,
-        textAlign: "center",
-      },
-      saveIcon: {
-        color: "#5B3EAE",
-        marginLeft: 10,
-        marginTop: 2,
       },
       background: {
         backgroundColor: "transparent",
@@ -210,7 +154,7 @@ export default function EmotionBoard() {
         marginBottom: 20,       
       },
       modalText: {
-
+        fontFamily: "DM-Sans-Regular",
         padding: 0,
         marginBottom: 20,
         textAlign: "center",
@@ -226,7 +170,7 @@ export default function EmotionBoard() {
       confirmText: {
         borderTopWidth: 1,
         borderTopColor: "#E9EBFC",
-        fontWeight: 500,
+        fontFamily: "DM-Sans-Bold",
         marginBottom: 10,
         paddingTop: 10,
       },
@@ -242,5 +186,6 @@ export default function EmotionBoard() {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
+        fontFamily: "DM-Sans-Bold",
       }
 })

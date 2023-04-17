@@ -136,4 +136,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  menu: {
+    fontFamily: "DM-Sans-Regular",
+  }
 });

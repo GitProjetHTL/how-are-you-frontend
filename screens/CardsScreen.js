@@ -48,6 +48,7 @@ export default function CardsScreen({ navigation }) {
     return <Cards key={i} {...data} />;
   });
 
+<<<<<<< HEAD
   // console.log(allCards)
 
   //afficher les cards rechercher
@@ -58,6 +59,16 @@ export default function CardsScreen({ navigation }) {
     )
       .then((response) => response.json())
       .then((searchCard) => {
+=======
+      // console.log(allCards)
+    
+    //afficher les cards rechercher
+    
+    let handleClick = () => {
+      fetch(`https://howareyouapp-backend.vercel.app/cards/search/${search}`,)
+      .then(response => response.json())
+      .then(searchCard => {
+>>>>>>> d49aadca2f5be1a62006453cd5e66b2e48d1ddd1
         // console.log(searchCard.data)
         const cardsSearch = searchCard.data.map((oneCard, i) => {
           console.log(oneCard);

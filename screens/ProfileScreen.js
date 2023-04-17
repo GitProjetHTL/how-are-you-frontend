@@ -1,11 +1,56 @@
-import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Modal} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from '../reducers/user'
+import { useState } from 'react'; 
 
 export default function ProfileScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch(); 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleSuppress = () => {
+    fetch(`https://howareyouapp-backend.vercel.app/users`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: user.username, token: user.token}),
+    }).then(response => response.json())
+      .then(data => {
+        console.log(data)
+        navigation.navigate('SignIn')
+      });
+  }
+
+  const handleDeco = () => {
+    dispatch(logout())
+    navigation.navigate('SignIn')
+  }
+
+  const handleSuppressModal = () => {
+    setModalVisible(true)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
+      <Modal visible={modalVisible} animationType="fade" transparent>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                  <Text style={styles.modalTitle}>Tu nous quittes déjà...</Text>
+                  <Text style={styles.confirmText}>Es-tu sûr de vouloir supprimer ton compte ?</Text>
+                  <View style={styles.modalFooter}>
+                    <TouchableOpacity style={styles.noButton} onPress={() => setModalVisible(false)}>
+                        <Text style={styles.saveText}>Non</Text>
+                        <FontAwesome name="remove" style={styles.saveIcon} size={18} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.noButton} onPress={() => handleSuppress()}>
+                        <Text style={styles.saveText}>Oui</Text>
+                        <FontAwesome name="check" style={styles.saveIcon} size={18} />
+                    </TouchableOpacity>
+                  </View>
+              </View>  
+            </View>
+        </Modal> 
       <View style={styles.topContainer}>
         {/* <TouchableOpacity style={styles.arrow}>
           <FontAwesome
@@ -69,7 +114,8 @@ export default function ProfileScreen({ navigation }) {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.categorie}>
+      <TouchableOpacity style={styles.categorie}
+      onPress={() => handleDeco()}>
         <View style={styles.iconView}>
           <FontAwesome name="sign-out" size={20} style={styles.like} />
           <Text style={styles.text}>Deconnexion</Text>
@@ -79,7 +125,8 @@ export default function ProfileScreen({ navigation }) {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.categorie}>
+      <TouchableOpacity style={styles.categorie}
+      onPress={() => handleSuppressModal()}>
         <View style={styles.iconView}>
           <FontAwesome name="eraser" size={20} style={styles.like} />
           <Text style={styles.text}>Supprimer mon compte</Text>
@@ -144,4 +191,51 @@ const styles = StyleSheet.create({
     width: "80%",
     fontFamily: "DM-Sans-Regular",
   },
+  modalView: {
+    backgroundColor: 'white',
+    width: '80%',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 50, 0.4)',
+    },
+    modalTitle: {
+      fontFamily: "Solway-ExtraBold",
+      fontSize: 20,
+      marginBottom: 20,
+    },
+    confirmText: {
+      borderTopWidth: 1,
+      borderTopColor: "#E9EBFC",
+      fontWeight: 500,
+      marginBottom: 10,
+      paddingTop: 10,
+    },
+    noButton: {
+      backgroundColor: "#ffffff",
+      borderWidth: 1,
+      borderColor: "#5B3EAE",
+      borderRadius: 25,
+      height: 40,
+      width: 100,
+      paddingTop: 1,
+      margin: 5,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+    }
 });
