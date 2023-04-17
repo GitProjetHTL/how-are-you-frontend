@@ -11,10 +11,14 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Cards from "../components/Cards";
+import Audio  from'../components/Audio';
 import { useEffect, useState, useCallback} from "react";
 import { useSelector } from 'react-redux'
 
 export default function FavorisScreen({ navigation }) {
+
+  const [allFavAudios, setAllFavAudios] = useState([]);
+  
 
   const [allFavCard, setAllFavCard] = useState([]);
   const user = useSelector(state => state.user.value)
@@ -52,6 +56,29 @@ export default function FavorisScreen({ navigation }) {
       <Cards key={i} {...data}/>)});
 
 
+      useEffect(() => {
+        fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}/liked-by/${user.userId}`)
+          .then(response => response.json())
+          .then(data => {
+             console.log('data', data)
+             data.result && setAllFavAudios(data.data)
+            // const cards= allCards.data.map((oneCard, i) => {
+            //   return (
+            //   <Cards
+            //     key={i}
+            //     id={oneCard._id}
+            //     name={oneCard.name}
+            //     content={oneCard.content}
+            //     source={oneCard.source}
+            //   />)});
+          });
+        }, [refreshing]);
+    
+        const favAudios = allFavAudios.map((data, i) => {
+          return (
+          <Audio key={i} {...data}/>)});
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -69,6 +96,7 @@ export default function FavorisScreen({ navigation }) {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
         {favCards}
+        {favAudios}
       </ScrollView>
     </SafeAreaView>
   );
