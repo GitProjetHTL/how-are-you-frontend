@@ -12,7 +12,7 @@ import { useState } from 'react'
 const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
 
 export default function Cards(props) {
-  // console.log('props =>',props)
+  
 
   const user = useSelector((state) => state.user.value);
   const [isLiked, setIsLiked] = useState(false); 
