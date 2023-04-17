@@ -21,7 +21,7 @@ export default function EmotionBoard() {
 
   // affichage de toutes émotions
   useEffect(() => {
-    fetch(`${BACKEND}/users/allEmotions/${user.token}`)
+    fetch(`${BACKEND}/users/allEmotions`)
       .then(response => response.json())
       .then((emotion) => {
         emotion.result && setEmotionAll([...emotion.data])

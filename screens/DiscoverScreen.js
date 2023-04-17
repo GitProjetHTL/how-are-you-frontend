@@ -19,6 +19,7 @@ export default function DiscoverScreen({ navigation }) {
 
   //récupère le token
   const user = useSelector((state) => state.user.value)
+  console.log('user => ', user)
   
   const [search, setSearch] = useState("");
   const [cardRandom, setCardRandom] = useState([])
