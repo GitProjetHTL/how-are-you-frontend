@@ -1,15 +1,9 @@
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  SafeAreaView,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useSelector } from "react-redux";
 
 export default function ProfileScreen({ navigation }) {
+  const user = useSelector((state) => state.user.value);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
@@ -20,7 +14,7 @@ export default function ProfileScreen({ navigation }) {
             className={styles.like}
           />
         </TouchableOpacity> */}
-        <Text style={styles.textHeader}>Hi, name !</Text>
+        <Text style={styles.textHeader}>Hi, {user.username} !</Text>
       </View>
 
       <TouchableOpacity

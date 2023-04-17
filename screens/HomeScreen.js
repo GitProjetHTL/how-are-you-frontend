@@ -1,25 +1,11 @@
 import React from "react";
-import { TouchableOpacity, SafeAreaView, StyleSheet, Text, View, Image, TextInput, Dimensions, ScrollView} from "react-native";
+import { TouchableOpacity, SafeAreaView, StyleSheet, Text, View, Image, TextInput, Dimensions } from "react-native";
 import EmotionBoard from "../components/EmotionBoard";
 import { useSelector } from "react-redux";
 import { useState, useMemo } from 'react'; 
 import {Calendar, CalendarList, Agenda, LocaleConfig, HorizontalCalendar} from 'react-native-calendars';
 
 LocaleConfig.locales['fr'] = {
-  monthNames: [
-    'Janvier',
-    'Février',
-    'Mars',
-    'Avril',
-    'Mai',
-    'Juin',
-    'Juillet',
-    'Août',
-    'Septembre',
-    'Octobre',
-    'Novembre',
-    'Décembre'
-  ],
   monthNames: [
     'Janvier',
     'Février',
@@ -45,20 +31,15 @@ LocaleConfig.defaultLocale = 'fr';
 export default function HomeScreen({ navigation }) {
   const username = useSelector((state) => state.user.value.username); // affiche le pseudo
   const [selected, setSelected] = useState('');
-  let current = new Date();
+  let current = new Date()
+  
   const marked = useMemo(() => ({
     [selected]: {
-      customStyles: {
-        container: {
-          backgroundColor: 'green',
-          borderRadius: 0,
-        },
-        text: {
-          color: 'white',
-        }
-      }
+      selected: true,
+      selectedColor: "#E9EBFC",
+      selectedTextColor: '#252525',
     }
-  }), [selected]);
+  }), [selected])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -71,16 +52,17 @@ export default function HomeScreen({ navigation }) {
         // borderColor: 'gray',
         // height: '50%',
         width: Dimensions.get('window').width, 
+        maxHeight: '50%',
         marginTop: '5%'
       }}
       theme={{
         backgroundColor: '#ffffff',
         calendarBackground: '#ffffff',
-        textSectionTitleColor: '#C3B6F4',
+        textSectionTitleColor: '#5B3EAE',
         selectedDayBackgroundColor: '#C3B6F4',
-        selectedDayTextColor: '#ffffff',
-        todayTextColor: 'red',
-        dayTextColor: '#C3B6F4',
+        selectedDayTextColor: '#252525',
+        todayTextColor: '#5B3EAE',
+        dayTextColor: '#252525',
         textDisabledColor: '#C3B6F4',}}
       current={new Date()}
       onDayPress={day => {
@@ -88,9 +70,6 @@ export default function HomeScreen({ navigation }) {
       setSelected(day.dateString);
   }}
   markedDates={marked}
-  // // {
-  //   [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: '#C3B6F4'}
-  // }
 />
     </SafeAreaView>
   );
