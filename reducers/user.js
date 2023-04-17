@@ -20,6 +20,7 @@ export const userSlice = createSlice({
       state.value.email = action.payload.email; 
       state.value.password = action.payload.password; 
       state.value.date = action.payload.date; 
+      state.value.token = action.payload.token
     }, 
 
     login: (state, action) => {

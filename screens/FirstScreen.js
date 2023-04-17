@@ -33,12 +33,12 @@ export default function FirstScreen({ navigation }) {
               are you ?
             </Text>
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.devButton}
             onPress={() => navigation.navigate("TabNavigator")}
           >
             <Text style={styles.devText}>Acces Dev</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={styles.background}>
           <Image
