@@ -41,33 +41,21 @@ export default function DiscoverScreen({ navigation }) {
       .then((response) => response.json())
       .then((allCards) => {
         //  console.log(allCards.data)
-<<<<<<< HEAD
-        const cards = allCards.data.map((oneCard, i) => {
+        const cards = allCards.data.map((data, i) => {
           return (
             <Cards
               key={i}
-              cardsID={oneCard._id}
-              name={oneCard.name}
-              content={oneCard.content}
-              source={oneCard.source}
+              {...data}
+              // name={oneCard.name}
+              // content={oneCard.content}
+              // source={oneCard.source}
+              // id={oneCard._id}
             />
           );
-=======
-        const cards= allCards.data.map((data, i) => {
-         return <Cards
-            key={i}
-            {...data}
-            // name={oneCard.name}
-            // content={oneCard.content}
-            // source={oneCard.source}
-            // id={oneCard._id}
-          />;
->>>>>>> d49aadca2f5be1a62006453cd5e66b2e48d1ddd1
         });
         setCardAll(cards);
         setCardRandom(cards[Math.floor(Math.random() * cards.length)]);
       });
-<<<<<<< HEAD
   }, []);
   //fetch les audios
   useEffect(() => {
@@ -75,15 +63,16 @@ export default function DiscoverScreen({ navigation }) {
       .then((response) => response.json())
       .then((allAudios) => {
         //console.log(allCards.data)
-        const audios = allAudios.data.map((oneAudio, i) => {
+        const audios = allAudios.data.map((data, i) => {
           return (
-            <Audios
+            <Audio
               key={i}
-              cardsID={oneCard._id}
-              name={oneAudio.name}
-              content={oneAudio.content}
-              source={oneAudio.source}
-              image={oneAudio.image}
+              {...data}
+              // name={oneAudio.name}
+              // content={oneAudio.content}
+              // source={oneAudio.source}
+              // image={oneAudio.image}
+              // id={oneAudio._id}
             />
           );
         });
@@ -112,13 +101,15 @@ export default function DiscoverScreen({ navigation }) {
       .then((response) => response.json())
       .then((searchCard) => {
         // console.log(searchCard.data)
-        const cardsSearch = searchCard.data.map((oneCard, i) => {
+        const cardsSearch = searchCard.data.map((data, i) => {
           return (
             <Cards
               key={i}
-              name={oneCard.name}
-              content={oneCard.content}
-              source={oneCard.source}
+              {...data}
+              // name={oneCard.name}
+              // content={oneCard.content}
+              // source={oneCard.source}
+              // id={oneCard._id}
             />
           );
         });
@@ -131,14 +122,16 @@ export default function DiscoverScreen({ navigation }) {
       .then((response) => response.json())
       .then((searchAudios) => {
         // console.log(searchCard.data)
-        const audiosSearch = searchAudios.data.map((oneAudio, i) => {
+        const audiosSearch = searchAudios.data.map((data, i) => {
           return (
-            <Audios
+            <Audio
               key={i}
-              name={oneAudio.name}
-              content={oneAudio.content}
-              source={oneAudio.source}
-              image={oneAudio.image}
+              {...data}
+              // name={oneAudio.name}
+              // content={oneAudio.content}
+              // source={oneAudio.source}
+              // image={oneAudio.image}
+              // id={oneAudio._id}
             />
           );
         });
@@ -150,120 +143,26 @@ export default function DiscoverScreen({ navigation }) {
   useEffect(() => {
     if (!search) {
       setCardResult(<View>{cardRandom}</View>);
+      setAudiosResult(<View>{audiosRandom}</View>);
       setTitleResult(
         <View>
           <Text style={styles.sujet}>Découverte:</Text>
         </View>
       );
-      setCardFounded("");
 
-      setAudiosResult(<View>{audiosRandom}</View>);
+      setCardFounded("");
       setAudiosFounded("");
     } else {
       setCardResult(<View>{cardFounded}</View>);
+      setAudiosResult(<View>{audiosFounded}</View>);
+
       setTitleResult(
         <View>
           <Text style={styles.sujet}>Résultat de {search}</Text>
         </View>
       );
-      setAudiosResult(<View>{audiosFounded}</View>);
     }
   }, [search, cardRandom, cardFounded]);
-=======
-      
-    }, []);
-    //fetch les audios
-    useEffect(() => {
-      fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
-        .then(response => response.json())
-        .then(allAudios => {
-           //console.log(allCards.data)
-          const audios= allAudios.data.map((data, i) => {
-            return (
-            <Audio
-            key={i}
-            {...data}
-              // name={oneAudio.name}
-              // content={oneAudio.content}
-              // source={oneAudio.source}
-              // image={oneAudio.image}
-              // id={oneAudio._id}
-            />)});
-          setAudiosAll(audios);
-          setAudiosRandom(audios[Math.floor(Math.random() * audios.length)])
-        });
-      }, []);
-
-
-  // console.log(cardRandom)
-  //function random
-  
-    function random(cardAll,audiosAll) {
-      const randomNumberforCard = Math.floor(Math.random() * cardAll.length);
-      const randomCard = cardAll[randomNumberforCard];
-      const randomNumberforAudios = Math.floor(Math.random() * audiosAll.length);
-      const randomAudio = audiosAll[randomNumberforAudios];
-      return setCardRandom(randomCard),setAudiosRandom(randomAudio) ;
-    }
-
-  //afficher les cards rechercher
-
-  let handleClick = () => {
-    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.token}/${search}`,)
-    .then(response => response.json())
-    .then(searchCard => {
-      // console.log(searchCard.data)
-      const cardsSearch= searchCard.data.map((data, i) => {
-        return <Cards
-           key={i}
-           {...data}
-           // name={oneCard.name}
-           // content={oneCard.content}
-           // source={oneCard.source}
-           // id={oneCard._id}
-         />;
-       });
-      setCardFounded(cardsSearch)
-    })
-
-    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.token}/${search}`,)
-      .then(response => response.json())
-      .then(searchAudios => {
-        // console.log(searchCard.data)
-        const audiosSearch= searchAudios.data.map((data, i) => {
-          return (
-          <Audio
-          key={i}
-          {...data}
-            // name={oneAudio.name}
-            // content={oneAudio.content}
-            // source={oneAudio.source}
-            // image={oneAudio.image}
-            // id={oneAudio._id}
-          />)});
-        setAudiosFounded(audiosSearch)
-      })
-}
-
-
-  //affichages des cards trouve
-    useEffect(() => {
-      if (!search) {
-        setCardResult(<View>{cardRandom}</View>);
-        setAudiosResult(<View>{audiosRandom}</View>);
-        setTitleResult(<View><Text style={styles.sujet}>Découverte:</Text></View>);
-
-        setCardFounded(""); 
-        setAudiosFounded("");
-
-      } else {
-        setCardResult(<View>{cardFounded}</View>);
-        setAudiosResult(<View>{audiosFounded}</View>);
-        
-        setTitleResult(<View><Text style={styles.sujet}>Résultat de {search}</Text></View>)
-      }
-    }, [search, cardRandom, cardFounded]);
->>>>>>> d49aadca2f5be1a62006453cd5e66b2e48d1ddd1
 
   return (
     <SafeAreaView style={styles.container}>
@@ -302,15 +201,9 @@ export default function DiscoverScreen({ navigation }) {
         {/* <Text style={styles.sujet}>{randomCardTitle}</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}>
-<<<<<<< HEAD
         {cardResult}
 
         {audiosResult}
-=======
-          {cardResult}
-        
-          {audiosResult}
->>>>>>> d49aadca2f5be1a62006453cd5e66b2e48d1ddd1
       </ScrollView>
     </SafeAreaView>
   );
