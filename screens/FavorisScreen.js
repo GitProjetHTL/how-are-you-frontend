@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Cards from "../components/Cards";
+import Audio  from'../components/Audio';
 import { useEffect, useState, useCallback} from "react";
 import { useSelector } from 'react-redux'
 
@@ -75,7 +76,7 @@ export default function FavorisScreen({ navigation }) {
     
         const favAudios = allFavAudios.map((data, i) => {
           return (
-          <Cards key={i} {...data}/>)});
+          <Audio key={i} {...data}/>)});
 
 
 

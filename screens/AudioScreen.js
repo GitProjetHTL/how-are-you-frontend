@@ -38,11 +38,12 @@ export default function CardsScreen({navigation}) {
           return (
           <Audios
             key={i}
-            name={oneAudio.name}
-            content={oneAudio.content}
-            source={oneAudio.source}
-            image={oneAudio.image}
-            
+            {...oneAudio}
+            // name={oneAudio.name}
+            // content={oneAudio.content}
+            // source={oneAudio.source}
+            // image={oneAudio.image}
+            // audioID={oneAudio._id}
           />)});
         setAudiosAll(audios);
       });
@@ -62,7 +63,7 @@ export default function CardsScreen({navigation}) {
           content={oneAudio.content}
           source={oneAudio.source}
           image={oneAudio.image}
-          
+          id={oneAudio._id}
             />;
         });
         setAudiosFounded(audiosSearch)

@@ -13,7 +13,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
 import Cards from "../components/Cards";
 import { useSelector } from "react-redux";
-import Audios from "../components/Audio";
+import Audio from "../components/Audio";
 
 export default function DiscoverScreen({ navigation }) {
 
@@ -44,12 +44,14 @@ export default function DiscoverScreen({ navigation }) {
       .then((response) => response.json())
       .then((allCards) => {
         //  console.log(allCards.data)
-        const cards= allCards.data.map((oneCard, i) => {
+        const cards= allCards.data.map((data, i) => {
          return <Cards
             key={i}
-            name={oneCard.name}
-            content={oneCard.content}
-            source={oneCard.source}
+            {...data}
+            // name={oneCard.name}
+            // content={oneCard.content}
+            // source={oneCard.source}
+            // id={oneCard._id}
           />;
         });
         setCardAll(cards);
@@ -63,14 +65,16 @@ export default function DiscoverScreen({ navigation }) {
         .then(response => response.json())
         .then(allAudios => {
            //console.log(allCards.data)
-          const audios= allAudios.data.map((oneAudio, i) => {
+          const audios= allAudios.data.map((data, i) => {
             return (
-            <Audios
-              key={i}
-              name={oneAudio.name}
-              content={oneAudio.content}
-              source={oneAudio.source}
-              image={oneAudio.image}
+            <Audio
+            key={i}
+            {...data}
+              // name={oneAudio.name}
+              // content={oneAudio.content}
+              // source={oneAudio.source}
+              // image={oneAudio.image}
+              // id={oneAudio._id}
             />)});
           setAudiosAll(audios);
           setAudiosRandom(audios[Math.floor(Math.random() * audios.length)])
@@ -96,14 +100,16 @@ export default function DiscoverScreen({ navigation }) {
     .then(response => response.json())
     .then(searchCard => {
       // console.log(searchCard.data)
-      const cardsSearch= searchCard.data.map((oneCard, i) => {
-      return <Cards
-        key={i}
-        name={oneCard.name}
-        content={oneCard.content}
-        source={oneCard.source}
-        />;
-      });
+      const cardsSearch= searchCard.data.map((data, i) => {
+        return <Cards
+           key={i}
+           {...data}
+           // name={oneCard.name}
+           // content={oneCard.content}
+           // source={oneCard.source}
+           // id={oneCard._id}
+         />;
+       });
       setCardFounded(cardsSearch)
     })
 
@@ -111,15 +117,17 @@ export default function DiscoverScreen({ navigation }) {
       .then(response => response.json())
       .then(searchAudios => {
         // console.log(searchCard.data)
-        const audiosSearch= searchAudios.data.map((oneAudio, i) => {
-        return <Audios
+        const audiosSearch= searchAudios.data.map((data, i) => {
+          return (
+          <Audio
           key={i}
-          name={oneAudio.name}
-          content={oneAudio.content}
-          source={oneAudio.source}
-          image={oneAudio.image}
-            />;
-        });
+          {...data}
+            // name={oneAudio.name}
+            // content={oneAudio.content}
+            // source={oneAudio.source}
+            // image={oneAudio.image}
+            // id={oneAudio._id}
+          />)});
         setAudiosFounded(audiosSearch)
       })
 }

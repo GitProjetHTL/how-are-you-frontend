@@ -41,7 +41,7 @@ export default function Audios(props) {
       if(data.like){
         // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
         setIsLiked(true)
-        alert('Cards well added to favorite 🌟')
+        alert('Audio well added to favorite 🌟')
       } else {
         setIsLiked(false)
       }
