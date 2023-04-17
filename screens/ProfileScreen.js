@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: "10%",
     marginLeft: 20,
+    fontFamily: "DM-Sans-Bold",
   },
   arrow: {
     // borderWidth: 1,
@@ -140,6 +141,7 @@ const styles = StyleSheet.create({
   },
   text: {
     paddingLeft: "5%",
-    marginRight: "50%",
+    width: "80%",
+    fontFamily: "DM-Sans-Regular",
   },
 });

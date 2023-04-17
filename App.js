@@ -97,6 +97,8 @@ export default function App() {
       "Solway-Bold": require("./assets/fonts/Solway-Bold.ttf"),
       "Solway-Medium": require("./assets/fonts/Solway-Medium.ttf"),
       "Solway-Light": require("./assets/fonts/Solway-Light.ttf"),
+      "DM-Sans-Regular": require("./assets/fonts/DMSans-Regular.ttf"),
+      "DM-Sans-Bold": require("./assets/fonts/DMSans-Bold.ttf")
     });
     setFontsLoaded(true);
   }

@@ -1,25 +1,12 @@
-import React from "react";
-import { TouchableOpacity, SafeAreaView, StyleSheet, Text, View, Image, TextInput, Dimensions } from "react-native";
+import React, { useMemo } from "react";
+import { TouchableOpacity, SafeAreaView, StyleSheet, Text, View, Image, TextInput, Dimensions, ScrollView } from "react-native";
 import EmotionBoard from "../components/EmotionBoard";
 import { useSelector } from "react-redux";
 import { useState, useMemo } from 'react'; 
 import {Calendar, CalendarList, Agenda, LocaleConfig, HorizontalCalendar} from 'react-native-calendars';
 
 LocaleConfig.locales['fr'] = {
-  monthNames: [
-    'Janvier',
-    'Février',
-    'Mars',
-    'Avril',
-    'Mai',
-    'Juin',
-    'Juillet',
-    'Août',
-    'Septembre',
-    'Octobre',
-    'Novembre',
-    'Décembre'
-  ],
+  monthNames: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
   monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
   dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
   dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
@@ -42,6 +29,7 @@ export default function HomeScreen({ navigation }) {
   }), [selected])
 
   return (
+    <ScrollView>
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>How are you, {username} ?</Text>
       <Text>Comment te sens-tu aujourd'hui ?</Text>
@@ -52,7 +40,6 @@ export default function HomeScreen({ navigation }) {
         // borderColor: 'gray',
         // height: '50%',
         width: Dimensions.get('window').width, 
-        maxHeight: '50%',
         marginTop: '5%'
       }}
       theme={{
@@ -72,6 +59,7 @@ export default function HomeScreen({ navigation }) {
   markedDates={marked}
 />
     </SafeAreaView>
+    </ScrollView>
   );
 }
 

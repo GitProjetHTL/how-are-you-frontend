@@ -31,11 +31,10 @@ export default function InfosScreen({ navigation }) {
           style={styles.arrow}
           onPress={() => navigation.navigate("TabNavigator")}
         >
-          <FontAwesome name="long-arrow-left" size={20} style={styles.like} />
+          <FontAwesome name="long-arrow-left" size={20} />
         </TouchableOpacity>
         <View style={styles.headerContainer}>
-          <Text style={styles.textHeader}>Informations</Text>
-          <Text style={styles.textHeader}>personnelles</Text>
+          <Text style={styles.textHeader}>Informations personnelles</Text>
         </View>
       </View>
       <View style={styles.infosContainer}>
@@ -67,7 +66,7 @@ export default function InfosScreen({ navigation }) {
           )}
         </View>
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Adresse E-mail</Text>
+          <Text style={styles.label}>Adresse e-mail</Text>
           <TextInput
             style={styles.input}
             placeholder="Entrez votre email"
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
   topContainer: {
     borderBottomWidth: 1,
     borderBottomColor: "#C3B6F4",
-    height: "15%",
+    height: "10%",
     marginTop: 30,
     flexDirection: "row",
 
@@ -107,8 +106,9 @@ const styles = StyleSheet.create({
   },
   like: { color: "#5B3EAE" },
   textHeader: {
-    fontSize: 30,
-    fontFamily: "Solway-Bold",
+    fontSize: 20,
+    textAlign: "center",
+    fontFamily: "DM-Sans-Bold",
   },
   headerContainer: {
     marginLeft: 20,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     top: -15,
     left: 20,
     backgroundColor: "white",
-    color: "#C3B6F4",
+    color: "#5B3EAE",
     zIndex: 10,
     paddingHorizontal: 5,
   },
@@ -164,8 +164,10 @@ const styles = StyleSheet.create({
     height: 40,
     width: "60%",
     marginHorizontal: "20%",
-    paddingTop: 5,
     marginTop: 25,
+    paddingBottom: 5,
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   saveText: {
     color: "white",

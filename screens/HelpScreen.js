@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   topContainer: {
     borderBottomWidth: 1,
     borderBottomColor: "#C3B6F4",
-    height: "15%",
+    height: "10%",
     marginTop: 30,
     flexDirection: "row",
     alignItems: "center",
@@ -105,9 +105,9 @@ const styles = StyleSheet.create({
   },
   like: {},
   textHeader: {
-    fontSize: 28,
+    fontSize: 20,
     textAlign: "center",
-    fontFamily: "Solway-Bold",
+    fontFamily: "DM-Sans-Bold",
   },
   infosContainer: {
     // borderWidth: 1,
@@ -123,10 +123,10 @@ const styles = StyleSheet.create({
   },
   infosText: {
     paddingHorizontal: "15%",
-    fontFamily: "Solway-Regular",
+    fontFamily: "DM-Sans-Bold",
     fontSize: 16,
     marginVertical: 5,
-    color: "#5B3EAE",
+    color: "#252525",
   },
   infos: {
     // borderWidth: 1,
