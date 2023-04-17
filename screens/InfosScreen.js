@@ -22,7 +22,7 @@ export default function InfosScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
 
-  const user = {}
+  const user = {};
 
   return (
     <SafeAreaView style={styles.container}>
