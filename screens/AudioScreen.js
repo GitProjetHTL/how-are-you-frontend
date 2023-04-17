@@ -52,7 +52,7 @@ export default function CardsScreen({navigation}) {
     //afficher les cards rechercher
     
     let handleClick = () => {
-      fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.token}/${search}`,)
+      fetch(`https://howareyouapp-backend.vercel.app/audios/search/${search}`,)
       .then(response => response.json())
       .then(searchAudios => {
         // console.log(searchCard.data)

@@ -22,18 +22,18 @@ export default function DiscoverScreen({ navigation }) {
   console.log('user => ', user)
   
   const [search, setSearch] = useState("");
-  const [cardRandom, setCardRandom] = useState([])
-  const [cardAll, setCardAll] = useState([]);
   const [cardFounded, setCardFounded] = useState([]);
-  const [cardResult, setCardResult] = useState([]);
-  const [titleResult,setTitleResult] = useState("")
-
-  const [audiosAll, setAudiosAll] = useState([]);
   const [audiosFounded, setAudiosFounded] = useState([]);
-  const [audiosResult, setAudiosResult] = useState([]);
-
-  const [audiosRandom, setAudiosRandom] = useState([])
   
+  const [cardAll, setCardAll] = useState([]);
+  const [audiosAll, setAudiosAll] = useState([]);
+  
+  const [audiosRandom, setAudiosRandom] = useState([])
+  const [cardRandom, setCardRandom] = useState([])
+  
+  const [titleResult,setTitleResult] = useState("")
+  const [cardResult, setCardResult] = useState([]);
+  const [audiosResult, setAudiosResult] = useState([]);
  
   //console.log(search);
 
@@ -54,6 +54,7 @@ export default function DiscoverScreen({ navigation }) {
             // id={oneCard._id}
           />;
         });
+        
         setCardAll(cards);
         setCardRandom(cards[Math.floor(Math.random() * cards.length)])
       });
@@ -76,6 +77,7 @@ export default function DiscoverScreen({ navigation }) {
               // image={oneAudio.image}
               // id={oneAudio._id}
             />)});
+            
           setAudiosAll(audios);
           setAudiosRandom(audios[Math.floor(Math.random() * audios.length)])
         });
@@ -96,7 +98,7 @@ export default function DiscoverScreen({ navigation }) {
   //afficher les cards rechercher
 
   let handleClick = () => {
-    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.token}/${search}`,)
+    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${search}`,)
     .then(response => response.json())
     .then(searchCard => {
       // console.log(searchCard.data)
@@ -113,7 +115,7 @@ export default function DiscoverScreen({ navigation }) {
       setCardFounded(cardsSearch)
     })
 
-    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.token}/${search}`,)
+    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${search}`,)
       .then(response => response.json())
       .then(searchAudios => {
         // console.log(searchCard.data)
@@ -149,7 +151,7 @@ export default function DiscoverScreen({ navigation }) {
         
         setTitleResult(<View><Text style={styles.sujet}>Résultat de {search}</Text></View>)
       }
-    }, [search, cardRandom, cardFounded]);
+    }, [search, cardRandom, audiosRandom, cardFounded]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -179,7 +181,6 @@ export default function DiscoverScreen({ navigation }) {
       </View>
       <ScrollView style={styles.cardsContainer}>
           {cardResult}
-        
           {audiosResult}
       </ScrollView>
     </SafeAreaView>

@@ -44,6 +44,7 @@ export default function Audios(props) {
         alert('Audio well added to favorite 🌟')
       } else {
         setIsLiked(false)
+        alert('Audio well remove to favorite 🌟')
       }
      });
   }

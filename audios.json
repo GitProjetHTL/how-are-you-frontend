@@ -45,7 +45,7 @@
      },
      {
         "name": "Le Triangle de la Manipulation !",
-        "target": ["honte","confusion"],
+        "target": ["honte","confusion","surprise"],
         "source": "https://open.spotify.com/episode/4dtKPXyGjHMKFLJyYtknfh",
         "content": "Connaissez-vous le triangle de la manipulation ? Voici comment ne plus être victime, sauveur ou persécuteur !",
         "image":"https://i.scdn.co/image/ab67656300005f1f480c6f903b421e18447210ee"
@@ -74,10 +74,80 @@
 
      {
         "name": "Le marketing des gentils",
-        "target": ["Ennuie","Surprise"],
+        "target": ["ennuie","surprise"],
         "source": "https://open.spotify.com/episode/5vSls1Eb5dciUMWo5EA7cp",
         "content": "Le marketing est-il un outil diabolique où peut-on le faire de manière éthique ?",
         "image":"https://i.scdn.co/image/ab67656300005f1fe7516375b06c1d97eb0464a7"
-     }
+     },
+     {
+      "name": "Tes Mots, Nos Maux. Paola Locatelli : gérer ses émotions.",
+      "target": ["tristesse","peur","anxiété"],
+      "source": "https://open.spotify.com/episode/60lUBlD2Hog2iXg7v3QSyo",
+      "content": "Paola Locatelli se confie sur l’envers de la célébrité ; la haine et le harcèlement en ligne mais aussi les images idéalistes de vies qui s’affichent sur nos smartphones et qui peuvent mettre à mal l’amour de soi.",
+      "image":"https://i.scdn.co/image/ab67656300005f1f2711ea813ca6dcc1320be4c9"
+   },
+   {
+      "name": "La cible – Harcèlement scolaire",
+      "target": ["tristesse","peur","honte"],
+      "source": "https://open.spotify.com/episode/7sjbbguzrE0mx7qE6BUXrT",
+      "content": "HARCÈLEMENT SCOLAIRE – Insultes, moqueries, intimidations… Selon l'UNICEF, près d'un enfant sur trois dans le monde est victime de harcèlement à l'école.",
+      "image":"https://i.scdn.co/image/ab67656300005f1f1c9f8563fb85d877f3d04fce"
+   },
+
+   {
+      "name": "L'amer à boire — Addictions et famille",
+      "target": ["colère","confusion","anxiété"],
+      "source": "https://open.spotify.com/episode/0t7IxHTNxiJ8vs0pf2Dk14",
+      "content": "ADDICTIONS ET FAMILLE — On parle aujourd’hui en santé mentale d’explications biologiques, psychologiques et sociales.",
+      "image":"https://i.scdn.co/image/ab67656300005f1f958a4019d185ea563b9c5707"
+   },
+
+   {
+      "name": "Comment détecter et gérer le stress ?",
+      "target": ["peur","confusion","anxiété"],
+      "source": "https://open.spotify.com/episode/3VokAYvhXtt1pjQb29vDe1",
+      "content": "Comment détecter et gérer le stress ? Un sujet traité par la coach et thérapeute Julia Bouchinet.",
+      "image":"https://i.scdn.co/image/6e19c4bc8d577c08a43183f70e25b14956a8a0ea"
+   },
+
+   {
+      "name": "Le sentiment d'impuissance",
+      "target": ["peur","ennuie","tristesse"],
+      "source": "https://open.spotify.com/episode/0MwsEbee7GD43TmhnjbIB0",
+      "content": "Nous parlons du sentiment d'impuissance avec la gestalt-thérapeute Christina Winkler.",
+      "image":"https://i.scdn.co/image/6e19c4bc8d577c08a43183f70e25b14956a8a0ea"
+   },
+
+   {
+      "name": "Les relations toxiques",
+      "target": ["fierté","joie","anxiété"],
+      "source": "https://api.spotify.com/v1/episodes/3xp3ZlR4ihlSl3DFnN1EqN",
+      "content": "Lors de la semaine de la santé mentale en 2022, nous avons décidé de parler des relations toxiques avec les thérapeutes Julia Bouchinet, Badr Hajjani et Hoang Son.",
+      "image":"https://i.scdn.co/image/6e19c4bc8d577c08a43183f70e25b14956a8a0ea"
+   },
+
+   {
+      "name": "Tavailler, c'est trop dur ?",
+      "target": ["colère","tristesse","ennuie"],
+      "source": "https://open.spotify.com/episode/5l1BEKyvqgE828KDgZ2oIA",
+      "content": "On passe une grande partie de notre vie à travailler mais depuis le début de ce siècle, le travail est davantage remis en question : crise de sens, stress, burn-out...",
+      "image":"https://i.scdn.co/image/ab67656300005f1fd374f1ca409cf65fbd3fb836"
+   },
+
+   {
+      "name": "Traumas pour tous, tous traumas !",
+      "target": ["confusion","tristesse","anxiété"],
+      "source": "https://open.spotify.com/episode/6YUfw849TZTiOnPSWfVbuv",
+      "content": "Une idée qui revient souvent, c'est que l'on est davantage traumatisés qu’auparavant et que l'on se plaint pour un rien.",
+      "image":"https://i.scdn.co/image/ab67656300005f1f5db887994b6a8d4bdb707364"
+   },
+
+   {
+      "name": "Les expressions qui font mal",
+      "target": ["dégout","peur","honte"],
+      "source": "https://open.spotify.com/episode/6i3zcAki0xVablz6FwHO4X",
+      "content": "Ces petites phrases peuvent paraître anodines mais en réalité elles font mal, car elles stigmatisent les personnes qui souffrent de troubles psychiques.",
+      "image":"https://i.scdn.co/image/ab67656300005f1f059fda85aa4abece5e48a103"
+   }
  
 ]

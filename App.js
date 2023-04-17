@@ -27,7 +27,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
-import survey from "./reducers/survey";
+i78mport survey from "./reducers/survey";
 
 const store = configureStore({
   reducer: { user, survey },
