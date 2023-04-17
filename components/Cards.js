@@ -36,6 +36,8 @@ export default function Cards(props) {
     }
    });
 }
+ let content=props.content.substr(0,100)+"..."
+
 
 // console.log('card reducer', cards)
    
@@ -45,7 +47,7 @@ export default function Cards(props) {
         <Text style={styles.titleCard}>{props.name}</Text>
         <Text style={styles.contentCard}>
           {" "}
-          {props.content}
+          {content}
         </Text>
         <View style={styles.btnContainer}>
           <TouchableOpacity style={styles.moreButton}>

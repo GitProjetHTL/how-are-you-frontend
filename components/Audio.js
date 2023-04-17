@@ -17,7 +17,7 @@ import {
     // console.log(props)
 
     let videoLink =()=> {
-
+      props.source
     }
      
     return (

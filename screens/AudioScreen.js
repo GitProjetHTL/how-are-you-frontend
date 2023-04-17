@@ -6,7 +6,7 @@ import {
   Image,
   TextInput,
   SafeAreaView,
-  ScrollView
+  ScrollView,
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -15,6 +15,9 @@ import Audios from "../components/Audio";
 import { useSelector } from "react-redux";
 
 export default function CardsScreen({navigation}) {
+
+
+  const supportedURL = 'https://open.spotify.com/episode/6rVxPssrnk6fRlN1uVwJAw';
 
   const user = useSelector((state) => state.user.value)
   
@@ -39,6 +42,7 @@ export default function CardsScreen({navigation}) {
             content={oneAudio.content}
             source={oneAudio.source}
             image={oneAudio.image}
+            
           />)});
         setAudiosAll(audios);
       });
@@ -58,6 +62,7 @@ export default function CardsScreen({navigation}) {
           content={oneAudio.content}
           source={oneAudio.source}
           image={oneAudio.image}
+          
             />;
         });
         setAudiosFounded(audiosSearch)

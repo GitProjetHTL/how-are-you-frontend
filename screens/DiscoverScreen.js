@@ -128,15 +128,17 @@ export default function DiscoverScreen({ navigation }) {
     useEffect(() => {
       if (!search) {
         setCardResult(<View>{cardRandom}</View>);
-        setTitleResult(<View><Text style={styles.sujet}>Découverte:</Text></View>);
-        setCardFounded(""); 
-
         setAudiosResult(<View>{audiosRandom}</View>);
+        setTitleResult(<View><Text style={styles.sujet}>Découverte:</Text></View>);
+
+        setCardFounded(""); 
         setAudiosFounded("");
+
       } else {
         setCardResult(<View>{cardFounded}</View>);
-        setTitleResult(<View><Text style={styles.sujet}>Résultat de {search}</Text></View>)
         setAudiosResult(<View>{audiosFounded}</View>);
+        
+        setTitleResult(<View><Text style={styles.sujet}>Résultat de {search}</Text></View>)
       }
     }, [search, cardRandom, cardFounded]);
 
@@ -167,9 +169,9 @@ export default function DiscoverScreen({ navigation }) {
         {/* <Text style={styles.sujet}>{randomCardTitle}</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}>
-      {cardResult}
-      
-      {audiosResult}
+          {cardResult}
+        
+          {audiosResult}
       </ScrollView>
     </SafeAreaView>
   );
