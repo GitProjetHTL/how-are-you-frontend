@@ -55,6 +55,7 @@ export default function DiscoverScreen({ navigation }) {
             />
           );
         });
+        
         setCardAll(cards);
         setCardRandom(cards[Math.floor(Math.random() * cards.length)]);
       });
