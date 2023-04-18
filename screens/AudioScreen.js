@@ -79,7 +79,7 @@ useEffect(() => {
   } else {
     setAudiosResult(<View>{audiosFounded}</View>);
   }
-}, [search, audiosAll, audiosFounded]);
+}, [search, audiosAll, audiosFounded],Audios.likes);
 
 
   return (

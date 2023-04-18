@@ -49,7 +49,7 @@ export default function FavorisScreen({ navigation }) {
         //     source={oneCard.source}
         //   />)});
       });
-    }, [refreshing]);
+    }, [refreshing,Cards.likes]);
 
     const favCards = allFavCard.map((data, i) => {
       return (
@@ -72,7 +72,7 @@ export default function FavorisScreen({ navigation }) {
             //     source={oneCard.source}
             //   />)});
           });
-        }, [refreshing]);
+        }, [refreshing,Audio.likes]);
     
         const favAudios = allFavAudios.map((data, i) => {
           return (

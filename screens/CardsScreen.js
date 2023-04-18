@@ -81,7 +81,7 @@ export default function CardsScreen({ navigation }) {
     } else {
       setCardResult(<View>{cardFounded}</View>);
     }
-  }, [search, cardAll, cardFounded]);
+  }, [search, cardAll, cardFounded,Cards.likes]);
 
   // //affichages des cards trouve
   // useEffect(() => {

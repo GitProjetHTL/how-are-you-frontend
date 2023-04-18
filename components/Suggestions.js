@@ -33,7 +33,7 @@ export default function Suggestions() {
           </ScrollView>
         );
       }
-    }, [user.emotionName, cardSuggestion, audioSuggestion]);
+    }, [user.emotionName, cardSuggestion, audioSuggestion,Cards.likes]);
   
     useEffect(() => {
       fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
