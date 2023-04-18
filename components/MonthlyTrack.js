@@ -1,7 +1,8 @@
 // Emotion board component 
 import React, { useState, useMemo } from "react";
-import { TouchableOpacity, StyleSheet, Text, View, Image, Dimensions, } from "react-native";
-import {Calendar, CalendarList, Agenda, LocaleConfig, HorizontalCalendar} from 'react-native-calendars';
+import { StyleSheet, Text, View, Image, Dimensions, } from "react-native";
+import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { useSelector } from "react-redux";
 
 LocaleConfig.locales['fr'] = {
   monthNames: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
@@ -17,6 +18,7 @@ const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
 
 export default function MonthlyTrack() {
+    const user = useSelector((state) => state.user.value);
     const [selected, setSelected] = useState('');
     
     const marked = useMemo(() => ({
@@ -57,13 +59,13 @@ export default function MonthlyTrack() {
         const today = new Date().toISOString().split('T')[0];
         const isSelected = selected === date.dateString;
         const isToday = date.dateString === today;
-        const imageSource = isToday ? require('../assets/emotion-joie.png') : null;
+        const imageSource = isToday ? user.emotionImage : null;
       
         console.log(isSelected)
         return (
           <View style={styles.dayContainer}>
             <Text style={{textAlign: 'center', fontSize: 12, color: state === 'disabled' ? '#C3B6F4' : '#252525'}}>{date.day}</Text>
-            {imageSource && <Image style={styles.calendarImage} source={imageSource} />}
+            {imageSource && <Image style={styles.calendarImage} source={{uri: imageSource}} />}
           </View>
         );
       }}
@@ -74,7 +76,8 @@ export default function MonthlyTrack() {
 
   const styles = StyleSheet.create({
     calendarImage: {
-      height: 30,
+      height: 40,
+      width: 30,
       objectFit: "contain",
     },
     dayContainer: {
