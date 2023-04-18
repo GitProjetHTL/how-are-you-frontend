@@ -26,6 +26,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { Provider } from "react-redux";
 import user from "./reducers/user";
 import survey from "./reducers/survey";
+import journal from "./reducers/journal";
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'; 
 
@@ -34,7 +35,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const reducers = combineReducers({  user });
+const reducers = combineReducers({ user, survey, journal });
 const persistConfig = { key : 'locapic', storage : AsyncStorage };
 
 const store = configureStore({
