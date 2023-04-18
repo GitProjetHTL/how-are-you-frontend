@@ -65,7 +65,7 @@ export default function Cards(props) {
               name="heart"
               size={20}
               style={[
-                styles.heart,
+                // styles.heart,
                 isLiked ? { color: "#5B3EAE" } : { color: "white" },
               ]}
             />
