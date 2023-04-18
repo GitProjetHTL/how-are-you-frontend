@@ -90,6 +90,7 @@ const renderItem = (items) => {
       </TouchableOpacity>
   );
 }
+console.log(emotions)
   return (
     <SafeAreaView style={styles.container}>
        <Modal visible={modalVisible} animationType="fade" transparent>
