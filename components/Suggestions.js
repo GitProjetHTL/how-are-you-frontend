@@ -13,12 +13,25 @@ export default function Suggestions() {
 
     const [cardSuggestion,setCardSuggestion]= useState([])
     const [audioSuggestion,setAudioSuggestion]= useState([])
+    const [contentSuggestion,setContentSuggestion]= useState("")
 
     // console.log(user.emotion)
 
 
     useEffect ( () => {
-        fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotion}`)
+
+      if(!user.emotionName ){
+           setContentSuggestion(
+             <View>
+                <Text style={styles.title}>
+                   Merci de valider une émotion
+                    </Text>
+               </View> 
+               )
+
+      }else{
+
+        fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
           .then((response) => response.json())
           .then((searchCard) => {
             // console.log(searchCard.data)
@@ -38,7 +51,7 @@ export default function Suggestions() {
             setCardSuggestion(cardsSearch);
           });
 
-          fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotion}`)
+          fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotionName}`)
           .then((response) => response.json())
           .then((searchAudios) => {
             // console.log(searchCard.data)
@@ -57,28 +70,22 @@ export default function Suggestions() {
             setAudioSuggestion(audiosSearch);
           });
 
+          setContentSuggestion(<ScrollView style={styles.scrollView}>
+            <View style={styles.cardSuggestion}>
+                {cardSuggestion}
+            </View>
+            <View style={styles.audioSuggestion}> 
+                {audioSuggestion}
+            </View>
+        </ScrollView>)
+      }
 
       },[cardSuggestion , audioSuggestion]);
 
     
     return (
         <View style={styles.container}>
-               {!user.emotion ? 
-               <View>
-                <Text style={styles.title}>
-                   Merci de valider une émotion
-                    </Text>
-               </View> 
-               :
-                <ScrollView style={styles.scrollView}>
-                    <View style={styles.cardSuggestion}>
-                        {cardSuggestion}
-                    </View>
-                    <View style={styles.audioSuggestion}> 
-                        {audioSuggestion}
-                    </View>
-                </ScrollView>
-               } 
+              {contentSuggestion}
         </View>
     );
   }

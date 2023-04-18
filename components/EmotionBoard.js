@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { TouchableOpacity, StyleSheet, Text, View, Image, Modal } from "react-native";
 import { useSelector,useDispatch } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { saveEmotionImage } from "../reducers/user";
+import { saveEmotionImage ,saveEmotionName } from "../reducers/user";
 
 export default function EmotionBoard() {
     const BACKEND = "https://howareyouapp-backend.vercel.app/";
@@ -43,6 +43,7 @@ export default function EmotionBoard() {
         </View>
       );})
 
+      // console.log(selected);
 
     // Envoi de l'emotion sélectionnée en BDD
     const saveEmotion = () => {
@@ -57,6 +58,7 @@ export default function EmotionBoard() {
     if(data.result){
       setModalVisible(false)
       dispatch(saveEmotionImage(selected.imageUrl))
+      dispatch(saveEmotionName(selected.emotionName))
       alert('Votre emotion du jour a bien été enregistrée 💖')
       setEmotionRegistered(true)
     } else {
