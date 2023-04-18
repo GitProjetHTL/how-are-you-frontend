@@ -86,16 +86,16 @@ useEffect(() => {
     <SafeAreaView style={styles.container}>
       <View style={styles.containerTop}>
         <View>
-          <View style={styles.search}>
-              <TouchableOpacity style={styles.searchButton}>
-                <FontAwesome name="search" size={30} style={styles.heart} onPress={()=>handleClick()} />
-              </TouchableOpacity>
+          <View style={styles.searchBar}>
             <TextInput
               style={styles.input}
               placeholder="Recherches d'audios"
               onChangeText={(value) => setSearch(value)}
               value={search}
             />
+              <TouchableOpacity style={styles.searchButton}>
+                <FontAwesome name="search" size={20} style={styles.search} onPress={()=>handleClick()} />
+              </TouchableOpacity>
           </View>
         </View>
         <View style={styles.likes}>
@@ -105,7 +105,7 @@ useEffect(() => {
         </View>
       </View>
       <View style={styles.title}>
-        <Text style={styles.sujet}>All Audio:</Text> 
+        <Text style={styles.sujet}>All Audios:</Text> 
         {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}> 
@@ -128,9 +128,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 
-  search: {
+  searchBar: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     backgroundColor: "white",
     borderColor: "#5B3EAE",
     width: 270,
@@ -138,11 +137,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 25,
     paddingLeft: 10,
+
   },
 
   searchButton: {
-   justifyContent: "center",
-   
+    position: "absolute",
+    right:"8%",
+    top:"25%",
   },
 
 
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderRadius: 25,
     // paddingLeft: 10,
-    
+    margin:10
   },
   likes: {
     height: 50,
@@ -162,6 +163,9 @@ const styles = StyleSheet.create({
   },
   heart: {
     color: "#5B3EAE",
+  },
+  search: { 
+    color: "#A8A3BB",
   },
   title: {
     justifyContent: "center",

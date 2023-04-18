@@ -59,7 +59,7 @@ export default function MonthlyTrack() {
         const isToday = date.dateString === today;
         const imageSource = isToday ? require('../assets/emotion-joie.png') : null;
       
-        console.log(isSelected)
+        // console.log(isSelected)
         return (
           <View style={styles.dayContainer}>
             <Text style={{textAlign: 'center', fontSize: 12, color: state === 'disabled' ? '#C3B6F4' : '#252525'}}>{date.day}</Text>

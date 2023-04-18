@@ -77,6 +77,7 @@ export default function CardsScreen({ navigation }) {
   useEffect(() => {
     if (!search) {
       setCardResult(<View>{cardAll}</View>);
+      setCardFounded("")
     } else {
       setCardResult(<View>{cardFounded}</View>);
     }
@@ -95,21 +96,21 @@ export default function CardsScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.containerTop}>
         <View>
-          <View style={styles.search}>
+          <View style={styles.searchBar}>
+              <TextInput
+                style={styles.input}
+                placeholder="Recherches de cards"
+                onChangeText={(value) => setSearch(value)}
+                value={search}
+              />
             <TouchableOpacity style={styles.searchButton}>
               <FontAwesome
                 name="search"
-                size={30}
-                style={styles.heart}
+                size={20}
+                style={styles.search}
                 onPress={() => handleClick()}
               />
             </TouchableOpacity>
-            <TextInput
-              style={styles.input}
-              placeholder="Recherches de cards"
-              onChangeText={(value) => setSearch(value)}
-              value={search}
-            />
           </View>
         </View>
         <View style={styles.likes}>
@@ -119,7 +120,7 @@ export default function CardsScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.title}>
-        <Text style={styles.sujet}>All Card:</Text>
+        <Text style={styles.sujet}>All Cards:</Text>
         {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}>
@@ -142,9 +143,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 
-  search: {
+  searchBar: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     backgroundColor: "white",
     borderColor: "#5B3EAE",
     width: 270,
@@ -152,10 +152,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 25,
     paddingLeft: 10,
+
   },
 
   searchButton: {
-    justifyContent: "center",
+    position: "absolute",
+    right:"8%",
+    top:"25%",
   },
 
   input: {
@@ -165,6 +168,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderRadius: 25,
     // paddingLeft: 10,
+    margin:10
   },
 
   likes: {
@@ -174,6 +178,9 @@ const styles = StyleSheet.create({
   },
   heart: {
     color: "#5B3EAE",
+  },
+  search: { 
+    color: "#A8A3BB",
   },
   title: {
     justifyContent: "center",
