@@ -35,7 +35,7 @@ import storage from 'redux-persist/lib/storage';
 
 // Config reducers et persist store
 const reducers = combineReducers({ user, survey });
-const persistConfig = { key: 'howareyouapp', storage: AsyncStorage };
+const persistConfig = { key: 'howareyouapp', storage };
 
 const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),
@@ -123,7 +123,7 @@ export default function App() {
 
   return (
   <Provider store={store}>
-	  <PersistGate persistor={persistor}>
+      <PersistGate persistor={persistor}>
       <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen name="first" component={FirstScreen} />
