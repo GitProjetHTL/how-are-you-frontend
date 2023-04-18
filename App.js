@@ -27,22 +27,24 @@ import { Provider } from "react-redux";
 import user from "./reducers/user";
 import survey from "./reducers/survey";
 
+import { combineReducers, configureStore } from '@reduxjs/toolkit'; 
+
+
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
-import { combineReducers, configureStore } from '@reduxjs/toolkit'; 
-import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Config reducers et persist store
-const reducers = combineReducers({ user, survey });
-const persistConfig = { key: 'howareyouapp', storage };
+const reducers = combineReducers({  user });
+const persistConfig = { key : 'locapic', storage : AsyncStorage };
 
 const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
 });
 
+
 const persistor = persistStore(store);
+persistor.purge(); 
 
 // Config Stack + Tab Navigation
 const Stack = createNativeStackNavigator();
@@ -123,7 +125,7 @@ export default function App() {
 
   return (
   <Provider store={store}>
-      <PersistGate persistor={persistor}>
+	  <PersistGate persistor={persistor}>
       <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen name="first" component={FirstScreen} />
