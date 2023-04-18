@@ -9,14 +9,16 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function HomeScreen({ navigation }) {
   const username = useSelector((state) => state.user.value.username); // affiche le pseudo
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false); // affichage des tabs "Suggestions" et "Calendrier"
 
+  // Gestion affichage composants et styles des tabs "Suggestions" et "Calendrier"
   let componentSelected = <MonthlyTrack />
   let selectedTab = { fontFamily: "DM-Sans-Bold", textAlign: "center", width: "100%", paddingBottom: 15, color: "#252525", borderBottomColor: "#252525", borderBottomWidth: 2, }
   let initialTab = { fontFamily: "DM-Sans-Regular", textAlign: "center", width: "100%", paddingBottom: 15, color: "#A8A3BB" }
   let ongletSuggestionsText = initialTab
   let ongletCalendrierText = selectedTab
 
+  // Switch entre les tabs "Suggestions" et "Calendrier"
   if (showSuggestions) {
     componentSelected = <Suggestions />
     ongletSuggestionsText = selectedTab
@@ -34,9 +36,9 @@ export default function HomeScreen({ navigation }) {
 
   }
 
-
   console.log(username)
 
+  // Le return
   return (
     <ScrollView>
     <SafeAreaView style={styles.container}>
@@ -75,7 +77,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 22,
     marginTop: 50,
-    marginBottom: 10,
   },
   subtitle: {
     fontFamily: "DM-Sans-Regular",
