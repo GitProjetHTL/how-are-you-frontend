@@ -159,7 +159,7 @@ export default function DiscoverScreen({ navigation }) {
         </View>
       );
     }
-  }, [search, cardRandom, cardFounded , audiosRandom]);
+  }, [search, cardRandom, cardFounded, audiosRandom]);
 
   return (
     <SafeAreaView style={styles.container}>

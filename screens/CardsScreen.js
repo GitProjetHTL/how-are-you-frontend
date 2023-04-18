@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    //fontFamily: "dm-sans-regular",
+    fontFamily: "DM-Sans-regular",
   },
   cardsContainer: {
     // alignItems: "center",

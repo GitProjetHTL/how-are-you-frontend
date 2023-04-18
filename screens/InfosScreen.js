@@ -88,8 +88,6 @@ export default function InfosScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "white",
   },
   topContainer: {
@@ -98,7 +96,6 @@ const styles = StyleSheet.create({
     height: "10%",
     marginTop: 30,
     flexDirection: "row",
-
     alignItems: "center",
   },
   arrow: {
@@ -107,19 +104,12 @@ const styles = StyleSheet.create({
   like: { color: "#5B3EAE" },
   textHeader: {
     fontSize: 20,
-    textAlign: "center",
     fontFamily: "DM-Sans-Bold",
   },
-  headerContainer: {
-    marginLeft: 20,
-  },
   infosContainer: {
-    // borderWidth: 1,
-    height: "85%",
     marginTop: 50,
   },
   inputContainer: {
-    // alignItems: "center",
     position: "relative",
     marginVertical: 20,
     marginHorizontal: "5%",
@@ -128,11 +118,12 @@ const styles = StyleSheet.create({
   label: {
     position: "absolute",
     top: -15,
-    left: 20,
+    left: 15,
     backgroundColor: "white",
     color: "#5B3EAE",
     zIndex: 10,
     paddingHorizontal: 5,
+    fontFamily: "DM-Sans-Bold"
   },
   input: {
     width: "90%",
@@ -142,19 +133,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 10,
     paddingRight: 10,
+    fontFamily: "DM-Sans-Regular",
   },
 
   error: {
-    color: "red",
-    // backgroundColor: "white",
+    color: "#F94A56",
     width: "80%",
     fontSize: 14,
-    // marginTop: 5,
-    // position: "relative",
     top: 10,
     left: 20,
     margin: -10,
     padding: 0,
+    fontFamily: "DM-Sans-Regular",
   },
   saveButton: {
     backgroundColor: "#5B3EAE",

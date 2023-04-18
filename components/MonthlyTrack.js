@@ -2,7 +2,6 @@
 import React, { useState, useMemo } from "react";
 import { TouchableOpacity, StyleSheet, Text, View, Image, Dimensions, } from "react-native";
 import {Calendar, CalendarList, Agenda, LocaleConfig, HorizontalCalendar} from 'react-native-calendars';
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 LocaleConfig.locales['fr'] = {
   monthNames: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
@@ -14,9 +13,10 @@ LocaleConfig.locales['fr'] = {
 
 LocaleConfig.defaultLocale = 'fr';
 
-export default function MonthlyTrack() {
-    const BACKEND = "https://howareyouapp-backend.vercel.app/";
+const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
+
+export default function MonthlyTrack() {
     const [selected, setSelected] = useState('');
     
     const marked = useMemo(() => ({
@@ -27,9 +27,8 @@ export default function MonthlyTrack() {
       }, 
     }), [selected])
 
-
     return (
-        <>
+
         <Calendar
       style={{
         width: Dimensions.get('window').width, 
@@ -48,57 +47,32 @@ export default function MonthlyTrack() {
         textMonthFontFamily: 'DM-Sans-Bold',
         textDayHeaderFontFamily: 'DM-Sans-Bold',
       }}
-      current={new Date()}
+      current={new Date().toISOString()}
       onDayPress={day => {
       console.log('selected day', day);
       setSelected(day.dateString);
       }}
       markedDates={marked}
       dayComponent={({date, state})=> {
+        const today = new Date().toISOString().split('T')[0];
+        const isSelected = selected === date.dateString;
+        const isToday = date.dateString === today;
+        const imageSource = isToday ? require('../assets/emotion-joie.png') : null;
+      
+        console.log(isSelected)
         return (
           <View style={styles.dayContainer}>
             <Text style={{textAlign: 'center', fontSize: 12, color: state === 'disabled' ? '#C3B6F4' : '#252525'}}>{date.day}</Text>
-            <Image style={styles.calendarImage} source={require('../assets/emotion-joie.png')} />
+            {imageSource && <Image style={styles.calendarImage} source={imageSource} />}
           </View>
         );
       }}
       />
-        <TouchableOpacity style={styles.suiviButton} onPress={() => navigation.navigate("suivi")}>
-          <Text style={styles.suiviText}>Mon suivi</Text>
-          <FontAwesome name="calendar" style={styles.suiviIcon} size={18} />
-        </TouchableOpacity>
-        </>
+
     );
   }
 
   const styles = StyleSheet.create({
-    suiviButton: {
-      backgroundColor: "#5B3EAE",
-      borderWidth: 1,
-      borderColor: "#5B3EAE",
-      borderRadius: 25,
-      height: 40,
-      width: "60%",
-      paddingTop: 1,
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      fontFamily: "DM-Sans-Regular",
-      marginTop: 15,
-      marginBottom: 15,
-    },
-    suiviText: {
-      color: "#FFFFFF",
-      fontSize: 16,
-      fontWeight: 500,
-      textAlign: "center",
-      fontFamily: "DM-Sans-Bold",
-    },
-    suiviIcon: {
-      color: "#FFFFFF",
-      marginLeft: 10,
-      marginTop: 2,
-    },
     calendarImage: {
       height: 30,
       objectFit: "contain",
