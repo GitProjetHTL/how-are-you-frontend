@@ -35,7 +35,7 @@ import storage from 'redux-persist/lib/storage';
 
 // Config reducers et persist store
 const reducers = combineReducers({ user, survey });
-const persistConfig = { key: 'howareyouapp', storage };
+const persistConfig = { key: 'howareyouapp', storage: AsyncStorage };
 
 const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),
