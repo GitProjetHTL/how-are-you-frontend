@@ -8,7 +8,8 @@ const initialState = {
     email: null, 
     password: null, 
     date: null, 
-    emotion: null,
+    comment: null,
+    emotionImage: null,
     },
 };
 
@@ -34,11 +35,14 @@ export const userSlice = createSlice({
       state.value.token = null;
       state.value.username = null;
     },
-    addEmotion: (state, action) => {
-      state.value.emotion = action.payload.emotion; 
+    saveComment: (state, action) => {
+      state.value.comment = action.payload;
+    },
+    saveEmotionImage: (state, action) => {
+      state.value.emotionImage = action.payload;
     }
   },
 });
 
-export const { newUser, login, logout, addEmotion } = userSlice.actions;
+export const { newUser, login, logout, saveComment, saveEmotionImage } = userSlice.actions;
 export default userSlice.reducer;

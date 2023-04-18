@@ -1,29 +1,29 @@
 // Emotion board component 
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity, StyleSheet, Text, View, Image, TextInput, Modal } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, Image, Modal } from "react-native";
 import { useSelector,useDispatch } from "react-redux";
-import { addEmotion } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { saveEmotionImage } from "../reducers/user";
 
 export default function EmotionBoard() {
     const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
-    const dispatch = useDispatch(); 
     const user = useSelector((state) => state.user.value);
-    // console.log(user)
+    const dispatch = useDispatch()
 
     const [modalVisible, setModalVisible] = useState(false); // Track the selected emotion index
-    const [selected, setSelected] = useState({})
-    // console.log(selected._id)
-    const [comment, setComment] = useState('') // Champ input de rédaction du commentaire
-    const [emotionAll, setEmotionAll] = useState([]);
+    const [selected, setSelected] = useState({}) // récupère données sur émotion sélectionnée
+    console.log(selected)
+    const [emotionAll, setEmotionAll] = useState([]); // pour afficher toutes les émotions à choisir
+    const [emotionRegistered, setEmotionRegistered] = useState(false); // Affichage de l'émotion sélectionnée
 
+    // Affichage modal pour sélection émotion
     const handleEmotionModal = (data) => {
         setModalVisible(true)
         setSelected(data)
     }
 
-  // affichage de toutes émotions
+  // affichage de toutes émotions à l'ouverture de la page
   useEffect(() => {
     fetch(`${BACKEND}/users/allEmotions`)
       .then(response => response.json())
@@ -34,7 +34,7 @@ export default function EmotionBoard() {
     }, []);
 
     // Affichage du board emotions
-    const emotions= emotionAll.map((data, i) => {
+    let emotionSelection= emotionAll.map((data, i) => {
       return (
         <View key={i}>
           <TouchableOpacity onPress={() => handleEmotionModal(data)} >
@@ -49,17 +49,18 @@ export default function EmotionBoard() {
       fetch(`${BACKEND}/users/emotion`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: user.token, _id: selected._id, emotion: selected.emotionName})
+      body: JSON.stringify({ token: user.token, _id: selected._id })
   })
     .then(response => response.json())
     .then(data => {
      console.log('result add emotion => ', data)
     if(data.result){
-      dispatch(addEmotion({ emotion: selected.emotionName }));
       setModalVisible(false)
+      dispatch(saveEmotionImage(selected.imageUrl))
       alert('Votre emotion du jour a bien été enregistrée 💖')
+      setEmotionRegistered(true)
     } else {
-      alert('Réessayé svp 😣')
+      alert('Aïe, ça ne marche pas 😣')
     }
    });
 
@@ -70,11 +71,21 @@ export default function EmotionBoard() {
    })
    .then(response => response.json())
   .then(data => {
-  console.log('result add historique => ', data)
+      console.log('result add historique => ', data)
    });
 
-      // console.log("prêt pour l'envoi en BDD ??? => ", selected)
 }
+
+  // Affichage de l'émotion qui a été sélectionnée (après avoir appuyé sur "Oui")
+  if (emotionRegistered) {
+    emotionSelection = (
+      <View style={styles.emotionOfTheDay}>
+        <Text style={styles.label}>Ton émotion du jour</Text>
+        <Image source={{uri: selected.imageUrl}} style={styles.emotionDayImage} />
+        <Text style={styles.emotionTitle}>{selected.emotionName}</Text>
+      </View>
+        )
+  }
 
     return (
     <>
@@ -103,7 +114,7 @@ export default function EmotionBoard() {
 
         <View style={styles.container}>
             <View style={styles.emotionBoard}>
-                {emotions}
+                {emotionSelection}
                 {/* <TouchableOpacity style={styles.moreEmotions}>
                     <FontAwesome name="plus" size={20} color="#252525" />
                 </TouchableOpacity> */}
@@ -122,7 +133,7 @@ export default function EmotionBoard() {
         flexWrap: "wrap",
         alignItems: "center",
         justifyContent: "flex-start",
-        marginTop: 10,
+        marginTop: 25,
         width: "95%",
       },
       emotion: {
@@ -205,5 +216,34 @@ export default function EmotionBoard() {
         alignItems: "center",
         justifyContent: "center",
         fontFamily: "DM-Sans-Bold",
-      }
+      },
+      emotionOfTheDay: {
+        width: "85%",
+        padding: 5,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: "#C3B6F4",
+        borderRadius: 10,
+      },
+      emotionDayImage: {
+        marginTop: 15,
+        height: 50,
+        width: 70,
+        objectFit: "contain",
+      },
+      emotionTitle: {
+        fontFamily: "DM-Sans-Bold",
+        fontSize: 16,
+        marginTop: 5,
+      },
+      label: {
+        position: "absolute",
+        top: -10,
+        textAlign: 'center',
+        backgroundColor: "white",
+        color: "#C3B6F4",
+        zIndex: 10,
+        paddingHorizontal: 5,
+        fontFamily: "DM-Sans-Regular",
+      },
 })
