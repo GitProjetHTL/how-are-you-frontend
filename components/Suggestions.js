@@ -18,75 +18,57 @@ export default function Suggestions() {
     // console.log(user.emotion)
 
 
-    useEffect ( () => {
-
-      if(!user.emotionName ){
-           setContentSuggestion(
-             <View>
-                <Text style={styles.title}>
-                   Merci de valider une émotion
-                    </Text>
-               </View> 
-               )
-
-      }else{
-
-        fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
-          .then((response) => response.json())
-          .then((searchCard) => {
-            // console.log(searchCard.data)
-            const cardsSearch = searchCard.data.map((data, i) => {
-              
-              return (
-                <Cards
-                  key={i}
-                  {...data}
-                //   cardsID={oneCard._id}
-                //   name={oneCard.name}
-                //   content={oneCard.content}
-                //   source={oneCard.source}
-                />
-              );
-            });
-            setCardSuggestion(cardsSearch);
-          });
-
-          fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotionName}`)
-          .then((response) => response.json())
-          .then((searchAudios) => {
-            // console.log(searchCard.data)
-            const audiosSearch = searchAudios.data.map((data, i) => {
-              return (
-                <Audio
-                  key={i}
-                  {...data}
-                //   cardsID={oneCard._id}
-                //   name={oneCard.name}
-                //   content={oneCard.content}
-                //   source={oneCard.source}
-                />
-              );
-            });
-            setAudioSuggestion(audiosSearch);
-          });
-
-          setContentSuggestion(<ScrollView style={styles.scrollView}>
-            <View style={styles.cardSuggestion}>
-                {cardSuggestion}
-            </View>
-            <View style={styles.audioSuggestion}> 
-                {audioSuggestion}
-            </View>
-        </ScrollView>)
+    useEffect(() => {
+      if (!user.emotionName) {
+        setContentSuggestion(
+          <View>
+            <Text style={styles.title}>Merci de valider une émotion</Text>
+          </View>
+        );
+      } else {
+        setContentSuggestion(
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.cardSuggestion}>{cardSuggestion}</View>
+            <View style={styles.audioSuggestion}>{audioSuggestion}</View>
+          </ScrollView>
+        );
       }
-
-      },[cardSuggestion , audioSuggestion]);
-
-    
+    }, [user.emotionName, cardSuggestion, audioSuggestion]);
+  
+    useEffect(() => {
+      fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
+        .then((response) => response.json())
+        .then((searchCard) => {
+          const cardsSearch = searchCard.data.map((data, i) => {
+            return (
+              <Cards
+                key={i}
+                {...data}
+              />
+            );
+          });
+          setCardSuggestion(cardsSearch);
+        });
+    }, [user.emotionName]);
+  
+    useEffect(() => {
+      fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotionName}`)
+        .then((response) => response.json())
+        .then((searchAudios) => {
+          const audiosSearch = searchAudios.data.map((data, i) => {
+            return (
+              <Audio
+                key={i}
+                {...data}
+              />
+            );
+          });
+          setAudioSuggestion(audiosSearch);
+        });
+    }, [user.emotionName]);
+  
     return (
-        <View style={styles.container}>
-              {contentSuggestion}
-        </View>
+      <View style={styles.container}>{contentSuggestion}</View>
     );
   }
 
