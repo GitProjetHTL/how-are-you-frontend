@@ -99,11 +99,11 @@ export default function Suggestions() {
         
     },
     cardSuggestion: {
-        width: "43%",
+        width: "42%",
     },
 
     audioSuggestion: {
-        width: "43%",
+        width: "42%",
     },
 
     scrollView: {
