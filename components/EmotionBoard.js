@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { TouchableOpacity, StyleSheet, Text, View, Image, Modal } from "react-native";
 import { useSelector,useDispatch } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { saveEmotionImage } from "../reducers/user";
+import { saveEmotionImage ,saveEmotionName } from "../reducers/user";
 
 export default function EmotionBoard() {
     const BACKEND = "https://howareyouapp-backend.vercel.app/";
@@ -17,12 +17,6 @@ export default function EmotionBoard() {
     const [emotionAll, setEmotionAll] = useState([]); // pour afficher toutes les émotions à choisir
     const [emotionRegistered, setEmotionRegistered] = useState(false); // Affichage de l'émotion sélectionnée
 
-    // Affichage modal pour sélection émotion
-    const handleEmotionModal = (data) => {
-        setModalVisible(true)
-        setSelected(data)
-    }
-
   // affichage de toutes émotions à l'ouverture de la page
   useEffect(() => {
     fetch(`${BACKEND}/users/allEmotions`)
@@ -32,6 +26,12 @@ export default function EmotionBoard() {
       })
 
     }, []);
+    
+    // Affichage modal pour sélection émotion
+    const handleEmotionModal = (data) => {
+        setModalVisible(true)
+        setSelected(data)
+    }
 
     // Affichage du board emotions
     let emotionSelection= emotionAll.map((data, i) => {
@@ -43,6 +43,7 @@ export default function EmotionBoard() {
         </View>
       );})
 
+      // console.log(selected);
 
     // Envoi de l'emotion sélectionnée en BDD
     const saveEmotion = () => {
@@ -57,6 +58,7 @@ export default function EmotionBoard() {
     if(data.result){
       setModalVisible(false)
       dispatch(saveEmotionImage(selected.imageUrl))
+      dispatch(saveEmotionName(selected.emotionName))
       alert('Votre emotion du jour a bien été enregistrée 💖')
       setEmotionRegistered(true)
     } else {
@@ -86,6 +88,21 @@ export default function EmotionBoard() {
       </View>
         )
   }
+
+  // Retour à l'écran de sélection d'une émotion (délai initialisé à 1 heure)
+  useEffect(() => {
+    let timer;
+
+    if (emotionRegistered) {
+      timer = setTimeout(() => {
+        setEmotionRegistered(false);
+      }, 3600000); // 1 heure en millisecondes
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [emotionRegistered]);
 
     return (
     <>

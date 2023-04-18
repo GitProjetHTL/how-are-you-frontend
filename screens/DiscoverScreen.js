@@ -98,7 +98,7 @@ export default function DiscoverScreen({ navigation }) {
   //afficher les cards rechercher
 
   let handleClick = () => {
-    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.token}/${search}`,)
+    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${search}`,)
     .then(response => response.json())
     .then(searchCard => {
       // console.log(searchCard.data)
@@ -115,7 +115,7 @@ export default function DiscoverScreen({ navigation }) {
       setCardFounded(cardsSearch)
     })
 
-    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.token}/${search}`,)
+    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${search}`,)
       .then(response => response.json())
       .then(searchAudios => {
         // console.log(searchCard.data)
@@ -153,11 +153,6 @@ export default function DiscoverScreen({ navigation }) {
       setCardResult(<View>{cardFounded}</View>);
       setAudiosResult(<View>{audiosFounded}</View>);
 
-      setTitleResult(
-        <View>
-          <Text style={styles.sujet}>Résultat de {search}</Text>
-        </View>
-      );
     }
   }, [search, cardRandom, cardFounded, audiosRandom]);
 
@@ -165,21 +160,21 @@ export default function DiscoverScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.containerTop}>
         <View>
-          <View style={styles.search}>
-            <TouchableOpacity style={styles.searchButton}>
-              <FontAwesome
-                name="search"
-                size={30}
-                style={styles.heart}
-                onPress={() => handleClick()}
-              />
-            </TouchableOpacity>
+          <View style={styles.searchBar}>
             <TextInput
               style={styles.input}
-              placeholder="Recherches de cards"
+              placeholder="Recherches"
               onChangeText={(value) => setSearch(value)}
               value={search}
             />
+            <TouchableOpacity style={styles.searchButton}>
+              <FontAwesome
+                name="search"
+                size={20}
+                style={styles.search}
+                onPress={() => handleClick()}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.likes}>
@@ -219,9 +214,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 
-  search: {
+  searchBar: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     backgroundColor: "white",
     borderColor: "#5B3EAE",
     width: 270,
@@ -229,10 +223,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 25,
     paddingLeft: 10,
+
   },
 
   searchButton: {
-    justifyContent: "center",
+    position: "absolute",
+    right:"8%",
+    top:"25%",
   },
 
   input: {
@@ -242,6 +239,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderRadius: 25,
     // paddingLeft: 10,
+    margin:10
+
   },
   likes: {
     height: 50,
@@ -250,6 +249,10 @@ const styles = StyleSheet.create({
   },
   heart: {
     color: "#5B3EAE",
+  },
+
+  search: { 
+    color: "#A8A3BB",
   },
   title: {
     justifyContent: "center",
