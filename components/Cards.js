@@ -36,9 +36,8 @@ export default function Cards(props) {
         }
       });
   };
-  
- let content = props.content.substr(0,100)+"..."
 
+  let content = props.content.substr(0, 100) + "...";
 
   // console.log('card reducer', cards)
 
@@ -87,7 +86,7 @@ export default function Cards(props) {
         </View>
       </Modal>
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
