@@ -69,7 +69,7 @@ export default function SuiviScreen({ navigation }) {
   
       // met à jour l'état des articles
       setItems(newItems);
-    }, 1000);
+    }, 2000);
   };
 
 // console.log('items => ', items)
@@ -91,7 +91,7 @@ const renderItem = (items) => {
       </TouchableOpacity>
   );
 }
-console.log('emotions => ', emotions)
+// console.log('emotions => ', emotions)
   return (
     <SafeAreaView style={styles.container}>
        <Modal visible={modalVisible} animationType="fade" transparent>

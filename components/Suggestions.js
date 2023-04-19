@@ -16,15 +16,17 @@ export default function Suggestions() {
     // const [defaultSuggestion, setDefaultSuggestion] = useState("")
     const [contentSuggestion,setContentSuggestion]= useState("")
 
+    useEffect(() => {
   
-      if (!user.emotionName) {
+      if (user.emotionName) {
         setContentSuggestion(
           <ScrollView style={styles.scrollView}>
             <View style={styles.cardSuggestion}>{cardSuggestion}</View>
             <View style={styles.audioSuggestion}>{audioSuggestion}</View>
           </ScrollView>
         );
-    useEffect(() => {
+  
+      
       fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
         .then((response) => response.json())
         .then((searchCard) => {
@@ -33,9 +35,7 @@ export default function Suggestions() {
           });
           setCardSuggestion(cardsSearch[Math.floor(Math.random() * cardsSearch.length)]);
         });
-    }, [user.emotionName]);
-  
-    useEffect(() => {
+
       fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
         .then((response) => response.json())
         .then((searchAudios) => {
@@ -44,7 +44,6 @@ export default function Suggestions() {
           });
           setAudioSuggestion(audiosSearch[Math.floor(Math.random() * audiosSearch.length)]);
         });
-    }, [user.emotionName]);
   
 
       } else {
@@ -53,8 +52,10 @@ export default function Suggestions() {
             <View style={styles.cardSuggestion}>{cardSuggestion}</View>
             <View style={styles.audioSuggestion}>{audioSuggestion}</View>
           </ScrollView>
-        );
-        
+        );}
+
+      }, []);
+
         useEffect(() => {
           fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
           .then((response) => response.json())
@@ -77,13 +78,12 @@ export default function Suggestions() {
           });
         }, [user.emotionName]);
         
-      }
   
     return (
       <View style={styles.container}>{contentSuggestion}</View>
     );
-  }
-
+  
+    }
   const styles = StyleSheet.create({
     container: {
         justifyContent: "center",
