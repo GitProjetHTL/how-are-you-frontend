@@ -1,14 +1,4 @@
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
-
+import { TouchableOpacity, StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
 import Cards from "../components/Cards";
@@ -45,9 +35,7 @@ export default function DiscoverScreen({ navigation }) {
         //  console.log(allCards.data)
         const cards = allCards.data.map((data, i) => {
           return (
-            <Cards
-              key={i}
-              {...data}
+            <Cards key={i} {...data}
               // name={oneCard.name}
               // content={oneCard.content}
               // source={oneCard.source}
@@ -69,9 +57,7 @@ export default function DiscoverScreen({ navigation }) {
            //console.log(allCards.data)
           const audios= allAudios.data.map((data, i) => {
             return (
-            <Audio
-              key={i}
-              {...data}
+            <Audio key={i} {...data}
               // name={oneAudio.name}
               // content={oneAudio.content}
               // source={oneAudio.source}
@@ -84,9 +70,6 @@ export default function DiscoverScreen({ navigation }) {
       }, []);
 
 
-  // console.log(cardRandom)
-  //function random
-
   function random(cardAll, audiosAll) {
     const randomNumberforCard = Math.floor(Math.random() * cardAll.length);
     const randomCard = cardAll[randomNumberforCard];
@@ -98,14 +81,12 @@ export default function DiscoverScreen({ navigation }) {
   //afficher les cards rechercher
 
   let handleClick = () => {
-    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.token}/${search}`,)
+    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${search}`,)
     .then(response => response.json())
     .then(searchCard => {
       // console.log(searchCard.data)
       const cardsSearch= searchCard.data.map((data, i) => {
-        return <Cards
-           key={i}
-           {...data}
+        return <Cards key={i} {...data}
            // name={oneCard.name}
            // content={oneCard.content}
            // source={oneCard.source}
@@ -115,15 +96,13 @@ export default function DiscoverScreen({ navigation }) {
       setCardFounded(cardsSearch)
     })
 
-    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.token}/${search}`,)
+    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${search}`,)
       .then(response => response.json())
       .then(searchAudios => {
         // console.log(searchCard.data)
         const audiosSearch = searchAudios.data.map((data, i) => {
           return (
-            <Audio
-              key={i}
-              {...data}
+            <Audio key={i} {...data}
               // name={oneAudio.name}
               // content={oneAudio.content}
               // source={oneAudio.source}
@@ -146,18 +125,11 @@ export default function DiscoverScreen({ navigation }) {
           <Text style={styles.sujet}>Découverte:</Text>
         </View>
       );
-
       setCardFounded("");
       setAudiosFounded("");
     } else {
       setCardResult(<View>{cardFounded}</View>);
       setAudiosResult(<View>{audiosFounded}</View>);
-
-      setTitleResult(
-        <View>
-          <Text style={styles.sujet}>Résultat de {search}</Text>
-        </View>
-      );
     }
   }, [search, cardRandom, cardFounded, audiosRandom]);
 
@@ -165,31 +137,16 @@ export default function DiscoverScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.containerTop}>
         <View>
-          <View style={styles.search}>
+          <View style={styles.searchBar}>
+            <TextInput style={styles.input} placeholder="Recherche" onChangeText={(value) => setSearch(value)} value={search} />
             <TouchableOpacity style={styles.searchButton}>
-              <FontAwesome
-                name="search"
-                size={30}
-                style={styles.heart}
-                onPress={() => handleClick()}
-              />
+              <FontAwesome name="search" size={20} style={styles.search} onPress={() => handleClick()} />
             </TouchableOpacity>
-            <TextInput
-              style={styles.input}
-              placeholder="Recherches de cards"
-              onChangeText={(value) => setSearch(value)}
-              value={search}
-            />
           </View>
         </View>
         <View style={styles.likes}>
           <TouchableOpacity>
-            <FontAwesome
-              name="refresh"
-              size={30}
-              style={styles.heart}
-              onPress={() => random(cardAll, audiosAll)}
-            />
+            <FontAwesome name="refresh" size={30} style={styles.heart} onPress={() => random(cardAll, audiosAll)} />
           </TouchableOpacity>
         </View>
       </View>
@@ -199,7 +156,6 @@ export default function DiscoverScreen({ navigation }) {
       </View>
       <ScrollView style={styles.cardsContainer}>
           {cardResult}
-        
           {audiosResult}
       </ScrollView>
     </SafeAreaView>
@@ -211,37 +167,45 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-
   containerTop: {
     marginTop: 30,
     flexDirection: "row",
     justifyContent: "space-evenly",
     backgroundColor: "white",
   },
-
-  search: {
+  searchBar: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     backgroundColor: "white",
-    borderColor: "#5B3EAE",
+    borderColor: "#8C8995",
     width: 270,
     height: 50,
     borderWidth: 1,
     borderRadius: 25,
     paddingLeft: 10,
   },
-
-  searchButton: {
-    justifyContent: "center",
+  searchBar: {
+    flexDirection: "row",
+    backgroundColor: "white",
+    borderColor: "#8C8995",
+    width: 270,
+    height: 50,
+    borderWidth: 1,
+    borderRadius: 25,
+    paddingLeft: 10,
   },
-
+  searchButton: {
+    position: "absolute",
+    right:"8%",
+    top:"25%",
+  },
   input: {
-    // borderColor: "#5B3EAE",
-    // width: 270,
-    // height: 50,
-    // borderWidth: 1,
-    // borderRadius: 25,
-    // paddingLeft: 10,
+    color: "#8C8995",
+    fontFamily: "DM-Sans-Regular",
+    marginHorizontal: 10,
+    width: "100%",
+  },
+  search: { 
+    color: "#8C8995",
   },
   likes: {
     height: 50,

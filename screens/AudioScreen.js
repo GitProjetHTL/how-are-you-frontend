@@ -79,23 +79,23 @@ useEffect(() => {
   } else {
     setAudiosResult(<View>{audiosFounded}</View>);
   }
-}, [search, audiosAll, audiosFounded]);
+}, [search, audiosAll, audiosFounded],Audios.likes);
 
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.containerTop}>
         <View>
-          <View style={styles.search}>
-              <TouchableOpacity style={styles.searchButton}>
-                <FontAwesome name="search" size={30} style={styles.heart} onPress={()=>handleClick()} />
-              </TouchableOpacity>
+          <View style={styles.searchBar}>
             <TextInput
               style={styles.input}
               placeholder="Recherches d'audios"
               onChangeText={(value) => setSearch(value)}
               value={search}
             />
+              <TouchableOpacity style={styles.searchButton}>
+                <FontAwesome name="search" size={20} style={styles.search} onPress={()=>handleClick()} />
+              </TouchableOpacity>
           </View>
         </View>
         <View style={styles.likes}>
@@ -104,10 +104,10 @@ useEffect(() => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.title}>
-        <Text style={styles.sujet}>All Audio:</Text> 
-        {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
-      </View>
+      {/* <View style={styles.title}>
+        <Text style={styles.sujet}>All Audios:</Text> 
+        <Text style={styles.sujet}>Sujet Aleatoire</Text>
+      </View> */}
       <ScrollView style={styles.cardsContainer}> 
       {audiosResult}
       </ScrollView>
@@ -120,40 +120,36 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-
   containerTop: {
     marginTop: 30,
     flexDirection: "row",
     justifyContent: "space-evenly",
     backgroundColor: "white",
+    marginBottom: 20,
   },
-
-  search: {
+  searchBar: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     backgroundColor: "white",
-    borderColor: "#5B3EAE",
+    borderColor: "#8C8995",
     width: 270,
     height: 50,
     borderWidth: 1,
     borderRadius: 25,
     paddingLeft: 10,
   },
-
   searchButton: {
-   justifyContent: "center",
-   
+    position: "absolute",
+    right:"8%",
+    top:"25%",
   },
-
-
   input: {
-    // borderColor: "#5B3EAE",
-    // width: 270,
-    // height: 50,
-    // borderWidth: 1,
-    // borderRadius: 25,
-    // paddingLeft: 10,
-    
+    color: "#8C8995",
+    fontFamily: "DM-Sans-Regular",
+    marginHorizontal: 10,
+    width: "100%",
+  },
+  search: { 
+    color: "#8C8995",
   },
   likes: {
     height: 50,

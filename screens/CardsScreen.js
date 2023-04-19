@@ -1,13 +1,4 @@
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
@@ -44,11 +35,7 @@ export default function CardsScreen({ navigation }) {
       });
   }, []);
 
-  const allCards = cardAll.map((data, i) => {
-    return <Cards key={i} {...data} />;
-  });
-
-  // console.log(allCards)
+  const allCards = cardAll.map((data, i) => { return <Cards key={i} {...data} /> });
 
   //afficher les cards rechercher
 
@@ -60,13 +47,7 @@ export default function CardsScreen({ navigation }) {
         const cardsSearch = searchCard.data.map((oneCard, i) => {
           console.log(oneCard);
           return (
-            <Cards
-              key={i}
-              cardsID={oneCard._id}
-              name={oneCard.name}
-              content={oneCard.content}
-              source={oneCard.source}
-            />
+            <Cards key={i} cardsID={oneCard._id} name={oneCard.name} content={oneCard.content} source={oneCard.source} />
           );
         });
         setCardFounded(cardsSearch);
@@ -77,10 +58,11 @@ export default function CardsScreen({ navigation }) {
   useEffect(() => {
     if (!search) {
       setCardResult(<View>{cardAll}</View>);
+      setCardFounded("")
     } else {
       setCardResult(<View>{cardFounded}</View>);
     }
-  }, [search, cardAll, cardFounded]);
+  }, [search, cardAll, cardFounded,Cards.likes]);
 
   // //affichages des cards trouve
   // useEffect(() => {
@@ -95,21 +77,11 @@ export default function CardsScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.containerTop}>
         <View>
-          <View style={styles.search}>
+          <View style={styles.searchBar}>
+              <TextInput style={styles.input} placeholder="Recherche" onChangeText={(value) => setSearch(value)} value={search} />
             <TouchableOpacity style={styles.searchButton}>
-              <FontAwesome
-                name="search"
-                size={30}
-                style={styles.heart}
-                onPress={() => handleClick()}
-              />
+              <FontAwesome name="search" size={20} style={styles.search} onPress={() => handleClick()} />
             </TouchableOpacity>
-            <TextInput
-              style={styles.input}
-              placeholder="Recherches de cards"
-              onChangeText={(value) => setSearch(value)}
-              value={search}
-            />
           </View>
         </View>
         <View style={styles.likes}>
@@ -118,10 +90,10 @@ export default function CardsScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.title}>
-        <Text style={styles.sujet}>All Card:</Text>
-        {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
-      </View>
+      {/* <View style={styles.title}>
+        <Text style={styles.sujet}>All Cards:</Text>
+        <Text style={styles.sujet}>Sujet Aleatoire</Text>
+      </View> */}
       <ScrollView style={styles.cardsContainer}>
         {search ? cardFounded : allCards}
       </ScrollView>
@@ -134,39 +106,37 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-
   containerTop: {
     marginTop: 30,
     flexDirection: "row",
     justifyContent: "space-evenly",
     backgroundColor: "white",
   },
-
-  search: {
+  searchBar: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     backgroundColor: "white",
-    borderColor: "#5B3EAE",
+    borderColor: "#8C8995",
     width: 270,
     height: 50,
     borderWidth: 1,
     borderRadius: 25,
     paddingLeft: 10,
+    marginBottom: 20,
   },
-
   searchButton: {
-    justifyContent: "center",
+    position: "absolute",
+    right:"8%",
+    top:"25%",
   },
-
   input: {
-    // borderColor: "#5B3EAE",
-    // width: 270,
-    // height: 50,
-    // borderWidth: 1,
-    // borderRadius: 25,
-    // paddingLeft: 10,
+    color: "#8C8995",
+    fontFamily: "DM-Sans-Regular",
+    marginHorizontal: 10,
+    width: "100%",
   },
-
+  search: { 
+    color: "#8C8995",
+  },
   likes: {
     height: 50,
     justifyContent: "center",
@@ -182,16 +152,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   sujet: {
-    fontSize: 25,
-    fontFamily: "Solway-Bold",
+    fontSize: 20,
+    fontFamily: "DM-Sans-Bold",
   },
   text: {
     fontSize: 16,
+<<<<<<< HEAD
     // fontFamily: "DM-Sans-regular",
+=======
+    fontFamily: "DM-Sans-Regular",
+>>>>>>> 3b52701c8dced9935ba0a1ff3f7a7816c37d719e
   },
   cardsContainer: {
-    // alignItems: "center",
-    // borderWidth: 1,
     witdh: "100%",
     height: "80%",
     backgroundColor: "#E9EBFC",

@@ -11,14 +11,18 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { saveComment } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { saveCommentToday, changeComment } from "../reducers/journal";
+
+const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
 export default function Notepad() {
-  const BACKEND = "https://howareyouapp-backend.vercel.app/";
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  console.log(user.comment);
+  // console.log(user.comment)
+  const journal = useSelector((state) => state.journal.value);
+  console.log(journal);
   const [comment, setComment] = useState(""); // Champ input de rédaction du commentaire
-  const [registerComment, setRegisterComment] = useState(false); // Affichage du commentaire une fois enregistré
+  const [registerComment, setRegisterComment] = useState(false); // commentaire complet avec ID
 
   // Enregistrer le commentaire en BDD
   const addComment = () => {
@@ -29,10 +33,16 @@ export default function Notepad() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("comment => ", data.comment);
         if (data.result) {
-          dispatch(saveComment(comment));
+          dispatch(saveComment(comment)); // user
+          setRegisterComment(data.comment);
           alert("Votre commentaire a bien été enregistré 💖.");
-          setRegisterComment(true);
+          dispatch(saveCommentToday(true)); // journal
+          dispatch(
+            changeComment({ modifiedComment: false, savedComment: true })
+          );
+          // setRegisterComment(true);
         }
       });
   };
@@ -58,17 +68,56 @@ export default function Notepad() {
     </>
   );
 
-  const changeComment = () => {
+  const handleUpdated = () => {
     console.log("changement");
-    setRegisterComment(false);
+    dispatch(changeComment({ modifiedComment: true, savedComment: false }));
+  };
+
+  const handleUpdateComment = () => {
+    fetch(`${BACKEND}/comments/new`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        commentId: registerComment._id,
+        token: user.token,
+        content: comment,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("comment => ", data);
+        if (data.result) {
+          dispatch(saveComment(comment)); // reducer user
+          setRegisterComment(data.comment);
+          alert("Votre commentaire a bien été modifié 💖.");
+          dispatch(
+            changeComment({ savedComment: true, modifiedComment: true })
+          ); // reducer journal
+          // setRegisterComment(true);
+        }
+      });
   };
 
   const deleteComment = () => {
-    console.log("supprimé");
+    fetch(`${BACKEND}/comments/delete`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        commentId: registerComment._id,
+        token: user.token,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        alert("Commentaire bien supprimé 🤧");
+        dispatch(saveCommentToday(false)); // journal
+        setComment("");
+      });
   };
 
   // Changement affichage quand commentaire enregistré
-  if (registerComment) {
+  if (journal.savedComment) {
     notepad = (
       <>
         <View style={styles.inputSaved}>
@@ -79,7 +128,7 @@ export default function Notepad() {
         <View style={styles.editButtons}>
           <TouchableOpacity
             style={styles.changeComment}
-            onPress={() => changeComment()}
+            onPress={() => handleUpdated()}
           >
             <FontAwesome name="pencil" style={styles.changeIcon} size={15} />
           </TouchableOpacity>
@@ -96,8 +145,35 @@ export default function Notepad() {
   }
 
   // RETURN => rendu final
-  return <>{notepad}</>;
+  return (
+    <>
+      <View style={styles.inputSaved}>
+        <Text style={styles.labelSaved}>Ce que tu as écrit</Text>
+        <Text style={styles.commentText}>{comment}</Text>
+      </View>
+
+      <View style={styles.editButtons}>
+        <TouchableOpacity
+          style={styles.changeComment}
+          onPress={() => changeComment()}
+        >
+          <FontAwesome name="pencil" style={styles.changeIcon} size={15} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.changeComment}
+          onPress={() => deleteComment()}
+        >
+          <FontAwesome name="remove" style={styles.changeIcon} size={15} />
+        </TouchableOpacity>
+      </View>
+    </>
+  );
 }
+
+//   // RETURN => rendu final
+//   return (<>{notepad}</>
+// )
 
 const styles = StyleSheet.create({
   container: {

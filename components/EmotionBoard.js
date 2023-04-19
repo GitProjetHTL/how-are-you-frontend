@@ -3,25 +3,22 @@ import React, { useState, useEffect } from "react";
 import { TouchableOpacity, StyleSheet, Text, View, Image, Modal } from "react-native";
 import { useSelector,useDispatch } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { saveEmotionImage } from "../reducers/user";
+import { saveEmotion } from "../reducers/user";
+import {saveEmotionToday} from '../reducers/journal'
 
 export default function EmotionBoard() {
     const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
     const user = useSelector((state) => state.user.value);
+    console.log(user)
+    const journal = useSelector((state) => state.journal.value); 
     const dispatch = useDispatch()
 
     const [modalVisible, setModalVisible] = useState(false); // Track the selected emotion index
     const [selected, setSelected] = useState({}) // récupère données sur émotion sélectionnée
     console.log(selected)
     const [emotionAll, setEmotionAll] = useState([]); // pour afficher toutes les émotions à choisir
-    const [emotionRegistered, setEmotionRegistered] = useState(false); // Affichage de l'émotion sélectionnée
-
-    // Affichage modal pour sélection émotion
-    const handleEmotionModal = (data) => {
-        setModalVisible(true)
-        setSelected(data)
-    }
+    // const [emotionRegistered, setEmotionRegistered] = useState(false); // Affichage de l'émotion sélectionnée
 
   // affichage de toutes émotions à l'ouverture de la page
   useEffect(() => {
@@ -30,11 +27,16 @@ export default function EmotionBoard() {
       .then((emotion) => {
         emotion.result && setEmotionAll([...emotion.data])
       })
-
     }, []);
+    
+    // Affichage modal pour sélection émotion
+    const handleEmotionModal = (data) => {
+        setModalVisible(true)
+        setSelected(data)
+    }
 
     // Affichage du board emotions
-    let emotionSelection= emotionAll.map((data, i) => {
+    let emotionSelection = emotionAll.map((data, i) => {
       return (
         <View key={i}>
           <TouchableOpacity onPress={() => handleEmotionModal(data)} >
@@ -43,26 +45,8 @@ export default function EmotionBoard() {
         </View>
       );})
 
-
     // Envoi de l'emotion sélectionnée en BDD
-    const saveEmotion = () => {
-      fetch(`${BACKEND}/users/emotion`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: user.token, _id: selected._id })
-  })
-    .then(response => response.json())
-    .then(data => {
-     console.log('result add emotion => ', data)
-    if(data.result){
-      setModalVisible(false)
-      dispatch(saveEmotionImage(selected.imageUrl))
-      alert('Votre emotion du jour a bien été enregistrée 💖')
-      setEmotionRegistered(true)
-    } else {
-      alert('Aïe, ça ne marche pas 😣')
-    }
-   });
+    const handleSave  = () => {
 
    fetch(`${BACKEND}/users/historique`, {
     method: 'PUT',
@@ -70,22 +54,45 @@ export default function EmotionBoard() {
     body: JSON.stringify({ token: user.token, _id: selected._id})
    })
    .then(response => response.json())
-  .then(data => {
+   .then(data => {
       console.log('result add historique => ', data)
+      if(data.result){
+        setModalVisible(false)
+        dispatch(saveEmotion({emotionName: selected.emotionName, emotionImage: selected.imageUrl, emotionContent: selected.description }))
+        alert('Votre emotion du jour a bien été enregistrée 💖')
+        dispatch(saveEmotionToday(true))
+      } else {
+        alert('Aïe, ça ne marche pas 😣')
+      }
    });
 
 }
 
   // Affichage de l'émotion qui a été sélectionnée (après avoir appuyé sur "Oui")
-  if (emotionRegistered) {
+  if (journal.savedEmotion) {
     emotionSelection = (
       <View style={styles.emotionOfTheDay}>
         <Text style={styles.label}>Ton émotion du jour</Text>
-        <Image source={{uri: selected.imageUrl}} style={styles.emotionDayImage} />
+        <Image source={{uri: user.emotionImage}} style={styles.emotionDayImage} />
         <Text style={styles.emotionTitle}>{selected.emotionName}</Text>
       </View>
         )
   }
+
+  // Retour à l'écran de sélection d'une émotion (délai initialisé à 1 heure)
+  useEffect(() => {
+    let timer;
+
+    if (journal.savedEmotion) {
+      timer = setTimeout(() => {
+        dispatch(saveEmotionToday(false))
+      }, 3600000); // 1 heure en millisecondes
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [journal.savedEmotion]);
 
     return (
     <>
@@ -103,7 +110,7 @@ export default function EmotionBoard() {
                         <FontAwesome name="remove" style={styles.saveIcon} size={18} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.noButton} onPress={() => saveEmotion()}>
+                    <TouchableOpacity style={styles.noButton} onPress={() => handleSave()}>
                         <Text style={styles.saveText}>Oui </Text>
                         <FontAwesome name="check" style={styles.saveIcon} size={18} />
                     </TouchableOpacity>

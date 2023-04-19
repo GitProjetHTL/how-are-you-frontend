@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -25,14 +24,30 @@ import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 import survey from "./reducers/survey";
+import journal from "./reducers/journal";
+
+import { combineReducers, configureStore } from '@reduxjs/toolkit'; 
+
+
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const reducers = combineReducers({ user, survey, journal });
+const persistConfig = { key : 'locapic', storage : AsyncStorage };
 
 const store = configureStore({
-  reducer: { user, survey },
+  reducer: persistReducer(persistConfig, reducers),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
 });
 
+
+const persistor = persistStore(store);
+persistor.purge(); 
+
+// Config Stack + Tab Navigation
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
@@ -70,6 +85,7 @@ const TabNavigator = () => {
   );
 };
 
+// Entrée dans fonction App
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [appIsReady, setAppIsReady] = useState(false);
@@ -107,25 +123,29 @@ export default function App() {
     return null;
   }
 
+
   return (
-    <Provider store={store}>
+  <Provider store={store}>
+	  <PersistGate persistor={persistor}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="first" component={FirstScreen} />
-          <Stack.Screen name="SignIn" component={SignInScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Survey" component={SurveyScreen} />
-          <Stack.Screen name="expect" component={ExpectationsScreen} />
-          <Stack.Screen name="CGU" component={CguScreen} />
-          <Stack.Screen name="fav" component={FavorisScreen} />
-          <Stack.Screen name="suivi" component={SuiviScreen} />
-          <Stack.Screen name="help" component={HelpScreen} />
-          <Stack.Screen name="infos" component={InfosScreen} />
-          <Stack.Screen name="profil" component={ProfileScreen} />
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
-        </Stack.Navigator>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="first" component={FirstScreen} />
+              <Stack.Screen name="SignIn" component={SignInScreen} />
+              <Stack.Screen name="SignUp" component={SignUpScreen} />
+              <Stack.Screen name="Survey" component={SurveyScreen} />
+              <Stack.Screen name="expect" component={ExpectationsScreen} />
+              <Stack.Screen name="CGU" component={CguScreen} />
+              <Stack.Screen name="fav" component={FavorisScreen} />
+              <Stack.Screen name="suivi" component={SuiviScreen} />
+              <Stack.Screen name="help" component={HelpScreen} />
+              <Stack.Screen name="infos" component={InfosScreen} />
+              <Stack.Screen name="profil" component={ProfileScreen} />
+              <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          </Stack.Navigator>
       </NavigationContainer>
-    </Provider>
+    </PersistGate>
+  </Provider>
+
   );
 }
 

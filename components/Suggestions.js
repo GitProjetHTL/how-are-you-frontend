@@ -1,6 +1,6 @@
 // Emotion board component 
 import React, { useState, useMemo, useEffect ,} from "react";
-import { TouchableOpacity, StyleSheet, Text, View, Image, Dimensions,ScrollView, } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, Image, Dimensions, ScrollView, } from "react-native";
 import { useSelector } from "react-redux";
 
 import Cards from "./Cards";
@@ -13,102 +13,85 @@ export default function Suggestions() {
 
     const [cardSuggestion,setCardSuggestion]= useState([])
     const [audioSuggestion,setAudioSuggestion]= useState([])
+    // const [defaultSuggestion, setDefaultSuggestion] = useState("")
+    const [contentSuggestion,setContentSuggestion]= useState("")
 
-    // console.log(user.emotion)
-
-
-    useEffect ( () => {
-        fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotion}`)
+    useEffect(() => {
+  
+      if (user.emotionName) {
+        setContentSuggestion(
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.cardSuggestion}>{cardSuggestion}</View>
+            <View style={styles.audioSuggestion}>{audioSuggestion}</View>
+          </ScrollView>
+        );
+  
+      
+        
+          fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
           .then((response) => response.json())
           .then((searchCard) => {
-            // console.log(searchCard.data)
             const cardsSearch = searchCard.data.map((data, i) => {
-              
-              return (
-                <Cards
-                  key={i}
-                  {...data}
-                //   cardsID={oneCard._id}
-                //   name={oneCard.name}
-                //   content={oneCard.content}
-                //   source={oneCard.source}
-                />
-              );
+              return  <Cards key={i} {...data} />
             });
             setCardSuggestion(cardsSearch);
           });
-
-          fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotion}`)
+        
+        
+          fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotionName}`)
           .then((response) => response.json())
           .then((searchAudios) => {
-            // console.log(searchCard.data)
             const audiosSearch = searchAudios.data.map((data, i) => {
-              return (
-                <Audio
-                  key={i}
-                  {...data}
-                //   cardsID={oneCard._id}
-                //   name={oneCard.name}
-                //   content={oneCard.content}
-                //   source={oneCard.source}
-                />
-              );
+              return  <Audio key={i} {...data} />
             });
             setAudioSuggestion(audiosSearch);
           });
+        
+        
+        
+      } else {
+        setContentSuggestion(
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.cardSuggestion}>{cardSuggestion}</View>
+            <View style={styles.audioSuggestion}>{audioSuggestion}</View>
+          </ScrollView>
+        );}
+        fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
+          .then((response) => response.json())
+          .then((searchCard) => {
+            const cardsSearch = searchCard.data.map((data, i) => {
+              return  <Cards key={i} {...data} />
+            });
+            setCardSuggestion(cardsSearch[Math.floor(Math.random() * cardsSearch.length)]);
+          });
+  
+        fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
+          .then((response) => response.json())
+          .then((searchAudios) => {
+            const audiosSearch = searchAudios.data.map((data, i) => {
+              return  <Audio key={i} {...data} />
+            });
+            setAudioSuggestion(audiosSearch[Math.floor(Math.random() * audiosSearch.length)]);
+          });
 
+      }, []);
 
-      },[cardSuggestion , audioSuggestion]);
-
-    
+        
+  
     return (
-        <View style={styles.container}>
-               {!user.emotion ? 
-               <View>
-                <Text style={styles.title}>
-                   Merci de valider une émotion
-                    </Text>
-               </View> 
-               :
-                <ScrollView style={styles.scrollView}>
-                    <View style={styles.cardSuggestion}>
-                        {cardSuggestion}
-                    </View>
-                    <View style={styles.audioSuggestion}> 
-                        {audioSuggestion}
-                    </View>
-                </ScrollView>
-               } 
-        </View>
+      <View style={styles.container}>{contentSuggestion}</View>
     );
-  }
-
+  
+    }
   const styles = StyleSheet.create({
     container: {
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "#E9EBFC"
+        width: Dimensions.get('window').width, 
     },
-    title: {
-        justifyContent: "center",
-        alignItems: "center",
-        margin: 20,
-        fontSize:25,
-        fontFamily: "Solway-ExtraBold",
-        
-        
-    },
-    cardSuggestion: {
-        width: "42%",
-    },
-
-    audioSuggestion: {
-        width: "42%",
-    },
-
     scrollView: {
-        backgroundColor: "#E9EBFC"
+        backgroundColor: "#E9EBFC",
+        alignContent: "center",
+        width: Dimensions.get('window').width, 
     },
-
-
 })

@@ -32,7 +32,7 @@ export default function SuiviScreen({ navigation }) {
     fetch(`https://howareyouapp-backend.vercel.app/users/historique/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log('historique' , data)
+        // console.log('historique' , data)
         data.result && setHistorique(data.historique)
       });
 
@@ -48,7 +48,7 @@ export default function SuiviScreen({ navigation }) {
         fetch(`https://howareyouapp-backend.vercel.app/users/emotion/${data.emotion}`)
           .then((response) => response.json())
           .then((emotionData) => {
-            console.log('emotionData', emotionData.data)
+            // console.log('emotionData', emotionData.data)
             if (emotionData.result) {
               const strTime = data.date.substring(0, 10);
               setEmotions(emotionData.data)
@@ -56,6 +56,7 @@ export default function SuiviScreen({ navigation }) {
                 newItems[strTime] = [];
               }
               let name = emotionData.data.emotionName
+              console.log('name',name)
               // const image = <Image source={require({uri: emotionData.data.imageUrl})}/>; 
               newItems[strTime].push({
                 // image: image,
@@ -68,10 +69,10 @@ export default function SuiviScreen({ navigation }) {
   
       // met à jour l'état des articles
       setItems(newItems);
-    }, 1000);
+    }, 2000);
   };
 
-console.log('items => ', items)
+// console.log('items => ', items)
 
 const renderItem = (items) => {
   // console.log(item)
@@ -90,6 +91,7 @@ const renderItem = (items) => {
       </TouchableOpacity>
   );
 }
+// console.log('emotions => ', emotions)
   return (
     <SafeAreaView style={styles.container}>
        <Modal visible={modalVisible} animationType="fade" transparent>

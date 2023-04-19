@@ -37,13 +37,11 @@ export default function Cards(props) {
       });
   };
 
-  let content = props.content.substr(0, 100) + "...";
-
   // console.log('card reducer', cards)
-
   const handleMoreModal = () => {
     setModalVisible(true);
   };
+
   return (
     <>
       <View style={styles.cards}>
@@ -61,10 +59,7 @@ export default function Cards(props) {
               onPress={() => handleLike()}
               name="heart"
               size={20}
-              style={[
-                styles.heart,
-                isLiked ? { color: "#5B3EAE" } : { color: "white" },
-              ]}
+              style={[isLiked ? { color: "#5B3EAE" } : { color: "white" }]}
             />
           </View>
         </View>
@@ -92,48 +87,36 @@ export default function Cards(props) {
 const styles = StyleSheet.create({
   cards: {
     backgroundColor: "white",
-    borderRadius: 25,
+    borderRadius: 10,
     marginVertical: 15,
     padding: 10,
     width: "90%",
-    // height: 220,
     marginHorizontal: "5%",
   },
   titleCard: {
-    fontFamily: "Solway-Bold",
-    fontSize: 24,
-    // borderWidth: 1,
-    width: "100%",
-
-    // height: "35%",
+    fontFamily: "Solway-ExtraBold",
+    fontSize: 20,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 5,
   },
   contentCard: {
-    // borderWidth: 1,
-    paddingTop: 2,
     width: "100%",
-    // height: "37%",
     fontSize: 16,
-    // borderWidth: 1,
-    // fontFamily: "DM-Sans-Regular",
+    fontFamily: "DM-Sans-Regular",
+    marginBottom: 15,
   },
   btnContainer: {
-    // borderWidth: 1,
-    height: 60,
     alignItems: "center",
     flexDirection: "row",
   },
   moreButton: {
-    // backgroundColor: "#5B3EAE",
     borderColor: "#5B3EAE",
     borderWidth: 1,
     borderRadius: 25,
     height: 40,
     width: "50%",
     marginBottom: 5,
-
-    // paddingTop: 5,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -189,6 +172,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     fontSize: 16,
+    fontFamily: "DM-Sans-Regular",
     // marginBottom: 5,
   },
   confirmText: {
@@ -197,6 +181,7 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     marginBottom: 10,
     paddingTop: 5,
+    color: "#5B3EAE",
   },
   noButton: {
     backgroundColor: "#ffffff",
