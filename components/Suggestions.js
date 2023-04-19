@@ -16,9 +16,33 @@ export default function Suggestions() {
     // const [defaultSuggestion, setDefaultSuggestion] = useState("")
     const [contentSuggestion,setContentSuggestion]= useState("")
 
+
+    useEffect(() => {
+      fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
+      .then((response) => response.json())
+      .then((searchCard) => {
+        const cardsSearch = searchCard.data.map((data, i) => {
+          return  <Cards key={i} {...data} />
+        });
+        setCardSuggestion(cardsSearch[Math.floor(Math.random() * cardsSearch.length)]);
+      });
+    }, []);
+
+    useEffect(()=> {
+      fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
+      .then((response) => response.json())
+      .then((searchAudios) => {
+        const audiosSearch = searchAudios.data.map((data, i) => {
+          return  <Audio key={i} {...data} />
+        });
+        setAudioSuggestion(audiosSearch[Math.floor(Math.random() * audiosSearch.length)]);
+      });
+      
+    }, []);
+
     useEffect(() => {
   
-      if (user.emotionName) {
+      if (!user.emotionName) {
         setContentSuggestion(
           <ScrollView style={styles.scrollView}>
             <View style={styles.cardSuggestion}>{cardSuggestion}</View>
@@ -26,18 +50,15 @@ export default function Suggestions() {
           </ScrollView>
         );
   
-      
-        
-          fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
-          .then((response) => response.json())
-          .then((searchCard) => {
-            const cardsSearch = searchCard.data.map((data, i) => {
-              return  <Cards key={i} {...data} />
-            });
-            setCardSuggestion(cardsSearch);
+        fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
+        .then((response) => response.json())
+        .then((searchCard) => {
+          const cardsSearch = searchCard.data.map((data, i) => {
+            return  <Cards key={i} {...data} />
           });
-        
-        
+          setCardSuggestion(cardsSearch);
+        });
+    
           fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotionName}`)
           .then((response) => response.json())
           .then((searchAudios) => {
@@ -46,9 +67,8 @@ export default function Suggestions() {
             });
             setAudioSuggestion(audiosSearch);
           });
-        
-        
-        
+   
+
       } else {
         setContentSuggestion(
           <ScrollView style={styles.scrollView}>
@@ -56,26 +76,21 @@ export default function Suggestions() {
             <View style={styles.audioSuggestion}>{audioSuggestion}</View>
           </ScrollView>
         );}
-        fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
-          .then((response) => response.json())
-          .then((searchCard) => {
-            const cardsSearch = searchCard.data.map((data, i) => {
-              return  <Cards key={i} {...data} />
-            });
-            setCardSuggestion(cardsSearch[Math.floor(Math.random() * cardsSearch.length)]);
-          });
-  
-        fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
-          .then((response) => response.json())
-          .then((searchAudios) => {
-            const audiosSearch = searchAudios.data.map((data, i) => {
-              return  <Audio key={i} {...data} />
-            });
-            setAudioSuggestion(audiosSearch[Math.floor(Math.random() * audiosSearch.length)]);
-          });
 
       }, []);
 
+        
+        // useEffect(() => {
+        //   fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
+        //   .then((response) => response.json())
+        //   .then((searchAudios) => {
+        //     const audiosSearch = searchAudios.data.map((data, i) => {
+        //       return  <Audio key={i} {...data} />
+        //     });
+        //     setAudioSuggestion(audiosSearch[Math.floor(Math.random() * audiosSearch.length)]);
+        //   });
+  
+        // }, []);
         
   
     return (
