@@ -62,15 +62,7 @@ export default function Audios(props) {
             <Text style={styles.moreText}>Voir plus</Text>
           </TouchableOpacity>
           <View style={styles.heartContainer}>
-            <FontAwesome
-              name="heart"
-              size={20}
-              style={[
-                styles.heart,
-                isLiked ? { color: "#5B3EAE" } : { color: "white" },
-              ]}
-              onPress={() => handleLike()}
-            />
+            <FontAwesome name="heart" size={20} style={[ styles.heart, isLiked ? { color: "#5B3EAE" } : { color: "white" } ]} onPress={() => handleLike()} />
           </View>
         </View>
       </View>
@@ -81,39 +73,37 @@ export default function Audios(props) {
 const styles = StyleSheet.create({
   cards: {
     backgroundColor: "white",
-    borderRadius: 25,
+    borderRadius: 10,
     marginVertical: 15,
-    padding: 10,
     width: "90%",
-    height: 550,
+    minHeight: 450,
+    maxHeight: 550,
     marginHorizontal: "5%",
+    overflow: "hidden",
   },
   titleCard: {
-    fontFamily: "Solway-Bold",
-    fontSize: 24,
+    fontFamily: "Solway-ExtraBold",
+    fontSize: 20,
+    paddingHorizontal: 15,
     width: "100%",
-    height: "20%",
     justifyContent: "center",
   },
-
   image: {
     width: "100%",
-    height: "50%",
-    borderRadius: 10,
+    height: "60%",
+    marginBottom: 10,
   },
   contentCard: {
-    paddingTop: 2,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     width: "100%",
-    height: "14%",
     fontSize: 16,
     fontFamily: "DM-Sans-Regular"
   },
   btnContainer: {
-    // borderWidth: 1,
-    height: "15%",
     alignItems: "center",
     flexDirection: "row",
-
+    marginHorizontal: 10,
   },
   moreButton: {
     borderColor: "#5B3EAE",
@@ -121,9 +111,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 40,
     width: "50%",
-    marginBottom: 5,
-
-    // paddingTop: 5,
     alignItems: "center",
     justifyContent: "center",
   },

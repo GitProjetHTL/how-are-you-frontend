@@ -45,8 +45,6 @@ export default function EmotionBoard() {
         </View>
       );})
 
-      // console.log(selected);
-
     // Envoi de l'emotion sélectionnée en BDD
     const handleSave  = () => {
 

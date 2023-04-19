@@ -1,14 +1,4 @@
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
-
+import { TouchableOpacity, StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
 import Cards from "../components/Cards";
@@ -45,9 +35,7 @@ export default function DiscoverScreen({ navigation }) {
         //  console.log(allCards.data)
         const cards = allCards.data.map((data, i) => {
           return (
-            <Cards
-              key={i}
-              {...data}
+            <Cards key={i} {...data}
               // name={oneCard.name}
               // content={oneCard.content}
               // source={oneCard.source}
@@ -69,9 +57,7 @@ export default function DiscoverScreen({ navigation }) {
            //console.log(allCards.data)
           const audios= allAudios.data.map((data, i) => {
             return (
-            <Audio
-              key={i}
-              {...data}
+            <Audio key={i} {...data}
               // name={oneAudio.name}
               // content={oneAudio.content}
               // source={oneAudio.source}
@@ -83,9 +69,6 @@ export default function DiscoverScreen({ navigation }) {
         });
       }, []);
 
-
-  // console.log(cardRandom)
-  //function random
 
   function random(cardAll, audiosAll) {
     const randomNumberforCard = Math.floor(Math.random() * cardAll.length);
@@ -103,9 +86,7 @@ export default function DiscoverScreen({ navigation }) {
     .then(searchCard => {
       // console.log(searchCard.data)
       const cardsSearch= searchCard.data.map((data, i) => {
-        return <Cards
-           key={i}
-           {...data}
+        return <Cards key={i} {...data}
            // name={oneCard.name}
            // content={oneCard.content}
            // source={oneCard.source}
@@ -121,9 +102,7 @@ export default function DiscoverScreen({ navigation }) {
         // console.log(searchCard.data)
         const audiosSearch = searchAudios.data.map((data, i) => {
           return (
-            <Audio
-              key={i}
-              {...data}
+            <Audio key={i} {...data}
               // name={oneAudio.name}
               // content={oneAudio.content}
               // source={oneAudio.source}
@@ -146,13 +125,11 @@ export default function DiscoverScreen({ navigation }) {
           <Text style={styles.sujet}>Découverte:</Text>
         </View>
       );
-
       setCardFounded("");
       setAudiosFounded("");
     } else {
       setCardResult(<View>{cardFounded}</View>);
       setAudiosResult(<View>{audiosFounded}</View>);
-
     }
   }, [search, cardRandom, cardFounded, audiosRandom]);
 
@@ -161,30 +138,15 @@ export default function DiscoverScreen({ navigation }) {
       <View style={styles.containerTop}>
         <View>
           <View style={styles.searchBar}>
-            <TextInput
-              style={styles.input}
-              placeholder="Recherches"
-              onChangeText={(value) => setSearch(value)}
-              value={search}
-            />
+            <TextInput style={styles.input} placeholder="Recherche" onChangeText={(value) => setSearch(value)} value={search} />
             <TouchableOpacity style={styles.searchButton}>
-              <FontAwesome
-                name="search"
-                size={20}
-                style={styles.search}
-                onPress={() => handleClick()}
-              />
+              <FontAwesome name="search" size={20} style={styles.search} onPress={() => handleClick()} />
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.likes}>
           <TouchableOpacity>
-            <FontAwesome
-              name="refresh"
-              size={30}
-              style={styles.heart}
-              onPress={() => random(cardAll, audiosAll)}
-            />
+            <FontAwesome name="refresh" size={30} style={styles.heart} onPress={() => random(cardAll, audiosAll)} />
           </TouchableOpacity>
         </View>
       </View>
@@ -194,7 +156,6 @@ export default function DiscoverScreen({ navigation }) {
       </View>
       <ScrollView style={styles.cardsContainer}>
           {cardResult}
-        
           {audiosResult}
       </ScrollView>
     </SafeAreaView>
@@ -231,16 +192,10 @@ const styles = StyleSheet.create({
     right:"8%",
     top:"25%",
   },
-
   input: {
-    // borderColor: "#5B3EAE",
-    // width: 270,
-    // height: 50,
-    // borderWidth: 1,
-    // borderRadius: 25,
-    // paddingLeft: 10,
-    margin:10
-
+    margin:10,
+    color: "#8C8995",
+    fontFamily: "DM-Sans-Regular",
   },
   likes: {
     height: 50,
