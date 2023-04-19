@@ -54,6 +54,7 @@ export default function MonthlyTrack() {
       console.log('selected day', day);
       setSelected(day.dateString);
       }}
+      
       markedDates={marked}
       dayComponent={({date, state})=> {
         const today = new Date().toISOString().split('T')[0];

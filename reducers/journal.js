@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   value: { 
     savedEmotion: false, 
-    savedComment: false, 
+    savedComment: false,
+    modifiedComment : false, 
     },
 };
 
@@ -11,14 +12,15 @@ export const journalSlice = createSlice({
   name: "journal",
   initialState,
   reducers: {
-    saveEmotionToday: (state) => {
-      state.value.savedEmotion = true;  
+    saveEmotionToday: (state, action) => {
+      state.value.savedEmotion = action.payload;  
     },
-    saveCommentToday: (state) => {
-        state.value.savedComment = true; 
+    saveCommentToday: (state, action) => {
+        state.value.savedComment = action.payload; 
       },
-    changeComment: (state) => {
-        state.value.savedComment = false;
+    changeComment: (state, action) => {
+        state.value.savedComment = action.payload.savedComment;
+        state.value.modifiedComment = action.payload.modifiedComment; 
     },
   },
 });
