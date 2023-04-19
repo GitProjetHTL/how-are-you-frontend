@@ -110,7 +110,7 @@ export default function Notepad() {
        }).then(response => response.json())
        .then(data => {
          console.log('comment => ', data)
-         if (data.result) {            
+         if ('data modif => ', data.result) {            
            dispatch(saveComment(comment)) // reducer user
            setRegisterComment(data.comment)
            alert('Votre commentaire a bien été modifié 💖.')
