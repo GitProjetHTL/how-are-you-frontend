@@ -1,15 +1,5 @@
 import React, { useState, useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  SafeAreaView,
-  TextInput,
-  KeyboardAvoidingView,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, KeyboardAvoidingView, ScrollView, Dimensions } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import  { useDispatch } from 'react-redux'; 
 import { newUser } from "../reducers/user";
@@ -69,20 +59,12 @@ export default function SignUpScreen({ navigation }) {
     <KeyboardAvoidingView 
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../assets/register2.png")}
-          style={styles.image}
-          resizeMode="cover"
-        />
-      </View>
-      <View style={styles.textContainer}>
+      <Image source={require("../assets/register2.png")} style={styles.image} resizeMode="cover" />
       <Text style={styles.title1}>Hello, how are you ?</Text>
         <Text style={styles.title2}>
           Bienvenue sur How are You, l'application qui t'aide à comprendre tes
           émotions et à gerer ta santé mentale.
         </Text>
-        </View>
       <ScrollView style={styles.signupContainer}>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Comment tu t'appelles ?</Text>
@@ -170,19 +152,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-  },
-  imageContainer: {
-    // marginTop: 25,
-    height: "27%",
-    width: "100%",
-    // borderWidth: 1,
+    width: Dimensions.get("window").width,
   },
   image: {
-    width: "100%",
-    height: "100%",
-  },
-  signupContainer: {
-    marginTop: 10,
+    width: Dimensions.get("window").width,
+    height: "30%",
+    objectFit: "cover",
   },
   title1: {
     fontSize: 20,
@@ -193,15 +168,14 @@ const styles = StyleSheet.create({
   title2: {
     fontSize: 16,
     marginBottom: 10,
-    width: "100%",
-    paddingHorizontal: 5,
+    marginHorizontal: 20,
     textAlign: "center",
     fontFamily: "DM-Sans-Regular",
   },
   inputContainer: {
-    // alignItems: "center",
     position: "relative",
-    marginVertical: 20,
+    marginTop: 15,
+    marginBottom: 10,
     marginHorizontal: "5%",
     width: "100%",
   },
@@ -230,10 +204,8 @@ const styles = StyleSheet.create({
 
   error: {
     color: "#F94A56",
-    // backgroundColor: "white",
     width: "80%",
     fontSize: 14,
-    // marginTop: 5,
     fontFamily: "DM-Sans-Regular",
     top: 10,
     left: 20,
@@ -248,6 +220,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     borderWidth: 1,
     borderColor: "#5B3EAE",
+    marginTop: 15,
     borderRadius: 25,
     height: 40,
     width: "60%",
@@ -262,7 +235,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "DM-Sans-Bold",
   },
-  textContainer: {
-    padding: '2%'
-  }
 });
