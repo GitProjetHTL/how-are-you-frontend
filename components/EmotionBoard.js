@@ -43,15 +43,13 @@ export default function EmotionBoard() {
         </View>
       );})
 
-      // console.log(selected);
-
     // Envoi de l'emotion sélectionnée en BDD
     const saveEmotion = () => {
-      fetch(`${BACKEND}/users/emotion`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: user.token, _id: selected._id })
-  })
+      fetch(`${BACKEND}/users/historique`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: user.token, _id: selected._id})
+       })
     .then(response => response.json())
     .then(data => {
      console.log('result add emotion => ', data)
@@ -66,15 +64,6 @@ export default function EmotionBoard() {
     }
    });
 
-   fetch(`${BACKEND}/users/historique`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token: user.token, _id: selected._id})
-   })
-   .then(response => response.json())
-  .then(data => {
-      console.log('result add historique => ', data)
-   });
 
 }
 

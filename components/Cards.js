@@ -1,12 +1,5 @@
 // Cards component
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Modal,
-  ScrollView,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, Modal, ScrollView, } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
 import { useState } from "react";
@@ -41,31 +34,20 @@ export default function Cards(props) {
   
  let content = props.content.substr(0,100)+"..."
 
-
   // console.log('card reducer', cards)
+  const handleMoreModal = () => { setModalVisible(true) };
 
-  const handleMoreModal = () => {
-    setModalVisible(true);
-  };
   return (
     <>
       <View style={styles.cards}>
         <Text style={styles.titleCard}>{props.name}</Text>
         <Text style={styles.contentCard}> {content}</Text>
         <View style={styles.btnContainer}>
-          <TouchableOpacity
-            style={styles.moreButton}
-            onPress={() => handleMoreModal()}
-          >
+          <TouchableOpacity style={styles.moreButton} onPress={() => handleMoreModal()} >
             <Text style={styles.moreText}>Voir plus</Text>
           </TouchableOpacity>
           <View style={styles.heartContainer}>
-            <FontAwesome
-              onPress={() => handleLike()}
-              name="heart"
-              size={20}
-              style={[
-                // styles.heart,
+            <FontAwesome onPress={() => handleLike()} name="heart" size={20} style={[ 
                 isLiked ? { color: "#5B3EAE" } : { color: "white" },
               ]}
             />
@@ -95,50 +77,36 @@ export default function Cards(props) {
 const styles = StyleSheet.create({
   cards: {
     backgroundColor: "white",
-    borderRadius: 25,
+    borderRadius: 10,
     marginVertical: 15,
     padding: 10,
     width: "90%",
-    // height: 220,
     marginHorizontal: "5%",
   },
   titleCard: {
-    // flex: 1,
-    fontFamily: "Solway-Bold",
-    fontSize: 24,
-    // borderWidth: 1,
-    width: "100%",
-
-    // height: "35%",
-    // maxHeight: "35%",
+    fontFamily: "Solway-ExtraBold",
+    fontSize: 20,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 5,
   },
   contentCard: {
-    // borderWidth: 1,
-    paddingTop: 2,
     width: "100%",
-    // height: "37%",
     fontSize: 16,
-    // borderWidth: 1,
     fontFamily: "DM-Sans-Regular",
+    marginBottom: 15,
   },
   btnContainer: {
-    // borderWidth: 1,
-    height: 60,
     alignItems: "center",
     flexDirection: "row",
   },
   moreButton: {
-    // backgroundColor: "#5B3EAE",
     borderColor: "#5B3EAE",
     borderWidth: 1,
     borderRadius: 25,
     height: 40,
     width: "50%",
     marginBottom: 5,
-
-    // paddingTop: 5,
     alignItems: "center",
     justifyContent: "center",
   },

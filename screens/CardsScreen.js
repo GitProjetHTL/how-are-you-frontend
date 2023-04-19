@@ -44,11 +44,7 @@ export default function CardsScreen({ navigation }) {
       });
   }, []);
 
-  const allCards = cardAll.map((data, i) => {
-    return <Cards key={i} {...data} />;
-  });
-
-  // console.log(allCards)
+  const allCards = cardAll.map((data, i) => { return <Cards key={i} {...data} /> });
 
   //afficher les cards rechercher
 
@@ -97,19 +93,9 @@ export default function CardsScreen({ navigation }) {
       <View style={styles.containerTop}>
         <View>
           <View style={styles.searchBar}>
-              <TextInput
-                style={styles.input}
-                placeholder="Recherches de cards"
-                onChangeText={(value) => setSearch(value)}
-                value={search}
-              />
+              <TextInput style={styles.input} placeholder="Recherche" onChangeText={(value) => setSearch(value)} value={search} />
             <TouchableOpacity style={styles.searchButton}>
-              <FontAwesome
-                name="search"
-                size={20}
-                style={styles.search}
-                onPress={() => handleClick()}
-              />
+              <FontAwesome name="search" size={20} style={styles.search} onPress={() => handleClick()} />
             </TouchableOpacity>
           </View>
         </View>
@@ -135,42 +121,32 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-
   containerTop: {
     marginTop: 30,
     flexDirection: "row",
     justifyContent: "space-evenly",
     backgroundColor: "white",
   },
-
   searchBar: {
     flexDirection: "row",
     backgroundColor: "white",
-    borderColor: "#5B3EAE",
+    borderColor: "#8C8995",
     width: 270,
     height: 50,
     borderWidth: 1,
     borderRadius: 25,
     paddingLeft: 10,
-
   },
-
   searchButton: {
     position: "absolute",
     right:"8%",
     top:"25%",
   },
-
   input: {
-    // borderColor: "#5B3EAE",
-    // width: 270,
-    // height: 50,
-    // borderWidth: 1,
-    // borderRadius: 25,
-    // paddingLeft: 10,
-    margin:10
+    margin:10,
+    color: "#8C8995",
+    fontFamily: "DM-Sans-Regular",
   },
-
   likes: {
     height: 50,
     justifyContent: "center",
@@ -189,16 +165,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   sujet: {
-    fontSize: 25,
-    fontFamily: "Solway-Bold",
+    fontSize: 20,
+    fontFamily: "DM-Sans-Bold",
   },
   text: {
     fontSize: 16,
-    fontFamily: "DM-Sans-regular",
+    fontFamily: "DM-Sans-Regular",
   },
   cardsContainer: {
-    // alignItems: "center",
-    // borderWidth: 1,
     witdh: "100%",
     height: "80%",
     backgroundColor: "#E9EBFC",
