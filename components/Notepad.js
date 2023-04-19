@@ -58,7 +58,7 @@ export default function Notepad() {
           <>
           <View style={styles.inputSaved}>
               <Text style={styles.labelSaved}>Ce que tu as écrit</Text>
-              <Text style={styles.commentText}>{comment}</Text>
+              <Text style={styles.commentText}>{user.comment}</Text>
             </View>
 
             <View style={styles.editButtons}>
