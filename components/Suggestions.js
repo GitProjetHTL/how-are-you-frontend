@@ -26,7 +26,9 @@ export default function Suggestions() {
         });
         setCardSuggestion(cardsSearch[Math.floor(Math.random() * cardsSearch.length)]);
       });
-
+    }, []);
+    
+    useEffect(()=> {
       fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
       .then((response) => response.json())
       .then((searchAudios) => {
