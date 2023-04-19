@@ -27,7 +27,7 @@ export default function Suggestions() {
         );
   
       
-        useEffect(() => {
+        
           fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
           .then((response) => response.json())
           .then((searchCard) => {
@@ -36,9 +36,8 @@ export default function Suggestions() {
             });
             setCardSuggestion(cardsSearch);
           });
-        }, [user.emotionName]);
         
-        useEffect(() => {
+        
           fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotionName}`)
           .then((response) => response.json())
           .then((searchAudios) => {
@@ -47,7 +46,7 @@ export default function Suggestions() {
             });
             setAudioSuggestion(audiosSearch);
           });
-        }, [user.emotionName]);
+        
         
         
       } else {
