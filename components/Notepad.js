@@ -1,13 +1,6 @@
 // Emotion board component
 import React, { useState } from "react";
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, Image, TextInput } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { saveComment } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -32,8 +25,8 @@ export default function Notepad() {
           <TextInput style={styles.input} multiline={true} numberOfLines={3} placeholder="Explique-nous ^^..." value={comment} onChangeText={(value) => setComment(value)}/>
         </View>
         <TouchableOpacity style={styles.saveComment} onPress={() => addComment()}>
-          <Text style={styles.saveText}>Enregistrer</Text>
-          <FontAwesome name="check" style={styles.saveIcon} size={18} />
+          <Text style={styles.buttonText}>Enregistrer</Text>
+          <FontAwesome name="check" style={styles.buttonIcon} size={18} />
         </TouchableOpacity>
       </>
     )
@@ -101,6 +94,11 @@ export default function Notepad() {
       dispatch(changeComment({modifiedComment: true, savedComment: false}))
      }
 
+     // Annuler la modification de commentaire
+     const handleCancel = () => {
+      dispatch(changeComment({savedComment : true , modifiedComment: false}))
+     }
+
      // Modification du commentaire en BDD
      const handleUpdateComment = () => {
       fetch(`${BACKEND}/comments/update`, {
@@ -128,10 +126,17 @@ export default function Notepad() {
             <Text style={styles.labelChange}>Modifie ton commentaire</Text>
             <TextInput style={styles.inputChange} multiline={true} numberOfLines={3} placeholder="Explique-nous ^^..." value={comment} onChangeText={(value) => setComment(value)}/>
           </View>
-          <TouchableOpacity style={styles.confirmButton} onPress={() => handleUpdateComment()}>
-            <Text style={styles.saveText}>Confirmer</Text>
-            <FontAwesome name="check" style={styles.saveIcon} size={18} />
-          </TouchableOpacity>
+          <View style={styles.updateButtons}>
+            <TouchableOpacity style={styles.confirmButton} onPress={() => handleUpdateComment()}>
+              <Text style={styles.buttonText}>Confirmer</Text>
+              <FontAwesome name="check" style={styles.buttonIcon} size={18} />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.cancelButton} onPress={() => handleCancel()}>
+              <Text style={styles.buttonText}>Annuler</Text>
+              <FontAwesome name="remove" style={styles.buttonIcon} size={18} />
+            </TouchableOpacity>
+          </View>
         </>
         )
   }
@@ -221,13 +226,36 @@ export default function Notepad() {
         paddingRight: 10,
         fontFamily: "DM-Sans-Regular",
       },
+
+      // Panel modif commentaire
+      updateButtons: {
+        flexDirection: "row",
+        width: "85%",
+        justifyContent: "space-between",
+
+      },
+
       confirmButton: {
         backgroundColor: "#FFA573",
         borderWidth: 1,
         borderColor: "#FFA573",
         borderRadius: 25,
         height: 40,
-        width: "60%",
+        width: "48%",
+        paddingTop: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "DM-Sans-Regular",
+      },
+
+      cancelButton: {
+        backgroundColor: "#F94A56",
+        borderWidth: 1,
+        borderColor: "#F94A56",
+        borderRadius: 25,
+        height: 40,
+        width: "48%",
         paddingTop: 1,
         flexDirection: "row",
         alignItems: "center",
@@ -247,16 +275,16 @@ export default function Notepad() {
         justifyContent: "center",
         fontFamily: "DM-Sans-Regular",
       },
-      saveText: {
+      buttonText: {
         color: "#FFFFFF",
         fontSize: 16,
         fontWeight: 500,
         textAlign: "center",
         fontFamily: "DM-Sans-Bold",
       },
-      saveIcon: {
+      buttonIcon: {
         color: "#FFFFFF",
-        marginLeft: 10,
+        marginLeft: 8,
         marginTop: 2,
       },
 
