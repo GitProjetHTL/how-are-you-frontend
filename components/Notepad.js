@@ -145,35 +145,8 @@ export default function Notepad() {
   }
 
   // RETURN => rendu final
-  return (
-    <>
-      <View style={styles.inputSaved}>
-        <Text style={styles.labelSaved}>Ce que tu as écrit</Text>
-        <Text style={styles.commentText}>{comment}</Text>
-      </View>
-
-      <View style={styles.editButtons}>
-        <TouchableOpacity
-          style={styles.changeComment}
-          onPress={() => changeComment()}
-        >
-          <FontAwesome name="pencil" style={styles.changeIcon} size={15} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.changeComment}
-          onPress={() => deleteComment()}
-        >
-          <FontAwesome name="remove" style={styles.changeIcon} size={15} />
-        </TouchableOpacity>
-      </View>
-    </>
-  );
+  return <>{notepad}</>;
 }
-
-//   // RETURN => rendu final
-//   return (<>{notepad}</>
-// )
 
 const styles = StyleSheet.create({
   container: {
@@ -264,7 +237,7 @@ const styles = StyleSheet.create({
     color: "#252525",
     paddingHorizontal: 5,
     fontSize: 16,
-    fontFamily: "Solway-Bold",
+    fontFamily: "DM-Sans-Bold",
     marginVertical: 10,
   },
   inputSaved: {

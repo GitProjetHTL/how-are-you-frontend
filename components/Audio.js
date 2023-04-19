@@ -12,27 +12,26 @@ import {
   Linking,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useSelector } from 'react-redux';
-import { useState } from 'react'
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
-const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
+const BACKEND = "https://howareyouapp-backend.vercel.app";
 
 export default function Audios(props) {
-  
-    const handlePress = () => {
-      Linking.openURL(props.source);
-    };
-  
-    // console.log(props)
-     const user = useSelector((state) => state.user.value);
-    const [isLiked, setIsLiked] = useState(false); 
-  
-    // console.log(props)
-    const handleLike = () => {
-      fetch(`${BACKEND}/audios/like`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: user.token, audioID: props._id})
+  const handlePress = () => {
+    Linking.openURL(props.source);
+  };
+
+  // console.log(props)
+  const user = useSelector((state) => state.user.value);
+  const [isLiked, setIsLiked] = useState(false);
+
+  // console.log(props)
+  const handleLike = () => {
+    fetch(`${BACKEND}/audios/like`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: user.token, audioID: props._id }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -50,7 +49,9 @@ export default function Audios(props) {
   return (
     <>
       <View style={styles.cards}>
-        <Image style={styles.image} source={{ uri: props.image }} />
+        <View style={styles.imgContainer}>
+          <Image style={styles.image} source={{ uri: props.image }} />
+        </View>
         <Text style={styles.titleCard}>{props.name}</Text>
 
         <Text style={styles.contentCard}> {content}</Text>
@@ -62,7 +63,15 @@ export default function Audios(props) {
             <Text style={styles.moreText}>Voir plus</Text>
           </TouchableOpacity>
           <View style={styles.heartContainer}>
-            <FontAwesome name="heart" size={20} style={[ styles.heart, isLiked ? { color: "#5B3EAE" } : { color: "white" } ]} onPress={() => handleLike()} />
+            <FontAwesome
+              name="heart"
+              size={20}
+              style={[
+                styles.heart,
+                isLiked ? { color: "#5B3EAE" } : { color: "white" },
+              ]}
+              onPress={() => handleLike()}
+            />
           </View>
         </View>
       </View>
@@ -74,10 +83,10 @@ const styles = StyleSheet.create({
   cards: {
     backgroundColor: "white",
     borderRadius: 10,
-    marginVertical: 15,
+    marginVertical: 20,
     width: "90%",
-    minHeight: 450,
-    maxHeight: 550,
+    // minHeight: 450,
+    // maxHeight: 550,
     marginHorizontal: "5%",
     overflow: "hidden",
   },
@@ -88,9 +97,13 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
   },
+  imgContainer: {
+    // borderWidth: 1,
+    height: 310,
+  },
   image: {
     width: "100%",
-    height: "60%",
+    height: "100%",
     marginBottom: 10,
   },
   contentCard: {
@@ -98,12 +111,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     width: "100%",
     fontSize: 16,
-    fontFamily: "DM-Sans-Regular"
+    fontFamily: "DM-Sans-Regular",
   },
   btnContainer: {
     alignItems: "center",
     flexDirection: "row",
     marginHorizontal: 10,
+    marginBottom: 10,
   },
   moreButton: {
     borderColor: "#5B3EAE",
