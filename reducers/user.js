@@ -26,6 +26,11 @@ export const userSlice = createSlice({
       state.value.date = action.payload.date; 
       state.value.token = action.payload.token
     }, 
+    updateUser: (state, action) => {
+      state.value.username = action.payload.username;
+      state.value.email = action.payload.email; 
+      state.value.password = action.payload.password; 
+    }, 
 
     login: (state, action) => {
       state.value.token = action.payload.token;
@@ -48,5 +53,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { newUser, login, logout, saveComment, saveEmotion } = userSlice.actions;
+export const { newUser, login, logout, saveComment, saveEmotion, updateUser } = userSlice.actions;
 export default userSlice.reducer;

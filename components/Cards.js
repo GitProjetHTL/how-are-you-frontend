@@ -1,5 +1,12 @@
 // Cards component
-import { TouchableOpacity, StyleSheet, Text, View, Modal, ScrollView, } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  ScrollView,
+} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
 import { useState } from "react";
@@ -23,19 +30,17 @@ export default function Cards(props) {
       .then((data) => {
         // console.log(data.like);
         if (data.like) {
-          // dispatch(likeTweet({ cardsId: props._id, username: user.username }));
           setIsLiked(true);
-          // alert("Cards well added to favorite 🌟");
         } else {
           setIsLiked(false);
         }
       });
   };
-  
- let content = props.content.substr(0,100)+"..."
-
+  let content = props.content.substr(0, 100) + "...";
   // console.log('card reducer', cards)
-  const handleMoreModal = () => { setModalVisible(true) };
+  const handleMoreModal = () => {
+    setModalVisible(true);
+  };
 
   return (
     <>
@@ -43,13 +48,18 @@ export default function Cards(props) {
         <Text style={styles.titleCard}>{props.name}</Text>
         <Text style={styles.contentCard}> {content}</Text>
         <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.moreButton} onPress={() => handleMoreModal()} >
+          <TouchableOpacity
+            style={styles.moreButton}
+            onPress={() => handleMoreModal()}
+          >
             <Text style={styles.moreText}>Voir plus</Text>
           </TouchableOpacity>
           <View style={styles.heartContainer}>
-            <FontAwesome onPress={() => handleLike()} name="heart" size={20} style={[ 
-                isLiked ? { color: "#5B3EAE" } : { color: "white" },
-              ]}
+            <FontAwesome
+              onPress={() => handleLike()}
+              name="heart"
+              size={20}
+              style={[isLiked ? { color: "#5B3EAE" } : { color: "white" }]}
             />
           </View>
         </View>
@@ -71,7 +81,7 @@ export default function Cards(props) {
         </View>
       </Modal>
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -162,7 +172,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     fontSize: 16,
-    fontFamily: "DM-Sans-Regular"
+    fontFamily: "DM-Sans-Regular",
     // marginBottom: 5,
   },
   confirmText: {

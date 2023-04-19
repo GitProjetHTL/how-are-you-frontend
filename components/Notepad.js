@@ -1,23 +1,28 @@
-// Emotion board component 
+// Emotion board component
 import React, { useState } from "react";
-import { TouchableOpacity, StyleSheet, Text, View, Image, TextInput } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { saveComment } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { saveCommentToday, changeComment } from '../reducers/journal'
+import { saveCommentToday, changeComment } from "../reducers/journal";
 
 const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
-
 export default function Notepad() {
-    
-    const dispatch = useDispatch()
-    const user = useSelector((state) => state.user.value);
-    // console.log(user.comment)
-    const journal = useSelector((state) => state.journal.value);
-    console.log(journal)
-    const [comment, setComment] = useState('') // Champ input de rédaction du commentaire
-    const [registerComment, setRegisterComment] = useState({}) // commentaire complet avec ID
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
+  // console.log(user.comment)
+  const journal = useSelector((state) => state.journal.value);
+  console.log(journal);
+  const [comment, setComment] = useState(""); // Champ input de rédaction du commentaire
+  const [registerComment, setRegisterComment] = useState({}); // commentaire complet avec ID
 
     // Le notepad - ETAT INITIAL
     let notepad = (
@@ -255,66 +260,66 @@ export default function Notepad() {
         marginTop: 2,
       },
 
-      // Commentaire enregistré
-      labelSaved: {
-        textAlign: 'center',
-        color: "#252525",
-        paddingHorizontal: 5,
-        fontSize: 16,
-        fontFamily: "DM-Sans-Bold",
-        marginVertical: 10,
-      },
-      inputSaved: {
-        marginTop: 15,
-        width: "80%",
-        minHeight: 70,
-        backgroundColor: "#E9EBFC",
-        borderRadius: 5,
-        paddingHorizontal: 20,
-        paddingBottom: 30,
-      },
+  // Commentaire enregistré
+  labelSaved: {
+    textAlign: "center",
+    color: "#252525",
+    paddingHorizontal: 5,
+    fontSize: 16,
+    fontFamily: "DM-Sans-Bold",
+    marginVertical: 10,
+  },
+  inputSaved: {
+    marginTop: 15,
+    width: "80%",
+    minHeight: 70,
+    backgroundColor: "#E9EBFC",
+    borderRadius: 5,
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+  },
 
-      // Les boutons pour changer/supprimer commentaire
-      editButtons: {
-        flexDirection: "row",
-        width: "70%",
-        justifyContent: "flex-end",
-        alignContent: "flex-end",
-        marginTop: -15,
-      },
-      changeComment: {
-        backgroundColor: "#5B3EAE",
-        borderRadius: 15,
-        height: 30,
-        width: 30,
-        alignItems: "center",
-        justifyContent: "center",
-        marginLeft: 10,
-      },
-      changeIcon: {
-        color: "white",
-      },
+  // Les boutons pour changer/supprimer commentaire
+  editButtons: {
+    flexDirection: "row",
+    width: "70%",
+    justifyContent: "flex-end",
+    alignContent: "flex-end",
+    marginTop: -15,
+  },
+  changeComment: {
+    backgroundColor: "#5B3EAE",
+    borderRadius: 15,
+    height: 30,
+    width: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 10,
+  },
+  changeIcon: {
+    color: "white",
+  },
 
-      //Modal
-      centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 50, 0.4)',
-      },
-      modalView: {
-        backgroundColor: 'white',
-        width: '80%',
-        borderRadius: 20,
-        padding: 20,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-      },
-})
+  //Modal
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 50, 0.4)",
+  },
+  modalView: {
+    backgroundColor: "white",
+    width: "80%",
+    borderRadius: 20,
+    padding: 20,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+});
