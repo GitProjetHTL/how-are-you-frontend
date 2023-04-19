@@ -43,10 +43,10 @@ export const userSlice = createSlice({
       state.value.emotionImage = action.payload;
     },
     saveEmotionName: (state, action) => {
-      state.value.emotionName= action.payload;
+      state.value.emotionName = action.payload;
     }
   },
 });
 
-export const { newUser, login, logout, saveComment, saveEmotionImage,saveEmotionName } = userSlice.actions;
+export const { newUser, login, logout, saveComment, saveEmotionImage, saveEmotionName } = userSlice.actions;
 export default userSlice.reducer;
