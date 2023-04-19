@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
   title1: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "Solway-ExtraBold",
     marginBottom: 10,
     textAlign: "center",
   },
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 5,
     textAlign: "center",
+    fontFamily: "DM-Sans-Regular",
   },
   inputContainer: {
     // alignItems: "center",
@@ -210,9 +211,10 @@ const styles = StyleSheet.create({
     top: -10,
     left: 20,
     backgroundColor: "white",
-    color: "#C3B6F4",
+    color: "#5B3EAE",
     zIndex: 10,
     paddingHorizontal: 5,
+    fontFamily: "DM-Sans-Bold",
   },
 
    input: {
@@ -223,15 +225,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 10,
     paddingRight: 10,
+    fontFamily: "DM-Sans-Regular",
   },
 
   error: {
-    color: "red",
+    color: "#F94A56",
     // backgroundColor: "white",
     width: "80%",
     fontSize: 14,
     // marginTop: 5,
-    // position: "relative",
+    fontFamily: "DM-Sans-Regular",
     top: 10,
     left: 20,
     margin: -10,
@@ -257,6 +260,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 500,
     textAlign: "center",
+    fontFamily: "DM-Sans-Bold",
   },
   textContainer: {
     padding: '2%'

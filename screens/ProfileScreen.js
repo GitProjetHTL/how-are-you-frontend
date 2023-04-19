@@ -32,7 +32,7 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Modal visible={modalVisible} animationType="fade" transparent>
+     <Modal visible={modalVisible} animationType="fade" transparent>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                   <Text style={styles.modalTitle}>Tu nous quittes déjà...</Text>
@@ -41,7 +41,7 @@ export default function ProfileScreen({ navigation }) {
                     <TouchableOpacity style={styles.noButton} onPress={() => setModalVisible(false)}>
                         <Text style={styles.saveText}>Non</Text>
                         <FontAwesome name="remove" style={styles.saveIcon} size={18} />
-                    </TouchableOpacity>
+                    </ TouchableOpacity>
 
                     <TouchableOpacity style={styles.noButton} onPress={() => handleSuppress()}>
                         <Text style={styles.saveText}>Oui</Text>

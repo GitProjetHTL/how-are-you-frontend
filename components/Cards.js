@@ -115,6 +115,8 @@ const styles = StyleSheet.create({
     width: "100%",
     // height: "37%",
     fontSize: 16,
+    // borderWidth: 1,
+    // fontFamily: "DM-Sans-Regular",
   },
   btnContainer: {
     // borderWidth: 1,
@@ -140,6 +142,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 500,
     textAlign: "center",
+    fontFamily: "DM-Sans-Bold",
   },
   heartContainer: {
     // borderWidth: 1,
