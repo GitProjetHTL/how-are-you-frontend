@@ -22,214 +22,243 @@ export default function Notepad() {
   const journal = useSelector((state) => state.journal.value);
   console.log(journal);
   const [comment, setComment] = useState(""); // Champ input de rédaction du commentaire
-  const [registerComment, setRegisterComment] = useState(false); // commentaire complet avec ID
+  const [registerComment, setRegisterComment] = useState({}); // commentaire complet avec ID
 
-  // Enregistrer le commentaire en BDD
-  const addComment = () => {
-    fetch(`${BACKEND}/comments/new`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: user.token, content: comment }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("comment => ", data.comment);
-        if (data.result) {
-          dispatch(saveComment(comment)); // user
-          setRegisterComment(data.comment);
-          alert("Votre commentaire a bien été enregistré 💖.");
-          dispatch(saveCommentToday(true)); // journal
-          dispatch(
-            changeComment({ modifiedComment: false, savedComment: true })
-          );
-          // setRegisterComment(true);
-        }
-      });
-  };
-
-  // Le notepad initial
-  let notepad = (
-    <>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Pourquoi ?</Text>
-        <TextInput
-          style={styles.input}
-          multiline={true}
-          numberOfLines={3}
-          placeholder="Explique-nous ^^..."
-          value={comment}
-          onChangeText={(value) => setComment(value)}
-        />
-      </View>
-      <TouchableOpacity style={styles.saveComment} onPress={() => addComment()}>
-        <Text style={styles.saveText}>Enregistrer</Text>
-        <FontAwesome name="check" style={styles.saveIcon} size={18} />
-      </TouchableOpacity>
-    </>
-  );
-
-  const handleUpdated = () => {
-    console.log("changement");
-    dispatch(changeComment({ modifiedComment: true, savedComment: false }));
-  };
-
-  const handleUpdateComment = () => {
-    fetch(`${BACKEND}/comments/new`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        commentId: registerComment._id,
-        token: user.token,
-        content: comment,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("comment => ", data);
-        if (data.result) {
-          dispatch(saveComment(comment)); // reducer user
-          setRegisterComment(data.comment);
-          alert("Votre commentaire a bien été modifié 💖.");
-          dispatch(
-            changeComment({ savedComment: true, modifiedComment: true })
-          ); // reducer journal
-          // setRegisterComment(true);
-        }
-      });
-  };
-
-  const deleteComment = () => {
-    fetch(`${BACKEND}/comments/delete`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        commentId: registerComment._id,
-        token: user.token,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        alert("Commentaire bien supprimé 🤧");
-        dispatch(saveCommentToday(false)); // journal
-        setComment("");
-      });
-  };
-
-  // Changement affichage quand commentaire enregistré
-  if (journal.savedComment) {
-    notepad = (
+    // Le notepad - ETAT INITIAL
+    let notepad = (
       <>
-        <View style={styles.inputSaved}>
-          <Text style={styles.labelSaved}>Ce que tu as écrit</Text>
-          <Text style={styles.commentText}>{comment}</Text>
+      <View style={styles.inputContainer}>
+          <Text style={styles.label}>Pourquoi ?</Text>
+          <TextInput style={styles.input} multiline={true} numberOfLines={3} placeholder="Explique-nous ^^..." value={comment} onChangeText={(value) => setComment(value)}/>
         </View>
+        <TouchableOpacity style={styles.saveComment} onPress={() => addComment()}>
+          <Text style={styles.saveText}>Enregistrer</Text>
+          <FontAwesome name="check" style={styles.saveIcon} size={18} />
+        </TouchableOpacity>
+      </>
+    )
 
-        <View style={styles.editButtons}>
-          <TouchableOpacity
-            style={styles.changeComment}
-            onPress={() => handleUpdated()}
-          >
-            <FontAwesome name="pencil" style={styles.changeIcon} size={15} />
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.changeComment}
-            onPress={() => deleteComment()}
-          >
-            <FontAwesome name="remove" style={styles.changeIcon} size={15} />
+    // Enregistrer le commentaire en BDD
+    const addComment = () => {
+      fetch(`${BACKEND}/comments/new`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: user.token, content: comment }),
+      }).then(response => response.json())
+        .then(data => {
+          console.log('comment => ',data.comment)
+          if (data.result) {            
+            dispatch(saveComment(comment)) // user
+            setRegisterComment(data.comment)
+            alert('Votre commentaire a bien été enregistré 💖.')
+            dispatch(saveCommentToday(true)) // journal 
+            dispatch(changeComment({modifiedComment: false, savedComment: true}))
+            // setRegisterComment(true);
+          }
+        });
+    };
+  
+      // Le notepad - ETAT 2 - Changement affichage quand commentaire enregistré
+      if(journal.savedComment) {
+        notepad = (
+          <>
+          <View style={styles.inputSaved}>
+              <Text style={styles.labelSaved}>Ce que tu as écrit</Text>
+              <Text style={styles.commentText}>{comment}</Text>
+            </View>
+
+            <View style={styles.editButtons}>
+            <TouchableOpacity style={styles.changeComment} onPress={() => handleUpdated()}>
+              <FontAwesome name="pencil" style={styles.changeIcon} size={15} />
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.changeComment} onPress={() => deleteComment()}>
+              <FontAwesome name="remove" style={styles.changeIcon} size={15} />
+            </TouchableOpacity>
+            </View>
+          </>
+          )
+    }
+
+    // Suppression du commentaire => Notepad revient en ETAT INITIAL
+    const deleteComment = () => {
+      fetch(`${BACKEND}/comments/delete`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ commentId: registerComment._id, token: user.token }),
+    }).then(response => response.json())
+      .then(data => {
+        console.log(data)
+        alert('Commentaire bien supprimé 🤧')
+        dispatch(saveCommentToday(false)) // journal
+        setComment('')
+        });
+    }
+
+    // Activer la modification de commentaire => notepad en ETAT UPDATE
+    const handleUpdated = () => {
+      dispatch(changeComment({modifiedComment: true, savedComment: false}))
+     }
+
+     // Modification du commentaire en BDD
+     const handleUpdateComment = () => {
+      fetch(`${BACKEND}/comments/update`, {
+       method: 'PUT',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({ commentId: registerComment._id, token: user.token, content: comment }),
+       }).then(response => response.json())
+       .then(data => {
+         console.log('comment => ', data)
+         if (data.result) {            
+           dispatch(saveComment(comment)) // reducer user
+           setRegisterComment(data.comment)
+           alert('Votre commentaire a bien été modifié 💖.')
+           dispatch(changeComment({savedComment : true , modifiedComment: false})) // reducer journal
+           // setRegisterComment(true);
+         }
+       });
+     }
+
+    // Changement affichage quand commentaire enregistré
+    if(journal.modifiedComment) {
+      notepad = (
+        <>
+        <View style={styles.inputContainer}>
+            <Text style={styles.labelChange}>Modifie ton commentaire</Text>
+            <TextInput style={styles.inputChange} multiline={true} numberOfLines={3} placeholder="Explique-nous ^^..." value={comment} onChangeText={(value) => setComment(value)}/>
+          </View>
+          <TouchableOpacity style={styles.confirmButton} onPress={() => handleUpdateComment()}>
+            <Text style={styles.saveText}>Confirmer</Text>
+            <FontAwesome name="check" style={styles.saveIcon} size={18} />
           </TouchableOpacity>
-        </View>
+        </>
+        )
+  }
+
+    // RETURN => rendu final
+    return (
+      <>
+      {notepad}
       </>
     );
   }
 
-  // RETURN => rendu final
-  return <>{notepad}</>;
-}
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-  },
-  emotionBoard: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    marginTop: 10,
-    width: "95%",
-  },
-  emotion: {
-    margin: 5,
-    height: 40,
-    width: 50,
-    objectFit: "contain",
-  },
-  moreEmotions: {
-    borderRadius: 20,
-    width: 40,
-    height: 40,
-    backgroundColor: "#E9EBFC",
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 10,
-  },
-  inputContainer: {
-    position: "relative",
-    marginTop: 20,
-    marginBottom: 20,
-    width: "100%",
-    alignItems: "center",
-  },
-  label: {
-    position: "absolute",
-    top: -10,
-    left: 50,
-    backgroundColor: "white",
-    color: "#5B3EAE",
-    zIndex: 10,
-    paddingHorizontal: 5,
-    fontFamily: "DM-Sans-Regular",
-  },
-  commentText: {
-    fontFamily: "DM-Sans-Regular",
-  },
-  input: {
-    width: "80%",
-    height: 70,
-    borderColor: "#5B3EAE",
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    fontFamily: "DM-Sans-Regular",
-  },
-  saveComment: {
-    backgroundColor: "#5B3EAE",
-    borderWidth: 1,
-    borderColor: "#5B3EAE",
-    borderRadius: 25,
-    height: 40,
-    width: "60%",
-    paddingTop: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    fontFamily: "DM-Sans-Regular",
-  },
-  saveText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: 500,
-    textAlign: "center",
-    fontFamily: "DM-Sans-Bold",
-  },
-  saveIcon: {
-    color: "#FFFFFF",
-    marginLeft: 10,
-    marginTop: 2,
-  },
+  const styles = StyleSheet.create({
+    container: {
+      justifyContent: 'center',
+    },
+    emotionBoard: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        marginTop: 10,
+        width: "95%",
+      },
+      emotion: {
+        margin: 5,
+        height: 40,
+        width: 50,
+        objectFit: "contain",
+      },
+      moreEmotions: {
+        borderRadius: 20,
+        width: 40,
+        height: 40,
+        backgroundColor: "#E9EBFC",
+        justifyContent: "center",
+        alignItems: "center",
+        marginLeft: 10,
+      },
+      inputContainer: {
+        position: "relative",
+        marginTop: 20,
+        marginBottom: 20,
+        width: "100%",
+        alignItems: 'center',
+      },
+      label: {
+        position: "absolute",
+        top: -10,
+        left: 50,
+        backgroundColor: "white",
+        color: "#5B3EAE",
+        zIndex: 10,
+        paddingHorizontal: 5,
+        fontFamily: "DM-Sans-Regular",
+      },
+      labelChange: {
+        position: "absolute",
+        top: -10,
+        left: 50,
+        backgroundColor: "white",
+        color: "#FFA573",
+        zIndex: 10,
+        paddingHorizontal: 5,
+        fontFamily: "DM-Sans-Regular",
+      },
+      commentText: {
+        fontFamily: "DM-Sans-Regular",
+      },
+      input: {
+        width: "80%",
+        height: 70,
+        borderColor: "#5B3EAE",
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
+        fontFamily: "DM-Sans-Regular",
+      },
+      inputChange: {
+        width: "80%",
+        height: 70,
+        borderColor: "#FFA573",
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
+        fontFamily: "DM-Sans-Regular",
+      },
+      confirmButton: {
+        backgroundColor: "#FFA573",
+        borderWidth: 1,
+        borderColor: "#FFA573",
+        borderRadius: 25,
+        height: 40,
+        width: "60%",
+        paddingTop: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "DM-Sans-Regular",
+      },
+      saveComment: {
+        backgroundColor: "#5B3EAE",
+        borderWidth: 1,
+        borderColor: "#5B3EAE",
+        borderRadius: 25,
+        height: 40,
+        width: "60%",
+        paddingTop: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "DM-Sans-Regular",
+      },
+      saveText: {
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: 500,
+        textAlign: "center",
+        fontFamily: "DM-Sans-Bold",
+      },
+      saveIcon: {
+        color: "#FFFFFF",
+        marginLeft: 10,
+        marginTop: 2,
+      },
 
   // Commentaire enregistré
   labelSaved: {
