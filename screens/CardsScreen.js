@@ -1,4 +1,12 @@
-import { TouchableOpacity, StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
@@ -35,7 +43,9 @@ export default function CardsScreen({ navigation }) {
       });
   }, []);
 
-  const allCards = cardAll.map((data, i) => { return <Cards key={i} {...data} /> });
+  const allCards = cardAll.map((data, i) => {
+    return <Cards key={i} {...data} />;
+  });
 
   //afficher les cards rechercher
 
@@ -47,7 +57,13 @@ export default function CardsScreen({ navigation }) {
         const cardsSearch = searchCard.data.map((oneCard, i) => {
           console.log(oneCard);
           return (
-            <Cards key={i} cardsID={oneCard._id} name={oneCard.name} content={oneCard.content} source={oneCard.source} />
+            <Cards
+              key={i}
+              cardsID={oneCard._id}
+              name={oneCard.name}
+              content={oneCard.content}
+              source={oneCard.source}
+            />
           );
         });
         setCardFounded(cardsSearch);
@@ -58,11 +74,11 @@ export default function CardsScreen({ navigation }) {
   useEffect(() => {
     if (!search) {
       setCardResult(<View>{cardAll}</View>);
-      setCardFounded("")
+      setCardFounded("");
     } else {
       setCardResult(<View>{cardFounded}</View>);
     }
-  }, [search, cardAll, cardFounded,Cards.likes]);
+  }, [search, cardAll, cardFounded, Cards.likes]);
 
   // //affichages des cards trouve
   // useEffect(() => {
@@ -78,9 +94,19 @@ export default function CardsScreen({ navigation }) {
       <View style={styles.containerTop}>
         <View>
           <View style={styles.searchBar}>
-              <TextInput style={styles.input} placeholder="Recherche" onChangeText={(value) => setSearch(value)} value={search} />
+            <TextInput
+              style={styles.input}
+              placeholder="Recherche"
+              onChangeText={(value) => setSearch(value)}
+              value={search}
+            />
             <TouchableOpacity style={styles.searchButton}>
-              <FontAwesome name="search" size={20} style={styles.search} onPress={() => handleClick()} />
+              <FontAwesome
+                name="search"
+                size={20}
+                style={styles.search}
+                onPress={() => handleClick()}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -125,8 +151,8 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     position: "absolute",
-    right:"8%",
-    top:"25%",
+    right: "8%",
+    top: "25%",
   },
   input: {
     color: "#8C8995",
@@ -134,7 +160,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     width: "100%",
   },
-  search: { 
+  search: {
     color: "#8C8995",
   },
   likes: {

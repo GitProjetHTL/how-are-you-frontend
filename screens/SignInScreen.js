@@ -8,51 +8,58 @@ import {
   TextInput,
   Image,
   Dimensions,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
-import { useState } from 'react'; 
-import { useDispatch } from 'react-redux'
-import { login } from '../reducers/user'
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../reducers/user";
 
-const BACKEND = 'https://howareyouapp-backend.vercel.app/'
+const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
 export default function SignInScreen({ navigation }) {
+  const dispatch = useDispatch();
 
-const dispatch = useDispatch(); 
-
-const [username, setUsername] = useState(null); 
-const [error, setError] = useState(false); 
-const [password, setPassword] = useState(null); 
+  const [username, setUsername] = useState(null);
+  const [error, setError] = useState(false);
+  const [password, setPassword] = useState(null);
 
   const handleSubmit = () => {
-    console.log(username, password)
+    console.log(username, password);
     fetch(`${BACKEND}/users/signin`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: username, password: password }),
-    }).then(response => response.json())
-      .then(data => {
+    })
+      .then((response) => response.json())
+      .then((data) => {
         // console.log(data.userId)
-        let userId = data.userId; 
-        if (data.result){
-          dispatch(login({ token: data.token, username: data.username, userId: userId }));
-          navigation.navigate("TabNavigator"); 
-          setPassword(null); 
-          setUsername(null)
+        let userId = data.userId;
+        if (data.result) {
+          dispatch(
+            login({
+              token: data.token,
+              username: data.username,
+              userId: userId,
+            })
+          );
+          navigation.navigate("TabNavigator");
+          setPassword(null);
+          setUsername(null);
         } else {
-          setError(true)
+          setError(true);
         }
       })
-      .catch(error => {
-        console.log(error)
-        setError(true)
+      .catch((error) => {
+        console.log(error);
+        setError(true);
       });
   };
 
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <View style={styles.imageContainer}>
         <Image
           source={require("../assets/home.png")}
@@ -60,17 +67,19 @@ const [password, setPassword] = useState(null);
           resizeMode="cover"
         />
       </View>
-      
+
       <View style={styles.signinContainer}>
         <Text style={styles.title1}>Hey,</Text>
         <Text style={styles.title2}>How are you?</Text>
 
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Surnom</Text>
-          <TextInput 
-          style={styles.input} 
-          placeholder="Entrez votre surnom" 
-          onChangeText={(value) => setUsername(value)} value={username}/>
+          <TextInput
+            style={styles.input}
+            placeholder="Entrez votre surnom"
+            onChangeText={(value) => setUsername(value)}
+            value={username}
+          />
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Mot de passe</Text>
@@ -78,7 +87,9 @@ const [password, setPassword] = useState(null);
             style={styles.input}
             placeholder="Entrez votre mot de passe"
             secureTextEntry
-            onChangeText={(value) => setPassword(value)} value={password}/>
+            onChangeText={(value) => setPassword(value)}
+            value={password}
+          />
         </View>
         <TouchableOpacity
           style={styles.SignInButton}
@@ -87,8 +98,8 @@ const [password, setPassword] = useState(null);
           <Text style={styles.SignInText}>Je me connecte</Text>
         </TouchableOpacity>
         {error && (
-            <Text style={styles.error}>Surnom et/ou mot de passe incorrect</Text>
-          )}
+          <Text style={styles.error}>Surnom et/ou mot de passe incorrect</Text>
+        )}
         <View style={styles.ligne}></View>
         <Text style={styles.newTxt}>Nouveau ici? </Text>
         <TouchableOpacity
@@ -111,7 +122,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     // marginTop: 50,
-    height: "45%",
+    height: "40%",
     // width: "100%",
     width: Dimensions.get("window").width,
     borderRadius: 25,
@@ -186,7 +197,7 @@ const styles = StyleSheet.create({
   ligne: {
     width: "80%",
     height: 1,
-    marginTop: '10%', 
+    marginTop: "10%",
     backgroundColor: "#5B3EAE",
     marginVertical: 5,
   },
@@ -218,7 +229,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 5,
     padding: 0,
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: "DM-Sans-Regular",
   },
 });
