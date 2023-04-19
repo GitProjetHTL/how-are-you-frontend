@@ -17,32 +17,18 @@ export default function Suggestions() {
     const [contentSuggestion,setContentSuggestion]= useState("")
 
 
-    useEffect(() => {
-      fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
-      .then((response) => response.json())
-      .then((searchCard) => {
-        const cardsSearch = searchCard.data.map((data, i) => {
-          return  <Cards key={i} {...data} />
-        });
-        setCardSuggestion(cardsSearch[Math.floor(Math.random() * cardsSearch.length)]);
-      });
-    }, []);
-
-    useEffect(()=> {
-      fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
-      .then((response) => response.json())
-      .then((searchAudios) => {
-        const audiosSearch = searchAudios.data.map((data, i) => {
-          return  <Audio key={i} {...data} />
-        });
-        setAudioSuggestion(audiosSearch[Math.floor(Math.random() * audiosSearch.length)]);
-      });
+    //useEffect(() => { useEffect(() => {
       
-    }, []);
+    // }, []);
 
-    useEffect(() => {
+    // useEffect(()=> {
+     
+      
+    // }, []);
+
+    
   
-      if (!user.emotionName) {
+      if (user.emotionName) {
         setContentSuggestion(
           <ScrollView style={styles.scrollView}>
             <View style={styles.cardSuggestion}>{cardSuggestion}</View>
@@ -50,6 +36,7 @@ export default function Suggestions() {
           </ScrollView>
         );
   
+        useEffect(() => {
         fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
         .then((response) => response.json())
         .then((searchCard) => {
@@ -58,7 +45,9 @@ export default function Suggestions() {
           });
           setCardSuggestion(cardsSearch);
         });
-    
+        }, [user.emotionName]);
+        
+        useEffect(() => {
           fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotionName}`)
           .then((response) => response.json())
           .then((searchAudios) => {
@@ -67,7 +56,7 @@ export default function Suggestions() {
             });
             setAudioSuggestion(audiosSearch);
           });
-   
+        }, [user.emotionName]);
 
       } else {
         setContentSuggestion(
@@ -75,9 +64,31 @@ export default function Suggestions() {
             <View style={styles.cardSuggestion}>{cardSuggestion}</View>
             <View style={styles.audioSuggestion}>{audioSuggestion}</View>
           </ScrollView>
-        );}
+        );
+        useEffect(() => {
+        fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
+        .then((response) => response.json())
+        .then((searchCard) => {
+          const cardsSearch = searchCard.data.map((data, i) => {
+            return  <Cards key={i} {...data} />
+          });
+          setCardSuggestion(cardsSearch[Math.floor(Math.random() * cardsSearch.length)]);
+        })
+      }, [user.token,user.emotionName]);
 
-      }, []);
+      useEffect(() => {
+        fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
+        .then((response) => response.json())
+        .then((searchAudios) => {
+          const audiosSearch = searchAudios.data.map((data, i) => {
+            return  <Audio key={i} {...data} />
+          });
+          setAudioSuggestion(audiosSearch[Math.floor(Math.random() * audiosSearch.length)]);
+        });;
+      }, [user.token,user.emotionName]);
+
+      }
+    
 
         
         // useEffect(() => {
