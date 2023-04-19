@@ -54,8 +54,6 @@ export default function Suggestions() {
           </ScrollView>
         );}
 
-      }, []);
-
         useEffect(() => {
           fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
           .then((response) => response.json())
@@ -77,6 +75,8 @@ export default function Suggestions() {
             setAudioSuggestion(audiosSearch);
           });
         }, [user.emotionName]);
+      }, []);
+
         
   
     return (
