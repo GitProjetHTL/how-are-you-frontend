@@ -13,16 +13,40 @@ export default function Suggestions() {
 
     const [cardSuggestion,setCardSuggestion]= useState([])
     const [audioSuggestion,setAudioSuggestion]= useState([])
-    const [defaultSuggestion, setDefaultSuggestion] = useState([])
+    // const [defaultSuggestion, setDefaultSuggestion] = useState("")
     const [contentSuggestion,setContentSuggestion]= useState("")
 
-    useEffect(() => {
+  
       if (!user.emotionName) {
-        setDefaultSuggestion(
+        setContentSuggestion(
           <ScrollView style={styles.scrollView}>
-            <View style={styles.cardSuggestion}>{defaultSuggestion}</View>
+            <View style={styles.cardSuggestion}>{cardSuggestion}</View>
+            <View style={styles.audioSuggestion}>{audioSuggestion}</View>
           </ScrollView>
         );
+    useEffect(() => {
+      fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
+        .then((response) => response.json())
+        .then((searchCard) => {
+          const cardsSearch = searchCard.data.map((data, i) => {
+            return  <Cards key={i} {...data} />
+          });
+          setCardSuggestion(cardsSearch[Math.floor(Math.random() * cardsSearch.length)]);
+        });
+    }, [user.emotionName]);
+  
+    useEffect(() => {
+      fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
+        .then((response) => response.json())
+        .then((searchAudios) => {
+          const audiosSearch = searchAudios.data.map((data, i) => {
+            return  <Audio key={i} {...data} />
+          });
+          setAudioSuggestion(audiosSearch[Math.floor(Math.random() * audiosSearch.length)]);
+        });
+    }, [user.emotionName]);
+  
+
       } else {
         setContentSuggestion(
           <ScrollView style={styles.scrollView}>
@@ -30,30 +54,30 @@ export default function Suggestions() {
             <View style={styles.audioSuggestion}>{audioSuggestion}</View>
           </ScrollView>
         );
+        
+        useEffect(() => {
+          fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
+          .then((response) => response.json())
+          .then((searchCard) => {
+            const cardsSearch = searchCard.data.map((data, i) => {
+              return  <Cards key={i} {...data} />
+            });
+            setCardSuggestion(cardsSearch);
+          });
+        }, [user.emotionName]);
+        
+        useEffect(() => {
+          fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotionName}`)
+          .then((response) => response.json())
+          .then((searchAudios) => {
+            const audiosSearch = searchAudios.data.map((data, i) => {
+              return  <Audio key={i} {...data} />
+            });
+            setAudioSuggestion(audiosSearch);
+          });
+        }, [user.emotionName]);
+        
       }
-    }, [user.emotionName, cardSuggestion, audioSuggestion, defaultSuggestion, Cards.likes]);
-  
-    useEffect(() => {
-      fetch(`https://howareyouapp-backend.vercel.app/cards/search/${user.emotionName}`)
-        .then((response) => response.json())
-        .then((searchCard) => {
-          const cardsSearch = searchCard.data.map((data, i) => {
-            return  <Cards key={i} {...data} />
-          });
-          setCardSuggestion(cardsSearch);
-        });
-    }, [user.emotionName]);
-  
-    useEffect(() => {
-      fetch(`https://howareyouapp-backend.vercel.app/audios/search/${user.emotionName}`)
-        .then((response) => response.json())
-        .then((searchAudios) => {
-          const audiosSearch = searchAudios.data.map((data, i) => {
-            return  <Audio key={i} {...data} />
-          });
-          setAudioSuggestion(audiosSearch);
-        });
-    }, [user.emotionName]);
   
     return (
       <View style={styles.container}>{contentSuggestion}</View>
