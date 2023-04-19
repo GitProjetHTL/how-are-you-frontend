@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     fontSize: 16,
+    fontFamily: "DM-Sans-Regular"
     // marginBottom: 5,
   },
   confirmText: {
@@ -170,6 +171,7 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     marginBottom: 10,
     paddingTop: 5,
+    color: "#5B3EAE",
   },
   noButton: {
     backgroundColor: "#ffffff",

@@ -104,7 +104,7 @@ const [password, setPassword] = useState(null);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 4,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
@@ -173,14 +173,12 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 40,
     width: "60%",
-    paddingTop: 2,
     alignItems: "center",
     justifyContent: "center",
   },
   SignInText: {
     color: "#5B3EAE",
     fontSize: 16,
-    fontWeight: 500,
     textAlign: "center",
     fontFamily: "DM-Sans-Bold",
   },
@@ -190,11 +188,11 @@ const styles = StyleSheet.create({
     height: 1,
     marginTop: '10%', 
     backgroundColor: "#5B3EAE",
-    marginVertical: 15,
+    marginVertical: 5,
   },
   newTxt: {
     color: "#5B3EAE",
-    marginBottom: 15,
+    marginBottom: 10,
     fontFamily: "DM-Sans-Regular",
   },
   SignUpButton: {
@@ -219,10 +217,6 @@ const styles = StyleSheet.create({
     width: "80%",
     fontSize: 14,
     marginTop: 5,
-    // position: "relative",
-    top: 10,
-    // left: 20,
-    margin: -10,
     padding: 0,
     textAlign: 'center',
     fontFamily: "DM-Sans-Regular",

@@ -167,35 +167,45 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-
   containerTop: {
     marginTop: 30,
     flexDirection: "row",
     justifyContent: "space-evenly",
     backgroundColor: "white",
   },
-
   searchBar: {
     flexDirection: "row",
     backgroundColor: "white",
-    borderColor: "#5B3EAE",
+    borderColor: "#8C8995",
     width: 270,
     height: 50,
     borderWidth: 1,
     borderRadius: 25,
     paddingLeft: 10,
-
   },
-
+  searchBar: {
+    flexDirection: "row",
+    backgroundColor: "white",
+    borderColor: "#8C8995",
+    width: 270,
+    height: 50,
+    borderWidth: 1,
+    borderRadius: 25,
+    paddingLeft: 10,
+  },
   searchButton: {
     position: "absolute",
     right:"8%",
     top:"25%",
   },
   input: {
-    margin:10,
     color: "#8C8995",
     fontFamily: "DM-Sans-Regular",
+    marginHorizontal: 10,
+    width: "100%",
+  },
+  search: { 
+    color: "#8C8995",
   },
   likes: {
     height: 50,
@@ -204,10 +214,6 @@ const styles = StyleSheet.create({
   },
   heart: {
     color: "#5B3EAE",
-  },
-
-  search: { 
-    color: "#A8A3BB",
   },
   title: {
     justifyContent: "center",

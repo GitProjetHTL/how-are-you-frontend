@@ -1,13 +1,4 @@
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
@@ -56,13 +47,7 @@ export default function CardsScreen({ navigation }) {
         const cardsSearch = searchCard.data.map((oneCard, i) => {
           console.log(oneCard);
           return (
-            <Cards
-              key={i}
-              cardsID={oneCard._id}
-              name={oneCard.name}
-              content={oneCard.content}
-              source={oneCard.source}
-            />
+            <Cards key={i} cardsID={oneCard._id} name={oneCard.name} content={oneCard.content} source={oneCard.source} />
           );
         });
         setCardFounded(cardsSearch);
@@ -105,10 +90,10 @@ export default function CardsScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.title}>
+      {/* <View style={styles.title}>
         <Text style={styles.sujet}>All Cards:</Text>
-        {/* <Text style={styles.sujet}>Sujet Aleatoire</Text> */}
-      </View>
+        <Text style={styles.sujet}>Sujet Aleatoire</Text>
+      </View> */}
       <ScrollView style={styles.cardsContainer}>
         {search ? cardFounded : allCards}
       </ScrollView>
@@ -136,6 +121,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 25,
     paddingLeft: 10,
+    marginBottom: 20,
   },
   searchButton: {
     position: "absolute",
@@ -143,9 +129,13 @@ const styles = StyleSheet.create({
     top:"25%",
   },
   input: {
-    margin:10,
     color: "#8C8995",
     fontFamily: "DM-Sans-Regular",
+    marginHorizontal: 10,
+    width: "100%",
+  },
+  search: { 
+    color: "#8C8995",
   },
   likes: {
     height: 50,
@@ -154,9 +144,6 @@ const styles = StyleSheet.create({
   },
   heart: {
     color: "#5B3EAE",
-  },
-  search: { 
-    color: "#A8A3BB",
   },
   title: {
     justifyContent: "center",
