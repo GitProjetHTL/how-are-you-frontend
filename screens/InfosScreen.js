@@ -9,10 +9,13 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { updateUser } from '../reducers/user'
+import { useSelector, useDispatch } from "react-redux";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const BACKEND = "https://howareyouapp-backend.vercel.app/";
 
 export default function InfosScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -22,7 +25,43 @@ export default function InfosScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
 
-  const user = {};
+  const user = useSelector((state) => state.user.value)
+  const dispatch = useDispatch()
+
+  const handleUpdate = () => {
+    const emailHasError = !EMAIL_REGEX.test(email);
+    // console.log(emailHasError)
+    const passwordHasError = !PASSWORD_REGEX.test(password);
+    const usernameHasError = !username.length;
+
+    setEmailError(emailHasError);
+    setPasswordError(passwordHasError);
+    setUsernameError(usernameHasError);
+
+    if (!(emailHasError || passwordHasError || usernameHasError)) {
+      fetch(`${BACKEND}/users/update`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: user.token,
+          username: username, 
+          email: email, 
+          password: password
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("user => ", data);
+          if (data.result) {
+            alert("Vos informations ont bien été modifiées 💖.");
+            dispatch(updateUser({username: username, email: email, password: password }))
+            setUsername('')
+            setEmail('')
+            setPassword('')
+          }
+        });
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -77,7 +116,8 @@ export default function InfosScreen({ navigation }) {
             <Text style={styles.error}>Entrez un email valide</Text>
           )}
         </View>
-        <TouchableOpacity style={styles.saveButton}>
+        <TouchableOpacity style={styles.saveButton}
+        onPress={() => handleUpdate()}>
           <Text style={styles.saveText}>Sauvegarder </Text>
         </TouchableOpacity>
       </View>
