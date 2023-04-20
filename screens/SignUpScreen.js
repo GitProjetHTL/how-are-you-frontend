@@ -23,7 +23,6 @@ export default function SignUpScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [date, setDate] = useState('');
-  // const [showDatePicker, setShowDatePicker] = useState(false);
 
   // console.log(date, password)
 
@@ -44,16 +43,6 @@ export default function SignUpScreen({ navigation }) {
       navigation.navigate("Survey");
     }
   };
-
-  // const onDatePickerPress = () => {
-  //   setShowDatePicker(true);
-  // };
-  // const onChange = (event, selectedDate) => {
-  //   const currentDate = selectedDate || date;
-  //   setShowDatePicker(false);
-  //   setDate(currentDate);
-  //   setDateError(false);
-  // };
 
   return (
     <KeyboardAvoidingView 
@@ -80,30 +69,12 @@ export default function SignUpScreen({ navigation }) {
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Ta date de naissance</Text>
-          {/* {showDatePicker && (
-            <DateTimePicker
-            value={value => setDate(value)}
-            mode="date"
-            display="spinner"
-            onChange={onChange}
-          />
-          )} */}
           <TextInput
             style={styles.input}
-            placeholder="Entrez votre date de naissance"
+            placeholder="DD/MM/YYYY"
             onChangeText={(date) => setDate(date)}
             value={date}
           />
-          {/* <TouchableOpacity onPress={onDatePickerPress}>
-            <TextInput
-              style={styles.input}
-              value={date}
-              onPress={() => onChange()}
-              editable={false}
-              pointerEvents="none"
-              placeholder="Sélectionnez une date"
-            />
-          </TouchableOpacity> */}
           {dateError && (
             <Text style={styles.error}>
               Veuillez choisir une date de naissance
@@ -138,9 +109,8 @@ export default function SignUpScreen({ navigation }) {
           )}
         </View>
       <View style={styles.buttonContainer}>
-        {/* <Button title="S'inscrire" onPress={handleSubmit} /> */}
         <TouchableOpacity style={styles.NextButton} onPress={handleSubmit}>
-          <Text style={styles.NextText}>Suivant </Text>
+          <Text style={styles.NextText}>Suivant</Text>
         </TouchableOpacity>
       </View>
       </ScrollView>

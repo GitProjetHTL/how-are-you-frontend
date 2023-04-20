@@ -6,22 +6,32 @@ import {
   TextInput,
   SafeAreaView,
   ScrollView,
+  RefreshControl
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback} from "react";
 import Cards from "../components/Cards";
 import { useSelector } from "react-redux";
-// import { setStatusBarBackgroundColor } from "expo-status-bar";
+
+const BACKEND = "https://howareyouapp-backend.vercel.app";
 
 export default function CardsScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
-  console.log("user => ", user);
+  // console.log("user => ", user);
 
   const [cardAll, setCardAll] = useState([]);
   const [search, setSearch] = useState("");
   const [cardFounded, setCardFounded] = useState([]);
   const [cardResult, setCardResult] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
 
   //fetch de toutes cards
 
@@ -29,17 +39,7 @@ export default function CardsScreen({ navigation }) {
     fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        //  console.log('data', data)
         data.result && setCardAll(data.data);
-        // const cards= allCards.data.map((oneCard, i) => {
-        //   return (
-        //   <Cards
-        //     key={i}
-        //     id={oneCard._id}
-        //     name={oneCard.name}
-        //     content={oneCard.content}
-        //     source={oneCard.source}
-        //   />)});
       });
   }, []);
 
@@ -47,28 +47,24 @@ export default function CardsScreen({ navigation }) {
     return <Cards key={i} {...data} />;
   });
 
-  //afficher les cards rechercher
-
-  let handleClick = () => {
-    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${search}`)
+  //afficher les cards rechercher en fonction de ce qui est tapé dans l'input en temps réel
+  useEffect(() => {
+    if(search){
+      fetch(`${BACKEND}/cards/search/${search}`)
       .then((response) => response.json())
       .then((searchCard) => {
         // console.log(searchCard.data)
-        const cardsSearch = searchCard.data.map((oneCard, i) => {
-          console.log(oneCard);
-          return (
-            <Cards
-              key={i}
-              cardsID={oneCard._id}
-              name={oneCard.name}
-              content={oneCard.content}
-              source={oneCard.source}
-            />
-          );
+        const cardsSearch = searchCard.data.map((data, i) => {
+          return <Cards key={i} {...data} />;
         });
-        setCardFounded(cardsSearch);
+        setCardFounded(cardsSearch)
+      })
+      .catch((error) => {
+        console.error("Une erreur s'est produite lors de la récupération des données", error);
+        // Afficher un message d'erreur dans la console
       });
-  };
+    }
+  }, [search]);
 
   //affichages des cards trouve
   useEffect(() => {
@@ -79,15 +75,6 @@ export default function CardsScreen({ navigation }) {
       setCardResult(<View>{cardFounded}</View>);
     }
   }, [search, cardAll, cardFounded, Cards.likes]);
-
-  // //affichages des cards trouve
-  // useEffect(() => {
-  //   if (!search) {
-  //     setCardResult(<View>{allCards}</View>);
-  //   } else {
-  //     setCardResult(<View>{cardFounded}</View>);
-  //   }
-  // }, [search, cardAll, cardFounded]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -105,7 +92,7 @@ export default function CardsScreen({ navigation }) {
                 name="search"
                 size={20}
                 style={styles.search}
-                onPress={() => handleClick()}
+                // onPress={() => handleClick()}
               />
             </TouchableOpacity>
           </View>
@@ -116,11 +103,11 @@ export default function CardsScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <View style={styles.title}>
-        <Text style={styles.sujet}>All Cards:</Text>
-        <Text style={styles.sujet}>Sujet Aleatoire</Text>
-      </View> */}
-      <ScrollView style={styles.cardsContainer}>
+
+      <ScrollView style={styles.cardsContainer}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
         {search ? cardFounded : allCards}
       </ScrollView>
     </SafeAreaView>

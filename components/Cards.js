@@ -15,20 +15,17 @@ const BACKEND = "https://howareyouapp-backend.vercel.app";
 
 export default function Cards(props) {
   const user = useSelector((state) => state.user.value);
-  // console.log(user)
   const [isLiked, setIsLiked] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
-  // console.log(props)
   const handleLike = () => {
-    fetch("https://howareyouapp-backend.vercel.app/cards/like", {
+    fetch(`${BACKEND}/cards/like`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token, cardsID: props._id }),
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.like);
         if (data.like) {
           setIsLiked(true);
         } else {
@@ -37,7 +34,7 @@ export default function Cards(props) {
       });
   };
   let content = props.content.substr(0, 100) + "...";
-  // console.log('card reducer', cards)
+
   const handleMoreModal = () => {
     setModalVisible(true);
   };
@@ -173,7 +170,6 @@ const styles = StyleSheet.create({
   modalContent: {
     fontSize: 16,
     fontFamily: "DM-Sans-Regular",
-    // marginBottom: 5,
   },
   confirmText: {
     borderTopWidth: 1,

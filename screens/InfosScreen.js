@@ -1,10 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
   SafeAreaView,
 } from "react-native";

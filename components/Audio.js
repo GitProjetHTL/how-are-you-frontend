@@ -6,9 +6,6 @@ import {
   Text,
   View,
   Image,
-  TextInput,
-  SafeAreaView,
-  ScrollView,
   Linking,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -18,15 +15,14 @@ import { useState } from "react";
 const BACKEND = "https://howareyouapp-backend.vercel.app";
 
 export default function Audios(props) {
+  //redirection vers spotify
   const handlePress = () => {
     Linking.openURL(props.source);
   };
 
-  // console.log(props)
   const user = useSelector((state) => state.user.value);
   const [isLiked, setIsLiked] = useState(false);
 
-  // console.log(props)
   const handleLike = () => {
     fetch(`${BACKEND}/audios/like`, {
       method: "PUT",
@@ -36,7 +32,7 @@ export default function Audios(props) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        console.log(data.like);
+        // console.log(data.like);
         if (data.like) {
           setIsLiked(true);
         } else {
@@ -60,16 +56,13 @@ export default function Audios(props) {
             style={styles.moreButton}
             onPress={() => handlePress()}
           >
-            <Text style={styles.moreText}>Voir plus</Text>
+            <Text style={styles.moreText}>Découvrir</Text>
           </TouchableOpacity>
           <View style={styles.heartContainer}>
             <FontAwesome
               name="heart"
               size={20}
-              style={[
-                styles.heart,
-                isLiked ? { color: "#5B3EAE" } : { color: "white" },
-              ]}
+              style={[isLiked ? { color: "#5B3EAE" } : { color: "white" }]}
               onPress={() => handleLike()}
             />
           </View>
@@ -85,8 +78,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 20,
     width: "90%",
-    // minHeight: 450,
-    // maxHeight: 550,
     marginHorizontal: "5%",
     overflow: "hidden",
   },

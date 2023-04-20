@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   TouchableOpacity,
   TextInput,
   Image,
@@ -101,7 +100,7 @@ export default function SignInScreen({ navigation }) {
           <Text style={styles.error}>Surnom et/ou mot de passe incorrect</Text>
         )}
         <View style={styles.ligne}></View>
-        <Text style={styles.newTxt}>Nouveau ici? </Text>
+        <Text style={styles.newTxt}>Nouveau ici?</Text>
         <TouchableOpacity
           style={styles.SignUpButton}
           onPress={() => navigation.navigate("SignUp")}
@@ -121,9 +120,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   imageContainer: {
-    // marginTop: 50,
     height: "40%",
-    // width: "100%",
     width: Dimensions.get("window").width,
     borderRadius: 25,
     // borderWidth: 2,
@@ -212,7 +209,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 40,
     width: "60%",
-    // paddingTop: 5,
     alignItems: "center",
     justifyContent: "center",
   },
