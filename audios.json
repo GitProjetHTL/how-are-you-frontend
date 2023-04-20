@@ -1,153 +1,30 @@
 [
     {
        
-        "name": "Les pervers narcissiques ?",
-        "target": ["colère", "fierté"],
-        "source": "https://open.spotify.com/episode/78TPeXRioOM54FtwbSH6Q0",
-        "content": "Comprendre leur fonctionnement (avant, pendant... et même après). J'espère que ce podcast apportera un peu à sa manière",
-        "image":"https://i.scdn.co/image/ab67656300005f1ffa35c2451fb3e99ed533c0f0"
+        "name": "Lâcher prise",
+        "target": ["anxiété","honte","peur"],
+        "source": "https://www.youtube.com/embed/NPs5UD4-Djs",
+        "content": "Méditation radicale pour reprendre le contrôle de soi et de ses émotions.",
+        "image":"https://i.ytimg.com/vi/NPs5UD4-Djs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBDutsGDMCGN-_NZyxoYa4c5t-WBg"
       },
-    {
-       "name": "Comment ne pas stresser pour ses finances pro !",
-       "target": ["peur","anxiété"],
-       "source": "https://open.spotify.com/episode/5RyhdocNvJxkk9wdImdwSn",
-       "content": "Avoir un compte pro c'est aussi avoir une nouvelle source de charge mentale. Voici les astuces pour s'en libérer !",
-       "image":"https://i.scdn.co/image/ab67656300005f1ffeb427a45ef13b1cb2236e20"
-    },
 
-    {
-        "name": "Il était une fois quelques neurones...",
-        "target": ["surprise", "sérénité"],
-        "source": "https://open.spotify.com/episode/181V4WN0jyf5ewykft9pml",
-        "content": "Il est temps de refaire un point entre nous sur l'hippocampe !",
-        "image":"https://i.scdn.co/image/ab67656300005f1f4b2cf6307b2520cca8817b1c"
-     },
-     {
-        "name": "Méthode pour apprendre rapidement !",
-        "target": ["joie","fierté"],
-        "source": "https://open.spotify.com/episode/4onWWJiuTxXVkfcDgy11dY",
-        "content": "Des méthodes pour apprendre c'est bien mais... comment apprendre rapidement n'importe quels sujet ou domaine ?",
-        "image":"https://i.scdn.co/image/ab67656300005f1f15325417836df854fe7eb4b7"
-     },
-     {
-        "name": "Comment réussir un entretien ?",
-        "target": ["peur","anxiété"],
-        "source": "https://open.spotify.com/episode/34hQx0YbBIiGVq6M3UsnNv",
-        "content": "Comment réussir son entretien d'embauche ? Ce podcast est aussi valable si vous êtes recruteur ou recruteuse...",
-        "image":"https://i.scdn.co/image/ab67656300005f1fb9964f57a8fb61b598ebe2c5"
-     },
-     {
-        "name": "Combien vaut (réellement) votre temps ?",
-        "target": ["sérénité","surprise","peur"],
-        "source": "https://open.spotify.com/episode/4alZAgLMKCB2pCayoWgZSw",
-        "content": "Quel est la véritable valeur de votre temps ? C'est la question à laquelle nous allons pouvoir répondre aujourd'hui.",
-        "image":"https://i.scdn.co/image/ab67656300005f1f4bb72965063be891096dd95d"
-     },
-     {
-        "name": "Le Triangle de la Manipulation !",
-        "target": ["honte","confusion","surprise"],
-        "source": "https://open.spotify.com/episode/4dtKPXyGjHMKFLJyYtknfh",
-        "content": "Connaissez-vous le triangle de la manipulation ? Voici comment ne plus être victime, sauveur ou persécuteur !",
-        "image":"https://i.scdn.co/image/ab67656300005f1f480c6f903b421e18447210ee"
-     },
-     {
-        "name": "Un concurrent peut-il être un partenaire ?",
-        "target": ["degoût", "joie"],
-        "source": "https://open.spotify.com/episode/6Y8eMHDVnUpHWO03jkeOYH",
-        "content": "Comment trouver un bon partenaire et avancer avec lui.",
-        "image":"https://i.scdn.co/image/ab67656300005f1f6ef2f4977bf596ad5a96e7fb"
-     },
-     {
-        "name": "Les besoins physiologiques d'une société",
-        "target": ["joie","tristesse"],
-        "source": "https://open.spotify.com/episode/4lQjJMZBsNXmwIPaXKzhHB",
-        "content": "La pyramide de Maslow représente la hiérarchie des besoins d'un être humain, mais que se passe-t-il lorsque l'on l'applique à une entreprise ou à une société ?",
-        "image":"https://i.scdn.co/image/ab67656300005f1feee806351f0a040baadb0d21"
-     },
-     {
-        "name": "Nos plus gros échecs et comment se relever (Avec 6 personnes qui témoignent)",
-        "target": ["anxiété","tristesse","honte"],
-        "source": "https://open.spotify.com/episode/35wDoreIHYuLk2o1fOtkfD",
-        "content": "Au final l'échec c'est quoi ? J'ai posé ces question à Bernard Werber, Lotfi Lamaali, Pierre Croce, Pierre Sang, Emy Ltr et Enjoy Phoenix.",
-        "image":"https://i.scdn.co/image/ab67656300005f1f2ca102510af1fc8d3f930777"
-     },
+      {
+       
+         "name": "SOMMEIL profond et réparateur",
+         "target": ["sérénité", "anxiété"],
+         "source": "https://youtu.be/I1ixLx0RcQ0",
+         "content": "Apaisez vos tensions, libérez votre esprit de ses pensées récurrentes, et adoptez un calme idéal pour passer une nuit réparatrice grâce à cette hypnose qui vous guidera au son des crépitements du feu de cheminée.",
+         "image":"https://i.ytimg.com/vi/I1ixLx0RcQ0/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB35mHlImQMm1zR_0SmEB4P2MeaCw"
+       },
 
-     {
-        "name": "Le marketing des gentils",
-        "target": ["ennuie","surprise"],
-        "source": "https://open.spotify.com/episode/5vSls1Eb5dciUMWo5EA7cp",
-        "content": "Le marketing est-il un outil diabolique où peut-on le faire de manière éthique ?",
-        "image":"https://i.scdn.co/image/ab67656300005f1fe7516375b06c1d97eb0464a7"
-     },
-     {
-      "name": "Tes Mots, Nos Maux. Paola Locatelli : gérer ses émotions.",
-      "target": ["tristesse","peur","anxiété"],
-      "source": "https://open.spotify.com/episode/60lUBlD2Hog2iXg7v3QSyo",
-      "content": "Paola Locatelli se confie sur l’envers de la célébrité ; la haine et le harcèlement en ligne mais aussi les images idéalistes de vies qui s’affichent sur nos smartphones et qui peuvent mettre à mal l’amour de soi.",
-      "image":"https://i.scdn.co/image/ab67656300005f1f2711ea813ca6dcc1320be4c9"
-   },
-   {
-      "name": "La cible – Harcèlement scolaire",
-      "target": ["tristesse","peur","honte"],
-      "source": "https://open.spotify.com/episode/7sjbbguzrE0mx7qE6BUXrT",
-      "content": "HARCÈLEMENT SCOLAIRE – Insultes, moqueries, intimidations… Selon l'UNICEF, près d'un enfant sur trois dans le monde est victime de harcèlement à l'école.",
-      "image":"https://i.scdn.co/image/ab67656300005f1f1c9f8563fb85d877f3d04fce"
-   },
-
-   {
-      "name": "L'amer à boire — Addictions et famille",
-      "target": ["colère","confusion","anxiété"],
-      "source": "https://open.spotify.com/episode/0t7IxHTNxiJ8vs0pf2Dk14",
-      "content": "ADDICTIONS ET FAMILLE — On parle aujourd’hui en santé mentale d’explications biologiques, psychologiques et sociales.",
-      "image":"https://i.scdn.co/image/ab67656300005f1f958a4019d185ea563b9c5707"
-   },
-
-   {
-      "name": "Comment détecter et gérer le stress ?",
-      "target": ["peur","confusion","anxiété"],
-      "source": "https://open.spotify.com/episode/3VokAYvhXtt1pjQb29vDe1",
-      "content": "Comment détecter et gérer le stress ? Un sujet traité par la coach et thérapeute Julia Bouchinet.",
-      "image":"https://i.scdn.co/image/6e19c4bc8d577c08a43183f70e25b14956a8a0ea"
-   },
-
-   {
-      "name": "Le sentiment d'impuissance",
-      "target": ["peur","ennuie","tristesse"],
-      "source": "https://open.spotify.com/episode/0MwsEbee7GD43TmhnjbIB0",
-      "content": "Nous parlons du sentiment d'impuissance avec la gestalt-thérapeute Christina Winkler.",
-      "image":"https://i.scdn.co/image/6e19c4bc8d577c08a43183f70e25b14956a8a0ea"
-   },
-
-   {
-      "name": "Les relations toxiques",
-      "target": ["fierté","joie","anxiété"],
-      "source": "https://api.spotify.com/v1/episodes/3xp3ZlR4ihlSl3DFnN1EqN",
-      "content": "Lors de la semaine de la santé mentale en 2022, nous avons décidé de parler des relations toxiques avec les thérapeutes Julia Bouchinet, Badr Hajjani et Hoang Son.",
-      "image":"https://i.scdn.co/image/6e19c4bc8d577c08a43183f70e25b14956a8a0ea"
-   },
-
-   {
-      "name": "Tavailler, c'est trop dur ?",
-      "target": ["colère","tristesse","ennuie"],
-      "source": "https://open.spotify.com/episode/5l1BEKyvqgE828KDgZ2oIA",
-      "content": "On passe une grande partie de notre vie à travailler mais depuis le début de ce siècle, le travail est davantage remis en question : crise de sens, stress, burn-out...",
-      "image":"https://i.scdn.co/image/ab67656300005f1fd374f1ca409cf65fbd3fb836"
-   },
-
-   {
-      "name": "Traumas pour tous, tous traumas !",
-      "target": ["confusion","tristesse","anxiété"],
-      "source": "https://open.spotify.com/episode/6YUfw849TZTiOnPSWfVbuv",
-      "content": "Une idée qui revient souvent, c'est que l'on est davantage traumatisés qu’auparavant et que l'on se plaint pour un rien.",
-      "image":"https://i.scdn.co/image/ab67656300005f1f5db887994b6a8d4bdb707364"
-   },
-
-   {
-      "name": "Les expressions qui font mal",
-      "target": ["dégout","peur","honte"],
-      "source": "https://open.spotify.com/episode/6i3zcAki0xVablz6FwHO4X",
-      "content": "Ces petites phrases peuvent paraître anodines mais en réalité elles font mal, car elles stigmatisent les personnes qui souffrent de troubles psychiques.",
-      "image":"https://i.scdn.co/image/ab67656300005f1f059fda85aa4abece5e48a103"
-   }
+       {
+       
+         "name": "Relaxation musicale contre la culpabilité, la peur et l'inquiétude",
+         "target": ["colère", "fierté","tristesse","confusion"],
+         "source": "https://youtu.be/Vm3DWVGxNqE",
+         "content": "Réduisez naturellement vos sentiments de culpabilité ou de peur, apaisez vos inquiétudes grâce à cette musique composée de battements binauraux (4Hz) et de fréquences 396 Hz.",
+         "image":"https://i.ytimg.com/vi/Vm3DWVGxNqE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDhnk5icdtqRT2ISk6J2ewk3EmjvA"
+       }
+   
  
 ]
