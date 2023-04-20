@@ -32,7 +32,7 @@ export default function DiscoverScreen({ navigation }) {
   const [audiosResult, setAudiosResult] = useState([]);
   const [audiosRandom, setAudiosRandom] = useState([]);
 
-  const [refreshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(true);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -42,10 +42,10 @@ export default function DiscoverScreen({ navigation }) {
   }, []);
 
   //console.log(search);
-
+  //fetch des audios et des cards 
   useEffect(() => {
-    //fetch les cards et audios
-    fetch(`${BACKEND}/cards/all/${user.token}`)
+    if (refreshing){
+      fetch(`${BACKEND}/cards/all/${user.token}`)
       .then((response) => response.json())
       .then((allCards) => {
         //  console.log(allCards.data)
@@ -56,11 +56,8 @@ export default function DiscoverScreen({ navigation }) {
         setCardAll(cards);
         setCardRandom(cards[Math.floor(Math.random() * cards.length)]);
       });
-  }, [refreshing]);
-
-  //fetch les audios
-  useEffect(() => {
-    fetch(`${BACKEND}/audios/all/${user.token}`)
+      
+      fetch(`${BACKEND}/audios/all/${user.token}`)
       .then((response) => response.json())
       .then((allAudios) => {
         //console.log(allCards.data)
@@ -70,7 +67,11 @@ export default function DiscoverScreen({ navigation }) {
         setAudiosAll(audios);
         setAudiosRandom(audios[Math.floor(Math.random() * audios.length)]);
       });
+      setRefreshing(false);
+    }
+    //fetch les cards et audios
   }, [refreshing]);
+
 
   function random(cardAll, audiosAll) {
     const randomNumberforCard = Math.floor(Math.random() * cardAll.length);

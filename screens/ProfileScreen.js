@@ -2,6 +2,7 @@ import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Modal, Image, D
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from '../reducers/user'
+import { logoutJournal } from '../reducers/journal'
 import { useState } from 'react'; 
 
 const BACKEND = "https://howareyouapp-backend.vercel.app/";
@@ -26,6 +27,7 @@ export default function ProfileScreen({ navigation }) {
 
   const handleDeco = () => {
     dispatch(logout())
+    dispatch(logoutJournal())
     navigation.navigate('SignIn')
   }
 

@@ -38,7 +38,7 @@ export default function FavorisScreen({ navigation }) {
         console.log("data", data);
         data.result && setAllFavCard(data.data);
       });
-  }, [refreshing, Cards.likes]);
+  }, [refreshing, Cards.likes, Audio.like]);
 
   const favCards = allFavCard.map((data, i) => {
     return <Cards key={i} {...data} />;
@@ -53,7 +53,7 @@ export default function FavorisScreen({ navigation }) {
         console.log("data", data);
         data.result && setAllFavAudios(data.data);
       });
-  }, [refreshing, Audio.like, Cards.like]);
+  }, [refreshing, Audio.like, Cards.likes]);
 
   const favAudios = allFavAudios.map((data, i) => {
     return <Audio key={i} {...data} />;
