@@ -107,10 +107,8 @@ const styles = StyleSheet.create({
     fontFamily: "DM-Sans-Bold",
   },
   favContainer: {
-    // alignItems: "center",
     // borderWidth: 1,
     witdh: "100%",
-    // height: "80%",
     backgroundColor: "#E9EBFC",
     overflow: "scroll",
   },

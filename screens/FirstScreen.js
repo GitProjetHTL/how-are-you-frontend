@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  Image,
-} from "react-native";
-
-// safe area view à retirer
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 
 export default function FirstScreen({ navigation }) {
   return (
