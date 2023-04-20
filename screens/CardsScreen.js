@@ -6,6 +6,7 @@ import {
   TextInput,
   SafeAreaView,
   ScrollView,
+  RefreshControl
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -17,7 +18,7 @@ const BACKEND = "https://howareyouapp-backend.vercel.app";
 
 export default function CardsScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
-  console.log("user => ", user);
+  // console.log("user => ", user);
 
   const [cardAll, setCardAll] = useState([]);
   const [search, setSearch] = useState("");
@@ -46,27 +47,6 @@ export default function CardsScreen({ navigation }) {
     return <Cards key={i} {...data} />;
   });
 
-  // let handleClick = () => {
-  //   fetch(`https://howareyouapp-backend.vercel.app/cards/search/${search}`)
-  //     .then((response) => response.json())
-  //     .then((searchCard) => {
-  //       // console.log(searchCard.data)
-  //       const cardsSearch = searchCard.data.map((oneCard, i) => {
-  //         // console.log(oneCard);
-  //         return (
-  //           <Cards
-  //             key={i}
-  //             cardsID={oneCard._id}
-  //             name={oneCard.name}
-  //             content={oneCard.content}
-  //             source={oneCard.source}
-  //           />
-  //         );
-  //       });
-  //       setCardFounded(cardsSearch);
-  //     });
-  // };
-
   //afficher les cards rechercher en fonction de ce qui est tapé dans l'input en temps réel
   useEffect(() => {
     if(search){
@@ -81,7 +61,7 @@ export default function CardsScreen({ navigation }) {
       })
       .catch((error) => {
         console.error("Une erreur s'est produite lors de la récupération des données", error);
-        // Afficher un message d'erreur à l'utilisateur
+        // Afficher un message d'erreur dans la console
       });
     }
   }, [search]);
@@ -112,7 +92,7 @@ export default function CardsScreen({ navigation }) {
                 name="search"
                 size={20}
                 style={styles.search}
-                onPress={() => handleClick()}
+                // onPress={() => handleClick()}
               />
             </TouchableOpacity>
           </View>
@@ -124,7 +104,10 @@ export default function CardsScreen({ navigation }) {
         </View>
       </View>
 
-      <ScrollView style={styles.cardsContainer}>
+      <ScrollView style={styles.cardsContainer}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
         {search ? cardFounded : allCards}
       </ScrollView>
     </SafeAreaView>

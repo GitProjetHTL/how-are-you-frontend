@@ -49,28 +49,6 @@ export default function CardsScreen({ navigation }) {
       });
   }, [refreshing, Audio.like]);
 
-
-  // let handleClick = () => {
-  //   fetch(`https://howareyouapp-backend.vercel.app/audios/search/${search}`)
-  //     .then((response) => response.json())
-  //     .then((searchAudios) => {
-  //       // console.log(searchCard.data)
-  //       const audiosSearch = searchAudios.data.map((oneAudio, i) => {
-  //         return (
-  //           <Audio
-  //             key={i}
-  //             name={oneAudio.name}
-  //             content={oneAudio.content}
-  //             source={oneAudio.source}
-  //             image={oneAudio.image}
-  //             id={oneAudio._id}
-  //           />
-  //         );
-  //       });
-  //       setAudiosFounded(audiosSearch);
-  //     });
-  // };
-
   //afficher les cards rechercher en fonction de ce qui est tapé dans l'input en temps réel
   useEffect(() => {
     if(search){
@@ -86,7 +64,7 @@ export default function CardsScreen({ navigation }) {
       })
       .catch((error) => {
         console.error("Une erreur s'est produite lors de la récupération des données", error);
-        // Afficher un message d'erreur à l'utilisateur
+        // Afficher un message d'erreur dans la console
       });
     }
   }, [search]);
@@ -120,7 +98,7 @@ export default function CardsScreen({ navigation }) {
                 name="search"
                 size={20}
                 style={styles.search}
-                onPress={() => handleClick()}
+                // onPress={() => handleClick()}
               />
             </TouchableOpacity>
           </View>
