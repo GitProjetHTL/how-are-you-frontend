@@ -53,7 +53,7 @@ export default function FavorisScreen({ navigation }) {
         console.log("data", data);
         data.result && setAllFavAudios(data.data);
       });
-  }, [refreshing, Audio.like]);
+  }, [refreshing, Audio.like, Cards.like]);
 
   const favAudios = allFavAudios.map((data, i) => {
     return <Audio key={i} {...data} />;
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     padding: "5%",
   },
   like: { color: "#5B3EAE" },
+
   textHeader: {
     fontSize: 20,
     textAlign: "center",
