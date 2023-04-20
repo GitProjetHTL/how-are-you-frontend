@@ -3,26 +3,22 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  TextInput,
   RefreshControl,
   ScrollView,
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Cards from "../components/Cards";
-import Audio  from'../components/Audio';
-import { useEffect, useState, useCallback} from "react";
-import { useSelector } from 'react-redux'
+import Audio from "../components/Audio";
+import { useEffect, useState, useCallback } from "react";
+import { useSelector } from "react-redux";
 
 export default function FavorisScreen({ navigation }) {
-
   const [allFavAudios, setAllFavAudios] = useState([]);
-  
 
   const [allFavCard, setAllFavCard] = useState([]);
-  const user = useSelector(state => state.user.value)
-  console.log(user.userId)
+  const user = useSelector((state) => state.user.value);
+  console.log(user.userId);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -34,51 +30,34 @@ export default function FavorisScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}/liked-by/${user.userId}`)
-      .then(response => response.json())
-      .then(data => {
-         console.log('data', data)
-         data.result && setAllFavCard(data.data)
-        // const cards= allCards.data.map((oneCard, i) => {
-        //   return (
-        //   <Cards
-        //     key={i}
-        //     id={oneCard._id}
-        //     name={oneCard.name}
-        //     content={oneCard.content}
-        //     source={oneCard.source}
-        //   />)});
+    fetch(
+      `https://howareyouapp-backend.vercel.app/cards/all/${user.token}/liked-by/${user.userId}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        data.result && setAllFavCard(data.data);
       });
-    }, [refreshing,Cards.likes]);
+  }, [refreshing, Cards.likes]);
 
-    const favCards = allFavCard.map((data, i) => {
-      return (
-      <Cards key={i} {...data}/>)});
+  const favCards = allFavCard.map((data, i) => {
+    return <Cards key={i} {...data} />;
+  });
 
+  useEffect(() => {
+    fetch(
+      `https://howareyouapp-backend.vercel.app/audios/all/${user.token}/liked-by/${user.userId}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        data.result && setAllFavAudios(data.data);
+      });
+  }, [refreshing, Audio.like]);
 
-      useEffect(() => {
-        fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}/liked-by/${user.userId}`)
-          .then(response => response.json())
-          .then(data => {
-             console.log('data', data)
-             data.result && setAllFavAudios(data.data)
-            // const cards= allCards.data.map((oneCard, i) => {
-            //   return (
-            //   <Cards
-            //     key={i}
-            //     id={oneCard._id}
-            //     name={oneCard.name}
-            //     content={oneCard.content}
-            //     source={oneCard.source}
-            //   />)});
-          });
-        }, [refreshing,Audio.likes]);
-    
-        const favAudios = allFavAudios.map((data, i) => {
-          return (
-          <Audio key={i} {...data}/>)});
-
-
+  const favAudios = allFavAudios.map((data, i) => {
+    return <Audio key={i} {...data} />;
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -87,14 +66,16 @@ export default function FavorisScreen({ navigation }) {
           style={styles.arrow}
           onPress={() => navigation.navigate("TabNavigator")}
         >
-          <FontAwesome name="long-arrow-left" size={20}/>
+          <FontAwesome name="long-arrow-left" size={20} />
         </TouchableOpacity>
         <Text style={styles.textHeader}>Mes favoris</Text>
       </View>
-      <ScrollView style={styles.favContainer}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }>
+      <ScrollView
+        style={styles.favContainer}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {favCards}
         {favAudios}
       </ScrollView>
@@ -128,7 +109,8 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // borderWidth: 1,
     witdh: "100%",
-    height: "80%",
+    // height: "80%",
     backgroundColor: "#E9EBFC",
+    overflow: "scroll",
   },
 });

@@ -1,29 +1,54 @@
-import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function HelpScreen({ navigation }) {
-
   const helpInfosData = [
-    {iconName: 'phone', helpName: 'Samu', helpContact: '15'},
-    {iconName: 'link', helpName: 'MonParcoursPsy', helpContact: 'https://monparcourspsy.sante.gouv.fr/'},
-    {iconName: 'phone', helpName: 'SOS-Amitié', helpContact: '09 72 39 40 50'},
-    {iconName: 'link', helpName: 'Psycologue', helpContact: 'https://www.psychologue.net'},
-    {iconName: 'phone', helpName: 'SOS-suicide', helpContact: '3114'},
-    {iconName: 'phone', helpName: 'Croix-Rouge-écoute', helpContact: '0 800 858 858'},
-    {iconName: 'phone', helpName: 'Ecoute Ados', helpContact: '06 12 20 34 71'},
-  ]
+    { iconName: "phone", helpName: "Samu", helpContact: "15" },
+    {
+      iconName: "link",
+      helpName: "MonParcoursPsy",
+      helpContact: "https://monparcourspsy.sante.gouv.fr/",
+    },
+    {
+      iconName: "phone",
+      helpName: "SOS-Amitié",
+      helpContact: "09 72 39 40 50",
+    },
+    {
+      iconName: "link",
+      helpName: "Psycologue",
+      helpContact: "https://www.psychologue.net",
+    },
+    { iconName: "phone", helpName: "SOS-suicide", helpContact: "3114" },
+    {
+      iconName: "phone",
+      helpName: "Croix-Rouge-écoute",
+      helpContact: "0 800 858 858",
+    },
+    {
+      iconName: "phone",
+      helpName: "Ecoute Ados",
+      helpContact: "06 12 20 34 71",
+    },
+  ];
 
   const helpInfos = helpInfosData.map((data, i) => {
     return (
       <View key={i} style={styles.infosall}>
-      <FontAwesome name={data.iconName} size={25} style={styles.like} />
-      <View style={styles.infos}>
-        <Text style={styles.infosText}>{data.helpName}</Text>
-        <Text style={styles.contact}>{data.helpContact}</Text>
+        <FontAwesome name={data.iconName} size={25} style={styles.like} />
+        <View style={styles.infos}>
+          <Text style={styles.infosText}>{data.helpName}</Text>
+          <Text style={styles.contact}>{data.helpContact}</Text>
+        </View>
       </View>
-    </View>
-    )
-  })
+    );
+  });
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
@@ -35,9 +60,7 @@ export default function HelpScreen({ navigation }) {
         </TouchableOpacity>
         <Text style={styles.textHeader}>Aides / Numéros d'urgence</Text>
       </View>
-      <View style={styles.infosContainer}>
-        {helpInfos}
-      </View>
+      <View style={styles.infosContainer}>{helpInfos}</View>
     </SafeAreaView>
   );
 }
@@ -82,5 +105,5 @@ const styles = StyleSheet.create({
   },
   contact: {
     fontFamily: "DM-Sans-Regular",
-  }
+  },
 });

@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     }, 
     image: {
       width: Dimensions.get("window").width,
-      height: "20%",
+      height: "17%",
       // objectFit: "cover",
     },
 });
