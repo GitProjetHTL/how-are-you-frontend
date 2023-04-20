@@ -38,7 +38,7 @@ export default function DiscoverScreen({ navigation }) {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-    }, 1000);
+    }, 0,1);
   }, []);
 
   //console.log(search);
@@ -52,25 +52,24 @@ export default function DiscoverScreen({ navigation }) {
         const cards = allCards.data.map((data, i) => {
           return <Cards key={i} {...data} />;
         });
-
         setCardAll(cards);
         setCardRandom(cards[Math.floor(Math.random() * cards.length)]);
       });
+      fetch(`${BACKEND}/audios/all/${user.token}`)
+        .then((response) => response.json())
+        .then((allAudios) => {
+          //console.log(allCards.data)
+          const audios = allAudios.data.map((data, i) => {
+            return <Audio key={i} {...data} />;
+          });
+          setAudiosAll(audios);
+          setAudiosRandom(audios[Math.floor(Math.random() * audios.length)]);
+        });
   }, [refreshing]);
 
   //fetch les audios
-  useEffect(() => {
-    fetch(`${BACKEND}/audios/all/${user.token}`)
-      .then((response) => response.json())
-      .then((allAudios) => {
-        //console.log(allCards.data)
-        const audios = allAudios.data.map((data, i) => {
-          return <Audio key={i} {...data} />;
-        });
-        setAudiosAll(audios);
-        setAudiosRandom(audios[Math.floor(Math.random() * audios.length)]);
-      });
-  }, [refreshing]);
+  // useEffect(() => {
+  // }, [refreshing]);
 
   function random(cardAll, audiosAll) {
     const randomNumberforCard = Math.floor(Math.random() * cardAll.length);
