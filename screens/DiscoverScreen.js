@@ -32,7 +32,7 @@ export default function DiscoverScreen({ navigation }) {
   const [audiosResult, setAudiosResult] = useState([]);
   const [audiosRandom, setAudiosRandom] = useState([]);
 
-  const [refreshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(true);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -42,10 +42,10 @@ export default function DiscoverScreen({ navigation }) {
   }, []);
 
   //console.log(search);
-
+  //fetch des audios et des cards 
   useEffect(() => {
-    //fetch les cards et audios
-    fetch(`${BACKEND}/cards/all/${user.token}`)
+    if (refreshing){
+      fetch(`${BACKEND}/cards/all/${user.token}`)
       .then((response) => response.json())
       .then((allCards) => {
         //  console.log(allCards.data)
@@ -55,21 +55,22 @@ export default function DiscoverScreen({ navigation }) {
         setCardAll(cards);
         setCardRandom(cards[Math.floor(Math.random() * cards.length)]);
       });
+      
       fetch(`${BACKEND}/audios/all/${user.token}`)
-        .then((response) => response.json())
-        .then((allAudios) => {
-          //console.log(allCards.data)
-          const audios = allAudios.data.map((data, i) => {
-            return <Audio key={i} {...data} />;
-          });
-          setAudiosAll(audios);
-          setAudiosRandom(audios[Math.floor(Math.random() * audios.length)]);
+      .then((response) => response.json())
+      .then((allAudios) => {
+        //console.log(allCards.data)
+        const audios = allAudios.data.map((data, i) => {
+          return <Audio key={i} {...data} />;
         });
+        setAudiosAll(audios);
+        setAudiosRandom(audios[Math.floor(Math.random() * audios.length)]);
+      });
+      setRefreshing(false);
+    }
+    //fetch les cards et audios
   }, [refreshing]);
 
-  //fetch les audios
-  // useEffect(() => {
-  // }, [refreshing]);
 
   function random(cardAll, audiosAll) {
     const randomNumberforCard = Math.floor(Math.random() * cardAll.length);
@@ -114,29 +115,6 @@ export default function DiscoverScreen({ navigation }) {
     }
   }, [search]);
 
-
-  // let handleClick = () => {
-  //   fetch(`${BACKEND}/cards/search/${search}`)
-  //     .then((response) => response.json())
-  //     .then((searchCard) => {
-  //       // console.log(searchCard.data)
-  //       const cardsSearch = searchCard.data.map((data, i) => {
-  //         return <Cards key={i} {...data} />;
-  //       });
-  //       setCardFounded(cardsSearch);
-  //     });
-
-  //   fetch(`${BACKEND}/audios/search/${search}`)
-  //     .then((response) => response.json())
-  //     .then((searchAudios) => {
-  //       // console.log(searchCard.data)
-  //       const audiosSearch = searchAudios.data.map((data, i) => {
-  //         return <Audio key={i} {...data} />;
-  //       });
-  //       setAudiosFounded(audiosSearch);
-  //     });
-  // };
-
   //affichages des cards trouve
 
   useEffect(() => {
@@ -167,7 +145,7 @@ export default function DiscoverScreen({ navigation }) {
                 name="search"
                 size={20}
                 style={styles.search}
-                onPress={() => handleClick()}
+                // onPress={() => handleClick()}
               />
             </TouchableOpacity>
           </View>

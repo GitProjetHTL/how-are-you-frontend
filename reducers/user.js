@@ -41,7 +41,11 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.value.token = null;
       state.value.username = null;
+      state.value.emotionImage = null;
+      state.value.emotionName = null;
+      state.value.emotionContent = null;
     },
+    
     saveComment: (state, action) => {
       state.value.comment = action.payload;
     },

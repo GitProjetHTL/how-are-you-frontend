@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { updateUser } from '../reducers/user'
+import { updateUser } from "../reducers/user";
 import { useSelector, useDispatch } from "react-redux";
 
 const EMAIL_REGEX =
@@ -24,8 +24,8 @@ export default function InfosScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
 
-  const user = useSelector((state) => state.user.value)
-  const dispatch = useDispatch()
+  const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
 
   const handleUpdate = () => {
     const emailHasError = !EMAIL_REGEX.test(email);
@@ -43,24 +43,30 @@ export default function InfosScreen({ navigation }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           token: user.token,
-          username: username, 
-          email: email, 
-          password: password
+          username: username,
+          email: email,
+          password: password,
         }),
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("user => ", data);
+          // console.log("user => ", data);
           if (data.result) {
             alert("Vos informations ont bien été modifiées 💖.");
-            dispatch(updateUser({username: username, email: email, password: password }))
-            setUsername('')
-            setEmail('')
-            setPassword('')
+            dispatch(
+              updateUser({
+                username: username,
+                email: email,
+                password: password,
+              })
+            );
+            setUsername("");
+            setEmail("");
+            setPassword("");
           }
         });
     }
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -115,8 +121,10 @@ export default function InfosScreen({ navigation }) {
             <Text style={styles.error}>Entrez un email valide</Text>
           )}
         </View>
-        <TouchableOpacity style={styles.saveButton}
-        onPress={() => handleUpdate()}>
+        <TouchableOpacity
+          style={styles.saveButton}
+          onPress={() => handleUpdate()}
+        >
           <Text style={styles.saveText}>Sauvegarder </Text>
         </TouchableOpacity>
       </View>
@@ -162,7 +170,7 @@ const styles = StyleSheet.create({
     color: "#5B3EAE",
     zIndex: 10,
     paddingHorizontal: 5,
-    fontFamily: "DM-Sans-Bold"
+    fontFamily: "DM-Sans-Bold",
   },
   input: {
     width: "90%",
@@ -195,8 +203,8 @@ const styles = StyleSheet.create({
     marginHorizontal: "20%",
     marginTop: 25,
     paddingBottom: 5,
-    alignContent: 'center',
-    justifyContent: 'center',
+    alignContent: "center",
+    justifyContent: "center",
   },
   saveText: {
     color: "white",
