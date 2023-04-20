@@ -50,7 +50,7 @@ export default function CguScreen({ navigation }) {
         } 
       })
   } else {
-     alert('Acceptez les CGU svp et/ou rééssayer de vous inscrire')
+     alert('Acceptez les CGU svp et/ou réessayer de vous inscrire')
    }
   };
 

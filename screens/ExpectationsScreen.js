@@ -15,7 +15,7 @@ export default function ExpectationsScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const [checkboxes, setCheckboxes] = useState([
-    { label: "Des ressources pour gerer mes émotions", checked: false },
+    { label: "Des ressources pour gérer mes émotions", checked: false },
     { label: "Avoir un suivi de mes émotions", checked: false },
     { label: "Mieux comprendre mes émotions", checked: false },
     { label: "En apprendre plus sur moi-même", checked: false },

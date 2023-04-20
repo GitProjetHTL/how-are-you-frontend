@@ -137,7 +137,7 @@ export default function ProfileScreen({ navigation }) {
       <TouchableOpacity style={styles.categorie} onPress={() => handleDeco()}>
         <View style={styles.iconView}>
           <FontAwesome name="sign-out" size={20} style={styles.like} />
-          <Text style={styles.text}>Deconnexion</Text>
+          <Text style={styles.text}>Déconnexion</Text>
         </View>
         <View>
           <FontAwesome name="angle-right" size={20} style={styles.like} />
