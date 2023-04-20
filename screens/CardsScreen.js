@@ -83,7 +83,7 @@ export default function CardsScreen({ navigation }) {
           <View style={styles.searchBar}>
             <TextInput
               style={styles.input}
-              placeholder="Recherche"
+              placeholder="Recherches de cards"
               onChangeText={(value) => setSearch(value)}
               value={search}
             />

@@ -38,7 +38,7 @@ export default function DiscoverScreen({ navigation }) {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-    }, 1000);
+    }, 0,1);
   }, []);
 
   //console.log(search);
@@ -52,7 +52,6 @@ export default function DiscoverScreen({ navigation }) {
         const cards = allCards.data.map((data, i) => {
           return <Cards key={i} {...data} />;
         });
-
         setCardAll(cards);
         setCardRandom(cards[Math.floor(Math.random() * cards.length)]);
       });

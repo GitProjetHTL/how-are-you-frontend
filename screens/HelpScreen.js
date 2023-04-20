@@ -4,6 +4,7 @@ import {
   Text,
   View,
   SafeAreaView,
+  Linking,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -38,13 +39,19 @@ export default function HelpScreen({ navigation }) {
     },
   ];
 
+ 
+
   const helpInfos = helpInfosData.map((data, i) => {
     return (
       <View key={i} style={styles.infosall}>
         <FontAwesome name={data.iconName} size={25} style={styles.like} />
         <View style={styles.infos}>
+          <TouchableOpacity style={styles.contact} 
+           onPress={()=>(Linking.openURL(data.helpContact))}>
+
           <Text style={styles.infosText}>{data.helpName}</Text>
-          <Text style={styles.contact}>{data.helpContact}</Text>
+           </TouchableOpacity>
+           <Text> {data.helpContact} </Text>
         </View>
       </View>
     );
