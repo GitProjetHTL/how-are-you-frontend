@@ -12,7 +12,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
 import Cards from "../components/Cards";
 import { useSelector } from "react-redux";
-// import { setStatusBarBackgroundColor } from "expo-status-bar";
 
 export default function CardsScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
@@ -29,17 +28,7 @@ export default function CardsScreen({ navigation }) {
     fetch(`https://howareyouapp-backend.vercel.app/cards/all/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        //  console.log('data', data)
         data.result && setCardAll(data.data);
-        // const cards= allCards.data.map((oneCard, i) => {
-        //   return (
-        //   <Cards
-        //     key={i}
-        //     id={oneCard._id}
-        //     name={oneCard.name}
-        //     content={oneCard.content}
-        //     source={oneCard.source}
-        //   />)});
       });
   }, []);
 
@@ -55,7 +44,7 @@ export default function CardsScreen({ navigation }) {
       .then((searchCard) => {
         // console.log(searchCard.data)
         const cardsSearch = searchCard.data.map((oneCard, i) => {
-          console.log(oneCard);
+          // console.log(oneCard);
           return (
             <Cards
               key={i}
@@ -79,15 +68,6 @@ export default function CardsScreen({ navigation }) {
       setCardResult(<View>{cardFounded}</View>);
     }
   }, [search, cardAll, cardFounded, Cards.likes]);
-
-  // //affichages des cards trouve
-  // useEffect(() => {
-  //   if (!search) {
-  //     setCardResult(<View>{allCards}</View>);
-  //   } else {
-  //     setCardResult(<View>{cardFounded}</View>);
-  //   }
-  // }, [search, cardAll, cardFounded]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -116,10 +96,7 @@ export default function CardsScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <View style={styles.title}>
-        <Text style={styles.sujet}>All Cards:</Text>
-        <Text style={styles.sujet}>Sujet Aleatoire</Text>
-      </View> */}
+
       <ScrollView style={styles.cardsContainer}>
         {search ? cardFounded : allCards}
       </ScrollView>

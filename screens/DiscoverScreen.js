@@ -1,28 +1,34 @@
-import { TouchableOpacity, StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
 import Cards from "../components/Cards";
 import { useSelector } from "react-redux";
 import Audio from "../components/Audio";
 
-const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
+const BACKEND = "https://howareyouapp-backend.vercel.app";
 
 export default function DiscoverScreen({ navigation }) {
   //récupère le token
-  const user = useSelector((state) => state.user.value)
+  const user = useSelector((state) => state.user.value);
   // console.log('user => ', user)
-  
+
   const [search, setSearch] = useState("");
   const [cardRandom, setCardRandom] = useState([]);
   const [cardAll, setCardAll] = useState([]);
   const [cardFounded, setCardFounded] = useState([]);
   const [cardResult, setCardResult] = useState([]);
   const [titleResult, setTitleResult] = useState("");
-
   const [audiosAll, setAudiosAll] = useState([]);
   const [audiosFounded, setAudiosFounded] = useState([]);
   const [audiosResult, setAudiosResult] = useState([]);
-
   const [audiosRandom, setAudiosRandom] = useState([]);
 
   //console.log(search);
@@ -34,41 +40,26 @@ export default function DiscoverScreen({ navigation }) {
       .then((allCards) => {
         //  console.log(allCards.data)
         const cards = allCards.data.map((data, i) => {
-          return (
-            <Cards key={i} {...data}
-              // name={oneCard.name}
-              // content={oneCard.content}
-              // source={oneCard.source}
-              // id={oneCard._id}
-            />
-          );
+          return <Cards key={i} {...data} />;
         });
-        
+
         setCardAll(cards);
         setCardRandom(cards[Math.floor(Math.random() * cards.length)]);
       });
-      
-    }, []);
-    //fetch les audios
-    useEffect(() => {
-      fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
-        .then(response => response.json())
-        .then(allAudios => {
-           //console.log(allCards.data)
-          const audios= allAudios.data.map((data, i) => {
-            return (
-            <Audio key={i} {...data}
-              // name={oneAudio.name}
-              // content={oneAudio.content}
-              // source={oneAudio.source}
-              // image={oneAudio.image}
-              // id={oneAudio._id}
-            />)});
-          setAudiosAll(audios);
-          setAudiosRandom(audios[Math.floor(Math.random() * audios.length)])
+  }, []);
+  //fetch les audios
+  useEffect(() => {
+    fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
+      .then((response) => response.json())
+      .then((allAudios) => {
+        //console.log(allCards.data)
+        const audios = allAudios.data.map((data, i) => {
+          return <Audio key={i} {...data} />;
         });
-      }, []);
-
+        setAudiosAll(audios);
+        setAudiosRandom(audios[Math.floor(Math.random() * audios.length)]);
+      });
+  }, []);
 
   function random(cardAll, audiosAll) {
     const randomNumberforCard = Math.floor(Math.random() * cardAll.length);
@@ -81,35 +72,22 @@ export default function DiscoverScreen({ navigation }) {
   //afficher les cards rechercher
 
   let handleClick = () => {
-    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${search}`,)
-    .then(response => response.json())
-    .then(searchCard => {
-      // console.log(searchCard.data)
-      const cardsSearch= searchCard.data.map((data, i) => {
-        return <Cards key={i} {...data}
-           // name={oneCard.name}
-           // content={oneCard.content}
-           // source={oneCard.source}
-           // id={oneCard._id}
-         />;
-       });
-      setCardFounded(cardsSearch)
-    })
+    fetch(`https://howareyouapp-backend.vercel.app/cards/search/${search}`)
+      .then((response) => response.json())
+      .then((searchCard) => {
+        // console.log(searchCard.data)
+        const cardsSearch = searchCard.data.map((data, i) => {
+          return <Cards key={i} {...data} />;
+        });
+        setCardFounded(cardsSearch);
+      });
 
-    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${search}`,)
-      .then(response => response.json())
-      .then(searchAudios => {
+    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${search}`)
+      .then((response) => response.json())
+      .then((searchAudios) => {
         // console.log(searchCard.data)
         const audiosSearch = searchAudios.data.map((data, i) => {
-          return (
-            <Audio key={i} {...data}
-              // name={oneAudio.name}
-              // content={oneAudio.content}
-              // source={oneAudio.source}
-              // image={oneAudio.image}
-              // id={oneAudio._id}
-            />
-          );
+          return <Audio key={i} {...data} />;
         });
         setAudiosFounded(audiosSearch);
       });
@@ -138,25 +116,37 @@ export default function DiscoverScreen({ navigation }) {
       <View style={styles.containerTop}>
         <View>
           <View style={styles.searchBar}>
-            <TextInput style={styles.input} placeholder="Recherche" onChangeText={(value) => setSearch(value)} value={search} />
+            <TextInput
+              style={styles.input}
+              placeholder="Recherche"
+              onChangeText={(value) => setSearch(value)}
+              value={search}
+            />
             <TouchableOpacity style={styles.searchButton}>
-              <FontAwesome name="search" size={20} style={styles.search} onPress={() => handleClick()} />
+              <FontAwesome
+                name="search"
+                size={20}
+                style={styles.search}
+                onPress={() => handleClick()}
+              />
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.likes}>
           <TouchableOpacity>
-            <FontAwesome name="refresh" size={30} style={styles.heart} onPress={() => random(cardAll, audiosAll)} />
+            <FontAwesome
+              name="refresh"
+              size={30}
+              style={styles.heart}
+              onPress={() => random(cardAll, audiosAll)}
+            />
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.title}>
-        {titleResult}
-        {/* <Text style={styles.sujet}>{randomCardTitle}</Text> */}
-      </View>
+      <View style={styles.title}>{titleResult}</View>
       <ScrollView style={styles.cardsContainer}>
-          {cardResult}
-          {audiosResult}
+        {cardResult}
+        {audiosResult}
       </ScrollView>
     </SafeAreaView>
   );
@@ -195,8 +185,8 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     position: "absolute",
-    right:"8%",
-    top:"25%",
+    right: "8%",
+    top: "25%",
   },
   input: {
     color: "#8C8995",
@@ -204,7 +194,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     width: "100%",
   },
-  search: { 
+  search: {
     color: "#8C8995",
   },
   likes: {
@@ -227,11 +217,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    //fontFamily: "dm-sans-regular",
   },
   cardsContainer: {
-    // alignItems: "center",
-    // borderWidth: 1,
     witdh: "100%",
     height: "80%",
     backgroundColor: "#E9EBFC",

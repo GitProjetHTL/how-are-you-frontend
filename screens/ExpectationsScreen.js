@@ -8,8 +8,8 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { addExpectations } from '../reducers/survey'
-import { useDispatch } from 'react-redux'
+import { addExpectations } from "../reducers/survey";
+import { useDispatch } from "react-redux";
 
 export default function ExpectationsScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function ExpectationsScreen({ navigation }) {
     const checkedLabels = checkboxes
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
-      console.log('expect', [...checkedLabels])
+    console.log("expect", [...checkedLabels]);
     dispatch(addExpectations([...checkedLabels]));
     navigation.navigate("CGU");
   };
@@ -63,7 +63,8 @@ export default function ExpectationsScreen({ navigation }) {
         </View>
         <TouchableOpacity
           style={styles.NextButton}
-          onPress={() => handleNext()}>
+          onPress={() => handleNext()}
+        >
           <Text style={styles.NextText}>Suivant </Text>
         </TouchableOpacity>
       </View>
@@ -78,7 +79,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   imageContainer: {
-    // marginTop: 20,
     height: "25%",
     width: "100%",
     borderRadius: 25,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
 
   image: {
     height: "100%",
-    width: '100%', 
+    width: "100%",
   },
 
   text1: {
@@ -105,26 +105,21 @@ const styles = StyleSheet.create({
 
   checkContainer: {
     flexDirection: "column",
-    // justifyContent: "center",
-    // borderColor: "#5B3EAE",
-    // borderRadius: 25,
     padding: 10,
     paddingHorizontal: 5,
     // borderWidth: 1,
     height: "45%",
     width: "90%",
-    margin: '5%',
-    // marginVertical: 20,
+    margin: "5%",
   },
 
   checkbox: {
     fontSize: 10,
-    height: 50,
-    alignSelf: 'center',
-    // borderColor: "#5B3EAE",
-    // borderWidth: 1, 
-    borderBottomColor: "#5B3EAE", 
-    borderBottomWidth: 1, 
+    height: 70,
+    alignSelf: "center",
+    // borderWidth: 1,
+    borderBottomColor: "#5B3EAE",
+    borderBottomWidth: 1,
     margin: 1,
   },
   NextButton: {

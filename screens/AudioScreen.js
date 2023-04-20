@@ -7,80 +7,82 @@ import {
   TextInput,
   SafeAreaView,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Audios from "../components/Audio";
 import { useSelector } from "react-redux";
 
-export default function CardsScreen({navigation}) {
+export default function CardsScreen({ navigation }) {
+  const supportedURL =
+    "https://open.spotify.com/episode/6rVxPssrnk6fRlN1uVwJAw";
 
+  const user = useSelector((state) => state.user.value);
 
-  const supportedURL = 'https://open.spotify.com/episode/6rVxPssrnk6fRlN1uVwJAw';
-
-  const user = useSelector((state) => state.user.value)
-  
   const [audiosAll, setAudiosAll] = useState([]);
   const [search, setSearch] = useState("");
   const [audiosFounded, setAudiosFounded] = useState([]);
   const [audiosResult, setAudiosResult] = useState([]);
-  
+  const [refreshing, setRefreshing] = useState(false);
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
   //affichage de tous les audios
 
   useEffect(() => {
     fetch(`https://howareyouapp-backend.vercel.app/audios/all/${user.token}`)
-      .then(response => response.json())
-      .then(allAudios => {
-         //console.log(allCards.data)
-        const audios= allAudios.data.map((oneAudio, i) => {
-          return (
-          <Audios
-            key={i}
-            {...oneAudio}
-            // name={oneAudio.name}
-            // content={oneAudio.content}
-            // source={oneAudio.source}
-            // image={oneAudio.image}
-            // audioID={oneAudio._id}
-          />)});
+      .then((response) => response.json())
+      .then((allAudios) => {
+        //console.log(allCards.data)
+        const audios = allAudios.data.map((oneAudio, i) => {
+          return <Audios key={i} {...oneAudio} />;
+        });
         setAudiosAll(audios);
       });
-    }, []);
-    
-    //afficher les cards rechercher
-    
-    let handleClick = () => {
-      fetch(`https://howareyouapp-backend.vercel.app/audios/search/${search}`,)
-      .then(response => response.json())
-      .then(searchAudios => {
+  }, []);
+
+  //afficher les cards rechercher
+
+  let handleClick = () => {
+    fetch(`https://howareyouapp-backend.vercel.app/audios/search/${search}`)
+      .then((response) => response.json())
+      .then((searchAudios) => {
         // console.log(searchCard.data)
-        const audiosSearch= searchAudios.data.map((oneAudio, i) => {
-        return <Audios
-          key={i}
-          name={oneAudio.name}
-          content={oneAudio.content}
-          source={oneAudio.source}
-          image={oneAudio.image}
-          id={oneAudio._id}
-            />;
+        const audiosSearch = searchAudios.data.map((oneAudio, i) => {
+          return (
+            <Audios
+              key={i}
+              name={oneAudio.name}
+              content={oneAudio.content}
+              source={oneAudio.source}
+              image={oneAudio.image}
+              id={oneAudio._id}
+            />
+          );
         });
-        setAudiosFounded(audiosSearch)
-      })
- }
+        setAudiosFounded(audiosSearch);
+      });
+  };
 
-
-//affichages des cards trouve
-useEffect(() => {
-  if (!search) {
-    setAudiosResult(<View>{audiosAll}</View>);
-    setAudiosFounded("");
-  } else {
-    setAudiosResult(<View>{audiosFounded}</View>);
-  }
-}, [search, audiosAll, audiosFounded],Audios.likes);
-
+  //affichages des cards trouve
+  useEffect(
+    () => {
+      if (!search) {
+        setAudiosResult(<View>{audiosAll}</View>);
+        setAudiosFounded("");
+      } else {
+        setAudiosResult(<View>{audiosFounded}</View>);
+      }
+    },
+    [search, audiosAll, audiosFounded],
+    Audios.likes
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -93,9 +95,14 @@ useEffect(() => {
               onChangeText={(value) => setSearch(value)}
               value={search}
             />
-              <TouchableOpacity style={styles.searchButton}>
-                <FontAwesome name="search" size={20} style={styles.search} onPress={()=>handleClick()} />
-              </TouchableOpacity>
+            <TouchableOpacity style={styles.searchButton}>
+              <FontAwesome
+                name="search"
+                size={20}
+                style={styles.search}
+                onPress={() => handleClick()}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.likes}>
@@ -104,12 +111,14 @@ useEffect(() => {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <View style={styles.title}>
-        <Text style={styles.sujet}>All Audios:</Text> 
-        <Text style={styles.sujet}>Sujet Aleatoire</Text>
-      </View> */}
-      <ScrollView style={styles.cardsContainer}> 
-      {audiosResult}
+
+      <ScrollView
+        style={styles.cardsContainer}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {audiosResult}
       </ScrollView>
     </SafeAreaView>
   );
@@ -139,8 +148,8 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     position: "absolute",
-    right:"8%",
-    top:"25%",
+    right: "8%",
+    top: "25%",
   },
   input: {
     color: "#8C8995",
@@ -148,7 +157,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     width: "100%",
   },
-  search: { 
+  search: {
     color: "#8C8995",
   },
   likes: {
@@ -174,7 +183,6 @@ const styles = StyleSheet.create({
     //fontFamily: "dm-sans-regular",
   },
   cardsContainer: {
-    // alignItems: "center",
     // borderWidth: 1,
     witdh: "100%",
     height: "80%",

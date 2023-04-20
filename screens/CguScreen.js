@@ -9,56 +9,65 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { acceptConditions } from '../reducers/survey'
-import { useDispatch, useSelector } from 'react-redux'
+import { acceptConditions } from "../reducers/survey";
+import { useDispatch, useSelector } from "react-redux";
 import { newUser } from "../reducers/user";
 
-const BACKEND = 'https://howareyouapp-backend.vercel.app'; 
+const BACKEND = "https://howareyouapp-backend.vercel.app";
 
 export default function CguScreen({ navigation }) {
+  const survey = useSelector((state) => state.survey.value);
+  const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
 
-  const survey = useSelector((state) => state.survey.value)
-  const user = useSelector((state) => state.user.value)
-  console.log('user =>', user)
-  const dispatch = useDispatch(); 
-
-  console.log('user',user)
-
-  console.log(survey.subjects)
-  console.log(survey.expectations)
+  // console.log('user =>', user)
+  // console.log('user',user)
+  // console.log(survey.subjects)
+  // console.log(survey.expectations)
 
   const [CGU, setCGU] = useState(false);
 
   const handleSubmit = () => {
-    // console.log(username, password)
     fetch(`${BACKEND}/users/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: user.username, 
-        password: user.password, 
-        email: user.email, 
-        dateOfBirth: user.date, 
-        subjects: survey.subjects, 
-        expectations: survey.expectations, 
-        condition: CGU}),
-    }).then(response => response.json())
-      .then(data => {
-        console.log('newuser', data)
-        if (data.result && CGU){
-          dispatch(acceptConditions(CGU)); 
-          dispatch(newUser({ username: user.username, password: user.password, email: user.email, date: user.dateOfBirth, token: data.token }));
-          navigation.navigate("TabNavigator"); 
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      // console.log(username, password)
+      body: JSON.stringify({
+        username: user.username,
+        password: user.password,
+        email: user.email,
+        dateOfBirth: user.date,
+        subjects: survey.subjects,
+        expectations: survey.expectations,
+        condition: CGU,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log('newuser', data)
+        if (data.result && CGU) {
+          dispatch(acceptConditions(CGU));
+          dispatch(
+            newUser({
+              username: user.username,
+              password: user.password,
+              email: user.email,
+              date: user.dateOfBirth,
+              token: data.token,
+            })
+          );
+          navigation.navigate("TabNavigator");
         } else {
-          alert('Acceptez les CGU svp et/ou rééssayer de vous inscrire')
+          alert("Acceptez les CGU svp et/ou rééssayer de vous inscrire");
         }
       });
   };
 
   const handleCheck = () => {
-    setCGU(!CGU)
-    console.log('checked')
-  }
-  console.log('status CGU', CGU)
+    setCGU(!CGU);
+    // console.log('checked')
+  };
+  // console.log('status CGU', CGU)
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -112,12 +121,11 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: "30%",
     width: "100%",
-    // marginTop: 20,
     // borderWidth: 1,
   },
   cgutext: {
     fontSize: 16,
-  }, 
+  },
 
   image: {
     height: "100%",
@@ -149,17 +157,11 @@ const styles = StyleSheet.create({
   },
 
   checkbox: {
-    // marginTop: 10,
-    // width: "100%",
     fontSize: 10,
     height: 50,
-    alignSelf: 'center',
-    marginLeft: 2, 
-    marginRight: 4, 
-    // borderColor: "#5B3EAE",
-    // borderWidth: 1, 
-    // borderBottomColor: "#5B3EAE", 
-    // borderBottomWidth: 1, 
+    alignSelf: "center",
+    marginLeft: 2,
+    marginRight: 4,
   },
   SignUpButton: {
     backgroundColor: "#5B3EAE",
