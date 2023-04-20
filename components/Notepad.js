@@ -58,12 +58,11 @@ export default function Notepad() {
         if (data.result) {
           dispatch(saveComment(comment)); // user
           setRegisterComment(data.comment);
-          alert("Votre commentaire a bien été enregistré 💖.");
+          // alert("Votre commentaire a bien été enregistré 💖.");
           dispatch(saveCommentToday(true)); // journal
           dispatch(
             changeComment({ modifiedComment: false, savedComment: true })
           );
-          // setRegisterComment(true);
         }
       });
   };
@@ -109,7 +108,7 @@ export default function Notepad() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        alert("Commentaire bien supprimé 🤧");
+        // alert("Commentaire bien supprimé 🤧");
         dispatch(saveCommentToday(false)); // journal
         setComment("");
       });
@@ -145,8 +144,7 @@ export default function Notepad() {
           alert("Votre commentaire a bien été modifié 💖.");
           dispatch(
             changeComment({ savedComment: true, modifiedComment: false })
-          ); // reducer journal
-          // setRegisterComment(true);
+          );
         }
       });
   };

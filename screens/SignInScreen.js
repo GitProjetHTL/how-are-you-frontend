@@ -23,7 +23,7 @@ export default function SignInScreen({ navigation }) {
   const [password, setPassword] = useState(null);
 
   const handleSubmit = () => {
-    console.log(username, password);
+    // console.log(username, password);
     fetch(`${BACKEND}/users/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
