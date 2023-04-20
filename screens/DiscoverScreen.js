@@ -115,29 +115,6 @@ export default function DiscoverScreen({ navigation }) {
     }
   }, [search]);
 
-
-  // let handleClick = () => {
-  //   fetch(`${BACKEND}/cards/search/${search}`)
-  //     .then((response) => response.json())
-  //     .then((searchCard) => {
-  //       // console.log(searchCard.data)
-  //       const cardsSearch = searchCard.data.map((data, i) => {
-  //         return <Cards key={i} {...data} />;
-  //       });
-  //       setCardFounded(cardsSearch);
-  //     });
-
-  //   fetch(`${BACKEND}/audios/search/${search}`)
-  //     .then((response) => response.json())
-  //     .then((searchAudios) => {
-  //       // console.log(searchCard.data)
-  //       const audiosSearch = searchAudios.data.map((data, i) => {
-  //         return <Audio key={i} {...data} />;
-  //       });
-  //       setAudiosFounded(audiosSearch);
-  //     });
-  // };
-
   //affichages des cards trouve
 
   useEffect(() => {
@@ -168,7 +145,7 @@ export default function DiscoverScreen({ navigation }) {
                 name="search"
                 size={20}
                 style={styles.search}
-                onPress={() => handleClick()}
+                // onPress={() => handleClick()}
               />
             </TouchableOpacity>
           </View>
