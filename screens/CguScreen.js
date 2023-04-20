@@ -30,6 +30,7 @@ export default function CguScreen({ navigation }) {
   const [CGU, setCGU] = useState(false);
 
   const handleSubmit = () => {
+    if (CGU){
     // console.log(username, password)
     fetch(`${BACKEND}/users/signup`, {
       method: 'POST',
@@ -43,15 +44,16 @@ export default function CguScreen({ navigation }) {
         condition: CGU}),
     }).then(response => response.json())
       .then(data => {
-        console.log('newuser', data)
-        if (data.result && CGU){
+        if (data.result) {
+          console.log('newuser', data)
           dispatch(acceptConditions(CGU)); 
           dispatch(newUser({ username: user.username, password: user.password, email: user.email, date: user.dateOfBirth, token: data.token }));
-          navigation.navigate("TabNavigator"); 
-        } else {
-          alert('Acceptez les CGU svp et/ou rééssayer de vous inscrire')
-        }
-      });
+          navigation.navigate("TabNavigator");
+        } 
+      })
+  } else {
+     alert('Acceptez les CGU svp et/ou rééssayer de vous inscrire')
+   }
   };
 
   const handleCheck = () => {
@@ -75,16 +77,25 @@ export default function CguScreen({ navigation }) {
       </Text>
       <ScrollView style={styles.cguContainer}>
         <Text style={styles.cgutext}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse officia
-          impedit porro, itaque dolore odio animi et officiis laudantium rerum
-          sint corrupti iusto quis consequatur beatae maiores quia distinctio
-          eaque voluptatem, corporis aliquid? Repellendus illum laboriosam magni
-          culpa quibusdam! Autem, expedita exercitationem! Ratione autem
-          voluptate neque assumenda error, laboriosam itaque. sint corrupti
-          iusto quis consequatur beatae maiores quia distinctio eaque
-          voluptatem, corporis aliquid? Repellendus illum laboriosam magni culpa
-          quibusdam! Autem, expedita exercitationem! Ratione autem voluptate
-          neque assumenda error, laboriosam itaque.
+           Cette application ne doit pas être utilisée comme substitut à un traitement médical professionnel. Avant d'utiliser l'application pour traiter des problèmes de santé mentale, veuillez consulter votre professionnel de la santé mentale.
+         {"\n\n"}
+          Cette application ne doit pas être utilisée pour des situations d'urgence ou de crise. Veuillez appeler immédiatement un professionnel de la santé mentale ou composer le numéro d'urgence approprié si une situation d'urgence ou de crise se présente.
+        {"\n\n"}
+          Vous devez fournir des informations précises et complètes lors de l'inscription à l'application et tenir à jour ces informations au fur et à mesure que des changements se produisent.
+        {"\n\n"}
+          Vous ne devez pas partager votre compte avec d'autres personnes et devez protéger votre mot de passe et votre identifiant de connexion.
+        {"\n\n"}
+          Cette application ne doit pas être utilisée pour harceler, menacer ou intimider d'autres utilisateurs. Respectez les droits et la vie privée des autres.
+        {"\n\n"}
+          Cette application ne doit pas être utilisée pour diffuser du contenu illégal, offensant ou inapproprié. Respectez les lois et les normes de la communauté.
+        {"\n\n"}
+          Cette application peut collecter des informations personnelles sur vous, et ces informations seront traitées conformément aux lois sur la protection des données en vigueur.
+        {"\n\n"}
+          Cette application peut utiliser des cookies et des technologies similaires pour améliorer l'expérience utilisateur. Vous pouvez configurer votre navigateur pour refuser les cookies, mais cela peut affecter certaines fonctionnalités de l'application.
+        {"\n\n"}
+          Cette application peut être modifiée ou interrompue à tout moment, sans préavis ni responsabilité envers les utilisateurs.
+        {"\n\n"}
+          En utilisant cette application, vous acceptez ces conditions d'utilisation et toute autre politique ou modalité présentée dans l'application.
         </Text>
       </ScrollView>
       <Checkbox.Item

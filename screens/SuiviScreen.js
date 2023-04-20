@@ -3,15 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  TextInput,
   SafeAreaView,
-  ScrollView,
   StatusBar, 
   Modal
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import {Calendar, CalendarList, Agenda, LocaleConfig, HorizontalCalendar} from 'react-native-calendars';
+import {Agenda} from 'react-native-calendars';
 import { useState, useEffect } from 'react'
 import { Card } from 'react-native-paper';
 import { useSelector } from "react-redux";
@@ -57,9 +54,7 @@ export default function SuiviScreen({ navigation }) {
               }
               let name = emotionData.data.emotionName
               console.log('name',name)
-              // const image = <Image source={require({uri: emotionData.data.imageUrl})}/>; 
               newItems[strTime].push({
-                // image: image,
                 name: 'Emotion du jour :'+ ' ' + name + ' 🔎',
                 day: strTime
               });
@@ -98,7 +93,6 @@ const renderItem = (items) => {
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
               <Text style={styles.modalTitle}>{emotions.emotionName}</Text>
-              {/* <Image source={require(`../assets/emotion-${emotions.emotionName}.png`)}/> */}
               <Text style={styles.confirmText}>{emotions.description}</Text>
                   <View style={styles.modalFooter}>
                     <TouchableOpacity style={styles.noButton} onPress={() => setModalVisible(false)}>

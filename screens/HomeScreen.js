@@ -8,6 +8,7 @@ import Suggestions from "../components/Suggestions";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function HomeScreen({ navigation }) {
+  
   const username = useSelector((state) => state.user.value.username); // affiche le pseudo
   const [showSuggestions, setShowSuggestions] = useState(false); // affichage des tabs "Suggestions" et "Calendrier"
 
@@ -36,7 +37,7 @@ export default function HomeScreen({ navigation }) {
 
   }
 
-  console.log(username)
+  // console.log(username)
 
   // Le return
   return (

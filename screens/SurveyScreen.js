@@ -117,37 +117,17 @@ const styles = StyleSheet.create({
 
   checkContainer: {
     flexDirection: "column",
-    // justifyContent: "center",
-    // borderColor: "#5B3EAE",
-    // borderRadius: 25,
     padding: 10,
     paddingHorizontal: 5,
-    // borderWidth: 1,
     height: "45%",
     width: "90%",
     margin: '5%',
-    // marginVertical: 20,
   },
-  
-  // checkContainerLeft: {
-  //   height: "50%",
-  //   width: "90%",
-  //   // borderWidth: 1,
-  //   marginBottom: 30,
-  // },
-  // checkContainerRight: {
-  //   height: "50%",
-  //   width: "90%",
-  //   // borderWidth: 1,
-  //   marginBottom: 20,
-  // },
 
   checkbox: {
     fontSize: 10,
     height: 50,
     alignSelf: 'center',
-    // borderColor: "#5B3EAE",
-    // borderWidth: 1, 
     borderBottomColor: "#5B3EAE", 
     borderBottomWidth: 1, 
     margin: 1,
@@ -161,7 +141,6 @@ const styles = StyleSheet.create({
     height: 40,
     width: "60%",
     marginBottom: '6%',
-    // paddingTop: 2,
     alignItems: "center",
     justifyContent: "center",
   },

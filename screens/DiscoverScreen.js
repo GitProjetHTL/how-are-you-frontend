@@ -120,11 +120,11 @@ export default function DiscoverScreen({ navigation }) {
     if (!search) {
       setCardResult(<View>{cardRandom}</View>);
       setAudiosResult(<View>{audiosRandom}</View>);
-      setTitleResult(
-        <View>
-          <Text style={styles.sujet}>Découverte:</Text>
-        </View>
-      );
+      // setTitleResult(
+      //   <View>
+      //     <Text style={styles.sujet}>Découverte</Text>
+      //   </View>
+      // );
       setCardFounded("");
       setAudiosFounded("");
     } else {
@@ -151,7 +151,7 @@ export default function DiscoverScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.title}>
-        {titleResult}
+        {/* {titleResult} */}
         {/* <Text style={styles.sujet}>{randomCardTitle}</Text> */}
       </View>
       <ScrollView style={styles.cardsContainer}>

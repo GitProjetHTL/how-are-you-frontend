@@ -1,8 +1,11 @@
-import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Modal} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Modal, Image, Dimensions} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from '../reducers/user'
 import { useState } from 'react'; 
+
+const BACKEND = "https://howareyouapp-backend.vercel.app/";
+
 
 export default function ProfileScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
@@ -10,7 +13,7 @@ export default function ProfileScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleSuppress = () => {
-    fetch(`https://howareyouapp-backend.vercel.app/users`, {
+    fetch(`${BACKEND}/users`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: user.username, token: user.token}),
@@ -32,6 +35,7 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Image source={require("../assets/register2.png")} style={styles.image} resizeMode="cover" />
      <Modal visible={modalVisible} animationType="fade" transparent>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
@@ -52,13 +56,6 @@ export default function ProfileScreen({ navigation }) {
             </View>
         </Modal> 
       <View style={styles.topContainer}>
-        {/* <TouchableOpacity style={styles.arrow}>
-          <FontAwesome
-            name="long-arrow-left"
-            size={20}
-            className={styles.like}
-          />
-        </TouchableOpacity> */}
         <Text style={styles.textHeader}>Hi, {user.username} !</Text>
       </View>
 
@@ -150,7 +147,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // borderWidth: 1,
     height: "15%",
-    marginTop: 50,
+    // marginTop: 50,
   },
   textHeader: {
     fontSize: 30,
@@ -237,5 +234,10 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
-    }
+    }, 
+    image: {
+      width: Dimensions.get("window").width,
+      height: "20%",
+      // objectFit: "cover",
+    },
 });
